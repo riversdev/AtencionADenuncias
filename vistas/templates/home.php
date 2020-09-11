@@ -82,6 +82,8 @@ if (isset($_SESSION['user_id'])) {
         <div class="tab-pane fade" id="nav-nuevaDenunciaForm" role="tabpanel" aria-labelledby="nav-nuevaDenunciaForm-tab">
             <form id="formFormatoPresentacionDenuncia" class="needs-validation px-5 pt-3 pb-5" novalidate>
                 <input type="hidden" id="txtTareaFormulario">
+                <input type="hidden" id="txtStatusFormulario">
+                <input type="hidden" id="txtIdDenuncia">
                 <div class="form-row">
                     <div class="col-lg-8 col-md-6 col-12 mb-3">
                         <h5 class="font-weight-light text-primary" id="txtPresuntoDenuncia"></h5>

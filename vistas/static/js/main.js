@@ -106,13 +106,15 @@ function prepararValidacionDeFormularios() {
                 event.stopPropagation();
                 if (form.id == "formFormatoPresentacionDenuncia") {
                     console.log("Datos incompletos");
-                    guardarDenuncia("incompleto", recolectarDatosDenuncia());
+                    $("#txtStatusFormulario").val("inconclusa");
+                    enviarDenuncia(recolectarDatosDenuncia(), "guardarInfo");
                 }
             } else {
                 event.preventDefault();
                 if (form.id == "formFormatoPresentacionDenuncia") {
                     console.log("Datos completos");
-                    guardarDenuncia("completo", recolectarDatosDenuncia());
+                    $("#txtStatusFormulario").val("pendiente");
+                    enviarDenuncia(recolectarDatosDenuncia(), "guardarInfo");
                 }
             }
             form.classList.add('was-validated');
@@ -136,6 +138,8 @@ function prepararFormato(presunto) {
         $("#inputPuesto").addClass("d-none");
         $("#inputEspecificar").addClass("d-none");
         $("#txtTareaFormulario").val("guardada");
+        $("#txtStatusFormulario").val("");
+        $("#txtIdDenuncia").val("")
         $("#modalPresuntoDenuncia").modal("hide");
         $('#nav-nuevaDenunciaForm-tab').tab('show');
     } else if (tipoNuevaDenuncia == "subirImagen") {
@@ -151,6 +155,8 @@ function deInformacionParcial(active) {
 function recolectarDatosDenuncia() {
     return {
         txtTareaFormulario: $("#txtTareaFormulario").val(),
+        txtStatusFormulario: $("#txtStatusFormulario").val(),
+        txtIdDenuncia: $("#txtIdDenuncia").val(),
         txtFechaPresentacion: $("#txtFechaPresentacion").val(),
         txtAnonimatoDenunciante: $("#txtAnonimatoDenunciante").val(),
         txtNombreDenunciante: $("#txtNombreDenunciante").val(),
@@ -188,9 +194,63 @@ function recolectarDatosDenuncia() {
     }
 }
 
-function guardarDenuncia(estado, objDenuncia) {
-    console.log(estado);
-    console.log(objDenuncia);
+function enviarDenuncia(objDenuncia, accion) {
+    $.ajax({
+        type: "POST",
+        url: "ajax/ajaxCrudDenuncias.php?accion=" + accion,
+        data: {
+            txtTareaFormulario: objDenuncia.txtTareaFormulario,
+            txtStatusFormulario: objDenuncia.txtStatusFormulario,
+            txtIdDenuncia: objDenuncia.txtIdDenuncia,
+            txtFechaPresentacion: objDenuncia.txtFechaPresentacion,
+            txtAnonimatoDenunciante: objDenuncia.txtAnonimatoDenunciante,
+            txtNombreDenunciante: objDenuncia.txtNombreDenunciante,
+            txtDomicilioDenunciante: objDenuncia.txtDomicilioDenunciante,
+            txtTelefonoDenunciante: objDenuncia.txtTelefonoDenunciante,
+            txtCorreoDenunciante: objDenuncia.txtCorreoDenunciante,
+            txtSexoDenunciante: objDenuncia.txtSexoDenunciante,
+            txtEdadDenunciante: objDenuncia.txtEdadDenunciante,
+            txtSPDenunciante: objDenuncia.txtSPDenunciante,
+            txtPuestoDenunciante: objDenuncia.txtPuestoDenunciante,
+            txtEspecificarDenunciante: objDenuncia.txtEspecificarDenunciante,
+            txtGradoEstudiosDenunciante: objDenuncia.txtGradoEstudiosDenunciante,
+            txtDiscapacidadDenunciante: objDenuncia.txtDiscapacidadDenunciante,
+            txtNombreDenunciado: objDenuncia.txtNombreDenunciado,
+            txtEntidadDenunciado: objDenuncia.txtEntidadDenunciado,
+            txtTelefonoDenunciado: objDenuncia.txtTelefonoDenunciado,
+            txtCorreoDenunciado: objDenuncia.txtCorreoDenunciado,
+            txtSexoDenunciado: objDenuncia.txtSexoDenunciado,
+            txtEdadDenunciado: objDenuncia.txtEdadDenunciado,
+            txtSPDenunciado: objDenuncia.txtSPDenunciado,
+            txtEspecificarDenunciado: objDenuncia.txtEspecificarDenunciado,
+            txtRelacionDenunciado: objDenuncia.txtRelacionDenunciado,
+            txtLugarDenuncia: objDenuncia.txtLugarDenuncia,
+            txtFechaDenuncia: objDenuncia.txtFechaDenuncia,
+            txtHoraDenuncia: objDenuncia.txtHoraDenuncia,
+            txtNarracionDenuncia: objDenuncia.txtNarracionDenuncia,
+            txtNombreTestigo: objDenuncia.txtNombreTestigo,
+            txtDomicilioTestigo: objDenuncia.txtDomicilioTestigo,
+            txtTelefonoTestigo: objDenuncia.txtTelefonoTestigo,
+            txtCorreoTestigo: objDenuncia.txtCorreoTestigo,
+            txtRelacionTestigo: objDenuncia.txtRelacionTestigo,
+            txtTrabajaTestigo: objDenuncia.txtTrabajaTestigo,
+            txtEntidadTestigo: objDenuncia.txtEntidadTestigo,
+            txtCargoTestigo: objDenuncia.txtCargoTestigo
+        },
+        error: function (data) {
+            console.error("Error peticion ajax para enviar información de denuncia, DETALLES: " + data);
+        },
+        success: function (data) {
+            let mensaje = data.split('|');
+            if (mensaje[0] == "success") {
+                alertify.success(mensaje[1]);
+            } else if (mensaje[0] == "error") {
+                alertify.error(mensaje[1]);
+            } else {
+                console.log("Tipo de respuesta no definido. " + data);
+            }
+        }
+    });
 }
 
 function obtenerDenuncias(tipoDenuncia) {
