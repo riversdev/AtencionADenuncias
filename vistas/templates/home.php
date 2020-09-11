@@ -112,8 +112,8 @@ if (isset($_SESSION['user_id'])) {
                         <label for="txtAnonimatoDenunciante">¿Desea el anonimato?</label>
                         <select class="custom-select" id="txtAnonimatoDenunciante" required>
                             <option selected disabled value="">Elegir...</option>
-                            <option>SI</option>
-                            <option>NO</option>
+                            <option value="si">SI</option>
+                            <option value="no">NO</option>
                         </select>
                         <div class="valid-feedback">
                             Correcto!
@@ -144,7 +144,7 @@ if (isset($_SESSION['user_id'])) {
                     </div>
                     <div class="col-lg-2 col-md-3 mb-3">
                         <label for="txtTelefonoDenunciante">Teléfono</label>
-                        <input type="number" class="form-control" id="txtTelefonoDenunciante" required>
+                        <input type="tel" class="form-control" id="txtTelefonoDenunciante" pattern="[0-9]{10,15}" required>
                         <div class="valid-feedback">
                             Correcto!
                         </div>
@@ -166,8 +166,8 @@ if (isset($_SESSION['user_id'])) {
                         <label for="txtSexoDenunciante">Sexo</label>
                         <select class="custom-select" id="txtSexoDenunciante" required>
                             <option selected disabled value="">Elegir...</option>
-                            <option>Masculino</option>
-                            <option>Femenino</option>
+                            <option value="masculino">Masculino</option>
+                            <option value="femenino">Femenino</option>
                         </select>
                         <div class="valid-feedback">
                             Correcto!
@@ -178,7 +178,7 @@ if (isset($_SESSION['user_id'])) {
                     </div>
                     <div class="col-lg-1 col-md-2 mb-3">
                         <label for="txtEdadDenunciante">Edad</label>
-                        <input type="number" class="form-control" id="txtEdadDenunciante" required>
+                        <input type="number" class="form-control" id="txtEdadDenunciante" min="18" max="120" required>
                         <div class="valid-feedback">
                             Correcto!
                         </div>
@@ -287,7 +287,7 @@ if (isset($_SESSION['user_id'])) {
                     </div>
                     <div class="col-lg-3 col-md-3 mb-3">
                         <label for="txtTelefonoDenunciado">Teléfono</label>
-                        <input type="number" class="form-control" id="txtTelefonoDenunciado" required>
+                        <input type="tel" class="form-control" id="txtTelefonoDenunciado" pattern="[0-9]{10,15}" required>
                         <div class="valid-feedback">
                             Correcto!
                         </div>
@@ -309,8 +309,8 @@ if (isset($_SESSION['user_id'])) {
                         <label for="txtSexoDenunciado">Sexo</label>
                         <select class="custom-select" id="txtSexoDenunciado" required>
                             <option selected disabled value="">Elegir...</option>
-                            <option>Masculino</option>
-                            <option>Femenino</option>
+                            <option value="masculino">Masculino</option>
+                            <option value="femenino">Femenino</option>
                         </select>
                         <div class="valid-feedback">
                             Correcto!
@@ -321,7 +321,7 @@ if (isset($_SESSION['user_id'])) {
                     </div>
                     <div class="col-lg-1 col-md-3 mb-3">
                         <label for="txtEdadDenunciado">Edad</label>
-                        <input type="number" class="form-control" id="txtEdadDenunciado" required>
+                        <input type="number" class="form-control" id="txtEdadDenunciado" min="18" max="120" required>
                         <div class="valid-feedback">
                             Correcto!
                         </div>
@@ -459,7 +459,7 @@ if (isset($_SESSION['user_id'])) {
                     </div>
                     <div class="col-lg-4 col-md-3 mb-3">
                         <label for="txtTelefonoTestigo">Teléfono</label>
-                        <input type="number" class="form-control" id="txtTelefonoTestigo" required>
+                        <input type="tel" class="form-control" id="txtTelefonoTestigo" pattern="[0-9]{10,15}" required>
                         <div class="valid-feedback">
                             Correcto!
                         </div>
@@ -532,8 +532,17 @@ if (isset($_SESSION['user_id'])) {
                         </div>
                     </div>
                 </div>
+                <div class="form-row">
+                    <div class="col-12">
+                        <hr>
+                    </div>
+                </div>
                 <div class="form-row justify-content-end">
-                    <button class="btn btn-primary" type="submit">
+                    <button class="btn btn-transparent text-muted mr-5" type="submit" onclick="deInformacionParcial(1)">
+                        Guardar Información parcial
+                        <i class="fas fa-arrow-circle-right"></i>
+                    </button>
+                    <button class="btn btn-primary" type="submit" onclick="deInformacionParcial(0)">
                         Guardar denuncia
                         <i class="fas fa-arrow-circle-right"></i>
                     </button>

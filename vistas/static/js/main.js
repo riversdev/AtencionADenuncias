@@ -1,5 +1,6 @@
 let tipoNuevaDenuncia = "";
 let presuntoDenuncia = ["presunto incumplimiento al código de ética.", "presunto incumplimiento a las reglas de integridad.", "presunto incumplimiento al código de conducta.", "presunta agresión.", "presunto amedrentamiento.", "presunta intimidación.", "presuntas amenazas."];
+let informacionParcial = 0;
 
 $(document).ready(function () {
     $('[data-toggle="tooltip"]').tooltip();
@@ -60,9 +61,13 @@ $(document).ready(function () {
         if (sp == "si") {
             $("#inputPuesto").removeClass("d-none");
             $("#inputEspecificar").addClass("d-none");
+            $("#txtPuestoDenunciante").prop("required", true);
+            $("#txtEspecificarDenunciante").prop("required", false);
         } else if (sp == "no") {
             $("#inputPuesto").addClass("d-none");
             $("#inputEspecificar").removeClass("d-none");
+            $("#txtPuestoDenunciante").prop("required", false);
+            $("#txtEspecificarDenunciante").prop("required", true);
         } else {
             console.log("Respuesta no definida");
         }
@@ -74,9 +79,13 @@ $(document).ready(function () {
         if (ta == "si") {
             $("#inputED").removeClass("d-none");
             $("#inputCargo").removeClass("d-none");
+            $("#txtEntidadTestigo").prop("required", true);
+            $("#txtCargoTestigo").prop("required", true);
         } else if (ta == "no") {
             $("#inputED").addClass("d-none");
             $("#inputCargo").addClass("d-none");
+            $("#txtEntidadTestigo").prop("required", false);
+            $("#txtCargoTestigo").prop("required", false);
         } else {
             console.log("Respuesta no definida");
         }
@@ -95,6 +104,14 @@ function prepararValidacionDeFormularios() {
             if (form.checkValidity() === false) {
                 event.preventDefault();
                 event.stopPropagation();
+                if (form.id == "formFormatoPresentacionDenuncia") {
+                    console.log("Recibido 1");
+                }
+            } else {
+                event.preventDefault();
+                if (form.id == "formFormatoPresentacionDenuncia") {
+                    console.log("Recibido 2");
+                }
             }
             form.classList.add('was-validated');
         }, false);
@@ -122,6 +139,10 @@ function prepararFormato(presunto) {
         $("#modalPresuntoDenuncia").modal("hide");
         $('#nav-nuevaDenunciaImg-tab').tab('show');
     }
+}
+
+function deInformacionParcial(active) {
+    informacionParcial = active;
 }
 
 function obtenerDenuncias(tipoDenuncia) {
