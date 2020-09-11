@@ -105,12 +105,14 @@ function prepararValidacionDeFormularios() {
                 event.preventDefault();
                 event.stopPropagation();
                 if (form.id == "formFormatoPresentacionDenuncia") {
-                    console.log("Recibido 1");
+                    console.log("Datos incompletos");
+                    guardarDenuncia("incompleto", recolectarDatosDenuncia());
                 }
             } else {
                 event.preventDefault();
                 if (form.id == "formFormatoPresentacionDenuncia") {
-                    console.log("Recibido 2");
+                    console.log("Datos completos");
+                    guardarDenuncia("completo", recolectarDatosDenuncia());
                 }
             }
             form.classList.add('was-validated');
@@ -133,6 +135,7 @@ function prepararFormato(presunto) {
         $("#txtFechaPresentacion").val(cadFechaActual);
         $("#inputPuesto").addClass("d-none");
         $("#inputEspecificar").addClass("d-none");
+        $("#txtTareaFormulario").val("guardada");
         $("#modalPresuntoDenuncia").modal("hide");
         $('#nav-nuevaDenunciaForm-tab').tab('show');
     } else if (tipoNuevaDenuncia == "subirImagen") {
@@ -143,6 +146,51 @@ function prepararFormato(presunto) {
 
 function deInformacionParcial(active) {
     informacionParcial = active;
+}
+
+function recolectarDatosDenuncia() {
+    return {
+        txtTareaFormulario: $("#txtTareaFormulario").val(),
+        txtFechaPresentacion: $("#txtFechaPresentacion").val(),
+        txtAnonimatoDenunciante: $("#txtAnonimatoDenunciante").val(),
+        txtNombreDenunciante: $("#txtNombreDenunciante").val(),
+        txtDomicilioDenunciante: $("#txtDomicilioDenunciante").val(),
+        txtTelefonoDenunciante: $("#txtTelefonoDenunciante").val(),
+        txtCorreoDenunciante: $("#txtCorreoDenunciante").val(),
+        txtSexoDenunciante: $("#txtSexoDenunciante").val(),
+        txtEdadDenunciante: $("#txtEdadDenunciante").val(),
+        txtSPDenunciante: $("#txtSPDenunciante").val(),
+        txtPuestoDenunciante: $("#txtPuestoDenunciante").val(),
+        txtEspecificarDenunciante: $("#txtEspecificarDenunciante").val(),
+        txtGradoEstudiosDenunciante: $("#txtGradoEstudiosDenunciante").val(),
+        txtDiscapacidadDenunciante: $("#txtDiscapacidadDenunciante").val(),
+        txtNombreDenunciado: $("#txtNombreDenunciado").val(),
+        txtEntidadDenunciado: $("#txtEntidadDenunciado").val(),
+        txtTelefonoDenunciado: $("#txtTelefonoDenunciado").val(),
+        txtCorreoDenunciado: $("#txtCorreoDenunciado").val(),
+        txtSexoDenunciado: $("#txtSexoDenunciado").val(),
+        txtEdadDenunciado: $("#txtEdadDenunciado").val(),
+        txtSPDenunciado: $("#txtSPDenunciado").val(),
+        txtEspecificarDenunciado: $("#txtEspecificarDenunciado").val(),
+        txtRelacionDenunciado: $("#txtRelacionDenunciado").val(),
+        txtLugarDenuncia: $("#txtLugarDenuncia").val(),
+        txtFechaDenuncia: $("#txtFechaDenuncia").val(),
+        txtHoraDenuncia: $("#txtHoraDenuncia").val(),
+        txtNarracionDenuncia: $("#txtNarracionDenuncia").val(),
+        txtNombreTestigo: $("#txtNombreTestigo").val(),
+        txtDomicilioTestigo: $("#txtDomicilioTestigo").val(),
+        txtTelefonoTestigo: $("#txtTelefonoTestigo").val(),
+        txtCorreoTestigo: $("#txtCorreoTestigo").val(),
+        txtRelacionTestigo: $("#txtRelacionTestigo").val(),
+        txtTrabajaTestigo: $("#txtTrabajaTestigo").val(),
+        txtEntidadTestigo: $("#txtEntidadTestigo").val(),
+        txtCargoTestigo: $("#txtCargoTestigo").val(),
+    }
+}
+
+function guardarDenuncia(estado, objDenuncia) {
+    console.log(estado);
+    console.log(objDenuncia);
 }
 
 function obtenerDenuncias(tipoDenuncia) {
