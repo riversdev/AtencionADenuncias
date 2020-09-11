@@ -1,6 +1,6 @@
 let tipoNuevaDenuncia = "";
 let presuntoDenuncia = ["presunto incumplimiento al código de ética.", "presunto incumplimiento a las reglas de integridad.", "presunto incumplimiento al código de conducta.", "presunta agresión.", "presunto amedrentamiento.", "presunta intimidación.", "presuntas amenazas."];
-let informacionParcial = 0;
+let cadPresuntoDenuncia = "";
 
 $(document).ready(function () {
     $('[data-toggle="tooltip"]').tooltip();
@@ -105,14 +105,19 @@ function prepararValidacionDeFormularios() {
                 event.preventDefault();
                 event.stopPropagation();
                 if (form.id == "formFormatoPresentacionDenuncia") {
-                    console.log("Datos incompletos");
-                    $("#txtStatusFormulario").val("inconclusa");
-                    enviarDenuncia(recolectarDatosDenuncia(), "guardarInfo");
+                    alertify.confirm('Guardando denuncia...', 'La información está incompleta y/o es incorrecta, si acepta se guardará como denuncia inconclusa y tendrá 3 dias para completarla en el menú "Denuncias".',
+                        function () {
+                            $("#txtStatusFormulario").val("inconclusa");
+                            enviarDenuncia(recolectarDatosDenuncia(), "guardarInfo");
+                        },
+                        function () {
+                            alertify.error('Cancelado')
+                        }
+                    );
                 }
             } else {
                 event.preventDefault();
                 if (form.id == "formFormatoPresentacionDenuncia") {
-                    console.log("Datos completos");
                     $("#txtStatusFormulario").val("pendiente");
                     enviarDenuncia(recolectarDatosDenuncia(), "guardarInfo");
                 }
@@ -133,11 +138,12 @@ function prepararFormato(presunto) {
     let cadFechaActual = anio + '-' + mes + '-' + dia;
     if (tipoNuevaDenuncia == "llenarFormulario") {
         // CONFIGURACIONES INICIALES DEL FORMULARIO FORMATO DE DENUNCIAS
-        $("#txtPresuntoDenuncia").html("Denuncia por " + presuntoDenuncia[presunto]);
+        cadPresuntoDenuncia = "Denuncia por " + presuntoDenuncia[presunto];
+        $("#txtPresuntoDenuncia").html(cadPresuntoDenuncia);
         $("#txtFechaPresentacion").val(cadFechaActual);
         $("#inputPuesto").addClass("d-none");
         $("#inputEspecificar").addClass("d-none");
-        $("#txtTareaFormulario").val("guardada");
+        $("#txtTareaFormulario").val("guardarInfo");
         $("#txtStatusFormulario").val("");
         $("#txtIdDenuncia").val("")
         $("#modalPresuntoDenuncia").modal("hide");
@@ -146,10 +152,6 @@ function prepararFormato(presunto) {
         $("#modalPresuntoDenuncia").modal("hide");
         $('#nav-nuevaDenunciaImg-tab').tab('show');
     }
-}
-
-function deInformacionParcial(active) {
-    informacionParcial = active;
 }
 
 function recolectarDatosDenuncia() {
@@ -202,6 +204,7 @@ function enviarDenuncia(objDenuncia, accion) {
             txtTareaFormulario: objDenuncia.txtTareaFormulario,
             txtStatusFormulario: objDenuncia.txtStatusFormulario,
             txtIdDenuncia: objDenuncia.txtIdDenuncia,
+            txtTipoDenuncia: cadPresuntoDenuncia,
             txtFechaPresentacion: objDenuncia.txtFechaPresentacion,
             txtAnonimatoDenunciante: objDenuncia.txtAnonimatoDenunciante,
             txtNombreDenunciante: objDenuncia.txtNombreDenunciante,
@@ -243,6 +246,8 @@ function enviarDenuncia(objDenuncia, accion) {
         success: function (data) {
             let mensaje = data.split('|');
             if (mensaje[0] == "success") {
+                $('#nav-denuncias-tab').tab('show');
+                document.getElementById("formFormatoPresentacionDenuncia").reset();
                 alertify.success(mensaje[1]);
             } else if (mensaje[0] == "error") {
                 alertify.error(mensaje[1]);

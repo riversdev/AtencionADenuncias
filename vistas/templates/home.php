@@ -541,11 +541,7 @@ if (isset($_SESSION['user_id'])) {
                     </div>
                 </div>
                 <div class="form-row justify-content-end">
-                    <button class="btn btn-transparent text-muted mr-5" type="submit" onclick="deInformacionParcial(1)">
-                        Guardar Información parcial
-                        <i class="fas fa-arrow-circle-right"></i>
-                    </button>
-                    <button class="btn btn-primary" type="submit" onclick="deInformacionParcial(0)">
+                    <button class="btn btn-primary" type="submit">
                         Guardar denuncia
                         <i class="fas fa-arrow-circle-right"></i>
                     </button>
