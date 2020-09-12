@@ -259,6 +259,220 @@ function enviarDenuncia(objDenuncia, accion) {
             } else if (accion == "leer") {
                 $('#contenedorTablasDenuncias').empty();
                 $('#contenedorTablasDenuncias').append(data);
+                tabularDenuncias();
+            }
+        }
+    });
+}
+
+function tabularDenuncias() {
+    $("#tablaInconclusas").DataTable({
+        scrollX: true,
+        columnDefs: [
+            { targets: [0], visible: false, searchable: true },
+            { targets: [1], visible: false, searchable: true },
+            { targets: [2], visible: true, searchable: true },
+            { targets: [3], visible: true, searchable: true },
+            { targets: [4], visible: false, searchable: true },
+            { targets: [5], visible: true, searchable: true },
+            { targets: [6], visible: false, searchable: true },
+            { targets: [7], visible: false, searchable: true },
+            { targets: [8], visible: false, searchable: true },
+            { targets: [9], visible: false, searchable: true },
+            { targets: [10], visible: false, searchable: true },
+            { targets: [11], visible: false, searchable: true },
+            { targets: [12], visible: false, searchable: true },
+            { targets: [13], visible: false, searchable: true },
+            { targets: [14], visible: false, searchable: true },
+            { targets: [15], visible: false, searchable: true },
+            { targets: [16], visible: true, searchable: true },
+            { targets: [17], visible: false, searchable: true },
+            { targets: [18], visible: false, searchable: true },
+            { targets: [19], visible: false, searchable: true },
+            { targets: [20], visible: false, searchable: true },
+            { targets: [21], visible: false, searchable: true },
+            { targets: [22], visible: false, searchable: true },
+            { targets: [23], visible: false, searchable: true },
+            { targets: [24], visible: false, searchable: true },
+            { targets: [25], visible: false, searchable: true },
+            { targets: [26], visible: false, searchable: true },
+            { targets: [27], visible: false, searchable: true },
+            { targets: [28], visible: false, searchable: true },
+            { targets: [29], visible: false, searchable: true },
+            { targets: [30], visible: false, searchable: true },
+            { targets: [31], visible: false, searchable: true },
+            { targets: [32], visible: false, searchable: true },
+            { targets: [33], visible: false, searchable: true },
+            { targets: [34], visible: false, searchable: true },
+            { targets: [35], visible: false, searchable: true },
+            { targets: [36], visible: false, searchable: true },
+            { targets: [37], visible: false, searchable: true },
+            { targets: [38], visible: true, searchable: true }
+        ],
+        language: {
+            sProcessing: "Procesando...",
+            sLengthMenu: "Mostrar _MENU_ registros",
+            sZeroRecords: "No se encontraron resultados",
+            sEmptyTable: "Ningún dato disponible en esta tabla",
+            sInfo:
+                "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+            sInfoEmpty: "Mostrando registros del 0 al 0 de un total de 0 registros",
+            sInfoFiltered: "(filtrado de un total de _MAX_ registros)",
+            sInfoPostFix: "",
+            sSearch: "Buscar:",
+            sUrl: "",
+            sInfoThousands: ",",
+            sLoadingRecords: "Cargando...",
+            oPaginate: {
+                sFirst: "Primero",
+                sLast: "Último",
+                sNext: "Siguiente",
+                sPrevious: "Anterior"
+            },
+            aria: {
+                SortAscending: ": Activar para ordenar la columna de manera ascendente",
+                SortDescending:
+                    ": Activar para ordenar la columna de manera descendente"
+            }
+        }
+    });
+    $("#tablaPendientes").DataTable({
+        scrollX: true,
+        columnDefs: [
+            { targets: [0], visible: false, searchable: true },
+            { targets: [1], visible: false, searchable: true },
+            { targets: [2], visible: true, searchable: true },
+            { targets: [3], visible: true, searchable: true },
+            { targets: [4], visible: false, searchable: true },
+            { targets: [5], visible: true, searchable: true },
+            { targets: [6], visible: false, searchable: true },
+            { targets: [7], visible: false, searchable: true },
+            { targets: [8], visible: false, searchable: true },
+            { targets: [9], visible: false, searchable: true },
+            { targets: [10], visible: false, searchable: true },
+            { targets: [11], visible: false, searchable: true },
+            { targets: [12], visible: false, searchable: true },
+            { targets: [13], visible: false, searchable: true },
+            { targets: [14], visible: false, searchable: true },
+            { targets: [15], visible: false, searchable: true },
+            { targets: [16], visible: true, searchable: true },
+            { targets: [17], visible: false, searchable: true },
+            { targets: [18], visible: false, searchable: true },
+            { targets: [19], visible: false, searchable: true },
+            { targets: [20], visible: false, searchable: true },
+            { targets: [21], visible: false, searchable: true },
+            { targets: [22], visible: false, searchable: true },
+            { targets: [23], visible: false, searchable: true },
+            { targets: [24], visible: false, searchable: true },
+            { targets: [25], visible: false, searchable: true },
+            { targets: [26], visible: false, searchable: true },
+            { targets: [27], visible: false, searchable: true },
+            { targets: [28], visible: false, searchable: true },
+            { targets: [29], visible: false, searchable: true },
+            { targets: [30], visible: false, searchable: true },
+            { targets: [31], visible: false, searchable: true },
+            { targets: [32], visible: false, searchable: true },
+            { targets: [33], visible: false, searchable: true },
+            { targets: [34], visible: false, searchable: true },
+            { targets: [35], visible: false, searchable: true },
+            { targets: [36], visible: false, searchable: true },
+            { targets: [37], visible: false, searchable: true },
+            { targets: [38], visible: true, searchable: true }
+        ],
+        language: {
+            sProcessing: "Procesando...",
+            sLengthMenu: "Mostrar _MENU_ registros",
+            sZeroRecords: "No se encontraron resultados",
+            sEmptyTable: "Ningún dato disponible en esta tabla",
+            sInfo:
+                "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+            sInfoEmpty: "Mostrando registros del 0 al 0 de un total de 0 registros",
+            sInfoFiltered: "(filtrado de un total de _MAX_ registros)",
+            sInfoPostFix: "",
+            sSearch: "Buscar:",
+            sUrl: "",
+            sInfoThousands: ",",
+            sLoadingRecords: "Cargando...",
+            oPaginate: {
+                sFirst: "Primero",
+                sLast: "Último",
+                sNext: "Siguiente",
+                sPrevious: "Anterior"
+            },
+            aria: {
+                SortAscending: ": Activar para ordenar la columna de manera ascendente",
+                SortDescending:
+                    ": Activar para ordenar la columna de manera descendente"
+            }
+        }
+    });
+    $("#tablaConcluidas").DataTable({
+        scrollX: true,
+        columnDefs: [
+            { targets: [0], visible: false, searchable: true },
+            { targets: [1], visible: false, searchable: true },
+            { targets: [2], visible: true, searchable: true },
+            { targets: [3], visible: true, searchable: true },
+            { targets: [4], visible: false, searchable: true },
+            { targets: [5], visible: true, searchable: true },
+            { targets: [6], visible: false, searchable: true },
+            { targets: [7], visible: false, searchable: true },
+            { targets: [8], visible: false, searchable: true },
+            { targets: [9], visible: false, searchable: true },
+            { targets: [10], visible: false, searchable: true },
+            { targets: [11], visible: false, searchable: true },
+            { targets: [12], visible: false, searchable: true },
+            { targets: [13], visible: false, searchable: true },
+            { targets: [14], visible: false, searchable: true },
+            { targets: [15], visible: false, searchable: true },
+            { targets: [16], visible: true, searchable: true },
+            { targets: [17], visible: false, searchable: true },
+            { targets: [18], visible: false, searchable: true },
+            { targets: [19], visible: false, searchable: true },
+            { targets: [20], visible: false, searchable: true },
+            { targets: [21], visible: false, searchable: true },
+            { targets: [22], visible: false, searchable: true },
+            { targets: [23], visible: false, searchable: true },
+            { targets: [24], visible: false, searchable: true },
+            { targets: [25], visible: false, searchable: true },
+            { targets: [26], visible: false, searchable: true },
+            { targets: [27], visible: false, searchable: true },
+            { targets: [28], visible: false, searchable: true },
+            { targets: [29], visible: false, searchable: true },
+            { targets: [30], visible: false, searchable: true },
+            { targets: [31], visible: false, searchable: true },
+            { targets: [32], visible: false, searchable: true },
+            { targets: [33], visible: false, searchable: true },
+            { targets: [34], visible: false, searchable: true },
+            { targets: [35], visible: false, searchable: true },
+            { targets: [36], visible: false, searchable: true },
+            { targets: [37], visible: false, searchable: true },
+            { targets: [38], visible: true, searchable: true }
+        ],
+        language: {
+            sProcessing: "Procesando...",
+            sLengthMenu: "Mostrar _MENU_ registros",
+            sZeroRecords: "No se encontraron resultados",
+            sEmptyTable: "Ningún dato disponible en esta tabla",
+            sInfo:
+                "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+            sInfoEmpty: "Mostrando registros del 0 al 0 de un total de 0 registros",
+            sInfoFiltered: "(filtrado de un total de _MAX_ registros)",
+            sInfoPostFix: "",
+            sSearch: "Buscar:",
+            sUrl: "",
+            sInfoThousands: ",",
+            sLoadingRecords: "Cargando...",
+            oPaginate: {
+                sFirst: "Primero",
+                sLast: "Último",
+                sNext: "Siguiente",
+                sPrevious: "Anterior"
+            },
+            aria: {
+                SortAscending: ": Activar para ordenar la columna de manera ascendente",
+                SortDescending:
+                    ": Activar para ordenar la columna de manera descendente"
             }
         }
     });

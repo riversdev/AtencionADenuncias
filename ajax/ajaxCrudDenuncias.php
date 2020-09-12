@@ -38,13 +38,13 @@ switch ($accion) {
                     <div class="card">
                         <div class="card-body">
                             <h5 class="card-title">Inconclusas</h5>
-                            <table id="tablaInconclusas" class="table">
+                            <table id="tablaInconclusas" class="order-column hover nowrap compact" style="width: 100%;">
                                 <thead>
                                     <tr>
                                         <th scope="col">idDenuncia</th>
                                         <th scope="col">tipoDenuncia</th>
-                                        <th scope="col">Número de expediente</th>
-                                        <th scope="col">Fecha de presentación</th>
+                                        <th scope="col" class="text-center"># Expediente</th>
+                                        <th scope="col" class="text-center">Fecha de presentación</th>
                                         <th scope="col">anonimatoDenunciante</th>
                                         <th scope="col">Denunciante</th>
                                         <th scope="col">domicilioDenunciante</th>
@@ -79,16 +79,16 @@ switch ($accion) {
                                         <th scope="col">entidadTestigo</th>
                                         <th scope="col">cargoTestigo</th>
                                         <th scope="col">statusDenuncia</th>
-                                        <th scope="col">Acciones</th>
+                                        <th scope="col" class="text-center">Acciones</th>
                                     </tr>
                                 </thead>
                                 <tbody>';
         foreach ($denunciasInconclusas as $row) {
-            echo '                  <tr>
+            echo '                  <tr style="font-size:small;">
                                         <td>' . $row['idDenuncia'] . '</td>
                                         <td>' . $row['tipoDenuncia'] . '</td>
-                                        <th scope="row">' . $row['numExpediente'] . '</th>
-                                        <td>' . $row['fechaPresentacion'] . '</td>
+                                        <th scope="row" class="text-center">' . $row['numExpediente'] . '</th>
+                                        <td class="text-center">' . date("d-m-Y", strtotime($row['fechaPresentacion'])) . '</td>
                                         <td>' . $row['anonimatoDenunciante'] . '</td>
                                         <td>' . $row['nombreDenunciante'] . '</td>
                                         <td>' . $row['domicilioDenunciante'] . '</td>
@@ -135,13 +135,13 @@ switch ($accion) {
                     <div class="card">
                         <div class="card-body">
                             <h5 class="card-title">Pendientes</h5>
-                            <table id="tablaPendientes" class="table">
+                            <table id="tablaPendientes" class="order-column hover nowrap compact" style="width: 100%;">
                                 <thead>
                                     <tr>
                                         <th scope="col">idDenuncia</th>
                                         <th scope="col">tipoDenuncia</th>
-                                        <th scope="col">Número de expediente</th>
-                                        <th scope="col">Fecha de presentación</th>
+                                        <th scope="col" class="text-center"># Expediente</th>
+                                        <th scope="col" class="text-center">Fecha de presentación</th>
                                         <th scope="col">anonimatoDenunciante</th>
                                         <th scope="col">Denunciante</th>
                                         <th scope="col">domicilioDenunciante</th>
@@ -176,16 +176,16 @@ switch ($accion) {
                                         <th scope="col">entidadTestigo</th>
                                         <th scope="col">cargoTestigo</th>
                                         <th scope="col">statusDenuncia</th>
-                                        <th scope="col">Acciones</th>
+                                        <th scope="col" class="text-center">Acciones</th>
                                     </tr>
                                 </thead>
                                 <tbody>';
         foreach ($denunciasPendientes as $row) {
-            echo '                  <tr>
+            echo '                  <tr style="font-size:small;">
                                         <td>' . $row['idDenuncia'] . '</td>
                                         <td>' . $row['tipoDenuncia'] . '</td>
-                                        <th scope="row">' . $row['numExpediente'] . '</th>
-                                        <td>' . $row['fechaPresentacion'] . '</td>
+                                        <th scope="row" class="text-center">' . $row['numExpediente'] . '</th>
+                                        <td class="text-center">' . date("d-m-Y", strtotime($row['fechaPresentacion'])) . '</td>
                                         <td>' . $row['anonimatoDenunciante'] . '</td>
                                         <td>' . $row['nombreDenunciante'] . '</td>
                                         <td>' . $row['domicilioDenunciante'] . '</td>
@@ -232,13 +232,13 @@ switch ($accion) {
                     <div class="card">
                         <div class="card-body">
                             <h5 class="card-title">Concluidas</h5>
-                            <table id="tablaConcluidas" class="table">
+                            <table id="tablaConcluidas" class="order-column hover nowrap compact" style="width: 100%;">
                                 <thead>
                                     <tr>
                                         <th scope="col">idDenuncia</th>
                                         <th scope="col">tipoDenuncia</th>
-                                        <th scope="col">Número de expediente</th>
-                                        <th scope="col">Fecha de presentación</th>
+                                        <th scope="col" class="text-center"># Expediente</th>
+                                        <th scope="col" class="text-center">Fecha de presentación</th>
                                         <th scope="col">anonimatoDenunciante</th>
                                         <th scope="col">Denunciante</th>
                                         <th scope="col">domicilioDenunciante</th>
@@ -273,16 +273,16 @@ switch ($accion) {
                                         <th scope="col">entidadTestigo</th>
                                         <th scope="col">cargoTestigo</th>
                                         <th scope="col">statusDenuncia</th>
-                                        <th scope="col">Acciones</th>
+                                        <th scope="col" class="text-center">Acciones</th>
                                     </tr>
                                 </thead>
                                 <tbody>';
         foreach ($denunciasConcluidas as $row) {
-            echo '                  <tr>
+            echo '                  <tr style="font-size:small;">
                                         <td>' . $row['idDenuncia'] . '</td>
                                         <td>' . $row['tipoDenuncia'] . '</td>
-                                        <th scope="row">' . $row['numExpediente'] . '</th>
-                                        <td>' . $row['fechaPresentacion'] . '</td>
+                                        <th scope="row" class="text-center">' . $row['numExpediente'] . '</th>
+                                        <td class="text-center">' . date("d-m-Y", strtotime($row['fechaPresentacion'])) . '</td>
                                         <td>' . $row['anonimatoDenunciante'] . '</td>
                                         <td>' . $row['nombreDenunciante'] . '</td>
                                         <td>' . $row['domicilioDenunciante'] . '</td>
