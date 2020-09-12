@@ -25,7 +25,7 @@
     <script src="vistas\static\js\main.js"></script>
 </head>
 
-<body style="overflow-x: hidden;">
+<body>
     <?php
     require_once "./controladores/controladorVistas.php";
     $vt = new controladorVistas();

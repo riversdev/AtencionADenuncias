@@ -3,6 +3,15 @@ require_once "modeloConexion.php";
 
 class CrudDenuncias
 {
+    public static function obtenerDenuncias($statusDenuncia)
+    {
+        $SQL = "SELECT * FROM denuncias WHERE statusDenuncia='$statusDenuncia' ORDER BY fechaPresentacion DESC";
+        $stmt = Conexion::conectar()->prepare($SQL);
+        $stmt->execute();
+        $resultado = $stmt->fetchAll();
+        $stmt = null;
+        return $resultado;
+    }
     public static function obtenerUltimoNumeroExpediente($anioActual)
     {
         $SQL = "SELECT a.numExpediente FROM denuncias AS a WHERE a.numExpediente LIKE '%$anioActual' ORDER BY a.numExpediente DESC LIMIT 1";

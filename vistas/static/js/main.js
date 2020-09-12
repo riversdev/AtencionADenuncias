@@ -5,6 +5,7 @@ let cadPresuntoDenuncia = "";
 $(document).ready(function () {
     $('[data-toggle="tooltip"]').tooltip();
     prepararValidacionDeFormularios();
+    enviarDenuncia(recolectarDatosDenuncia(), "leer");
     // BIENVENIDA A LA SESION
     alertify.success("Todo está listo!");
     // CERRAR SESION
@@ -244,15 +245,20 @@ function enviarDenuncia(objDenuncia, accion) {
             console.error("Error peticion ajax para enviar información de denuncia, DETALLES: " + data);
         },
         success: function (data) {
-            let mensaje = data.split('|');
-            if (mensaje[0] == "success") {
-                $('#nav-denuncias-tab').tab('show');
-                document.getElementById("formFormatoPresentacionDenuncia").reset();
-                alertify.success(mensaje[1]);
-            } else if (mensaje[0] == "error") {
-                alertify.error(mensaje[1]);
-            } else {
-                console.log("Tipo de respuesta no definido. " + data);
+            if (accion == "guardarInfo") {
+                let mensaje = data.split('|');
+                if (mensaje[0] == "success") {
+                    $('#nav-denuncias-tab').tab('show');
+                    document.getElementById("formFormatoPresentacionDenuncia").reset();
+                    alertify.success(mensaje[1]);
+                } else if (mensaje[0] == "error") {
+                    alertify.error(mensaje[1]);
+                } else {
+                    console.log("Tipo de respuesta no definido. " + data);
+                }
+            } else if (accion == "leer") {
+                $('#contenedorTablasDenuncias').empty();
+                $('#contenedorTablasDenuncias').append(data);
             }
         }
     });

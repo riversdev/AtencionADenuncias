@@ -52,32 +52,7 @@ if (isset($_SESSION['user_id'])) {
 
     <div class="tab-content" id="nav-tabContent">
         <div class="tab-pane fade show active" id="nav-denuncias" role="tabpanel" aria-labelledby="nav-denuncias-tab">
-            <div class="row align-items-center justify-content-center mx-5">
-                <div class="col-12 p-3">
-                    <div class="card">
-                        <div class="card-body">
-                            <h5 class="card-title">Inconclusas</h5>
-                            <div id="contenedorinconclusas"></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-12 p-3">
-                    <div class="card">
-                        <div class="card-body">
-                            <h5 class="card-title">Pendientes</h5>
-                            <div id="contenedorpendientes"></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-12 p-3">
-                    <div class="card">
-                        <div class="card-body">
-                            <h5 class="card-title">Concluidas</h5>
-                            <div id="contenedorconcluidas"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <div id="contenedorTablasDenuncias"></div>
         </div>
         <div class="tab-pane fade" id="nav-nuevaDenunciaForm" role="tabpanel" aria-labelledby="nav-nuevaDenunciaForm-tab">
             <form id="formFormatoPresentacionDenuncia" class="needs-validation px-5 pt-3 pb-5" novalidate>
