@@ -123,7 +123,10 @@ switch ($accion) {
                                         <td>' . $row['entidadTestigo'] . '</td>
                                         <td>' . $row['cargoTestigo'] . '</td>
                                         <td>' . $row['statusDenuncia'] . '</td>
-                                        <td></td>
+                                        <td class="d-flex justify-content-around">
+                                            <i class="far fa-edit"></i>
+                                            <i class="far fa-eye"></i>
+                                        </td>
                                     </tr>';
         }
         echo '                  </tbody>
@@ -220,7 +223,11 @@ switch ($accion) {
                                         <td>' . $row['entidadTestigo'] . '</td>
                                         <td>' . $row['cargoTestigo'] . '</td>
                                         <td>' . $row['statusDenuncia'] . '</td>
-                                        <td></td>
+                                        <td class="d-flex justify-content-around">
+                                            <i class="far fa-edit"></i>
+                                            <i class="far fa-eye"></i>
+                                            <i class="far fa-check-square"></i>
+                                        </td>
                                     </tr>';
         }
         echo '                  </tbody>
@@ -317,7 +324,9 @@ switch ($accion) {
                                         <td>' . $row['entidadTestigo'] . '</td>
                                         <td>' . $row['cargoTestigo'] . '</td>
                                         <td>' . $row['statusDenuncia'] . '</td>
-                                        <td></td>
+                                        <td class="d-flex justify-content-around">
+                                            <i class="far fa-eye"></i>
+                                        </td>
                                     </tr>';
         }
         echo '                  </tbody>
