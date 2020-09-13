@@ -34,5 +34,59 @@ class CrudDenuncias
         } catch (Exception $e) {
             echo "error|Sin conexión !";
         }
+        $stmt = null;
+    }
+    public static function editarInfo($idDenuncia, $statusInformacion, $tipoDenuncia, $numExpediente, $fechaPresentacion, $anonimatoDenunciante, $nombreDenunciante, $domicilioDenunciante, $telefonoDenunciante, $correoDenunciante, $sexoDenunciante, $edadDenunciante, $servidorPublicoDenunciante, $puestoDenunciante, $especificarDenunciante, $gradoEstudiosDenunciante, $discapacidadDenunciante, $nombreDenunciado, $entidadDenunciado, $telefonoDenunciado, $correoDenunciado, $sexoDenunciado, $edadDenunciado, $servidorPublicoDenunciado, $especificarDenunciado, $relacionDenunciado, $lugarDenuncia, $fechaDenuncia, $horaDenuncia, $narracionDenuncia, $nombreTestigo, $domicilioTestigo, $telefonoTestigo, $correoTestigo, $relacionTestigo, $trabajaTestigo, $entidadTestigo, $cargoTestigo)
+    {
+        $SQL = "UPDATE denuncias
+                SET tipoDenuncia='$tipoDenuncia',
+                    numExpediente='$numExpediente',
+                    fechaPresentacion='$fechaPresentacion',
+                    anonimatoDenunciante='$anonimatoDenunciante',
+                    nombreDenunciante='$nombreDenunciante',
+                    domicilioDenunciante='$domicilioDenunciante',
+                    telefonoDenunciante='$telefonoDenunciante',
+                    correoDenunciante='$correoDenunciante',
+                    sexoDenunciante='$sexoDenunciante',
+                    edadDenunciante='$edadDenunciante',
+                    servidorPublicoDenunciante='$servidorPublicoDenunciante',
+                    puestoDenunciante='$puestoDenunciante',
+                    especificarDenunciante='$especificarDenunciante',
+                    gradoEstudiosDenunciante='$gradoEstudiosDenunciante',
+                    discapacidadDenunciante='$discapacidadDenunciante',
+                    nombreDenunciado='$nombreDenunciado',
+                    entidadDenunciado='$entidadDenunciado',
+                    telefonoDenunciado='$telefonoDenunciado',
+                    correoDenunciado='$correoDenunciado',
+                    sexoDenunciado='$sexoDenunciado',
+                    edadDenunciado='$edadDenunciado',
+                    servidorPublicoDenunciado='$servidorPublicoDenunciado',
+                    especificarDenunciado='$especificarDenunciado',
+                    relacionDenunciado='$relacionDenunciado',
+                    lugarDenuncia='$lugarDenuncia',
+                    fechaDenuncia='$fechaDenuncia',
+                    horaDenuncia='$horaDenuncia',
+                    narracionDenuncia='$narracionDenuncia',
+                    nombreTestigo='$nombreTestigo',
+                    domicilioTestigo='$domicilioTestigo',
+                    telefonoTestigo='$telefonoTestigo',
+                    correoTestigo='$correoTestigo',
+                    relacionTestigo='$relacionTestigo',
+                    trabajaTestigo='$trabajaTestigo',
+                    entidadTestigo='$entidadTestigo',
+                    cargoTestigo='$cargoTestigo',
+                    statusDenuncia='$statusInformacion'
+                WHERE idDenuncia='$idDenuncia';";
+        $stmt = Conexion::conectar()->prepare($SQL);
+        try {
+            if ($stmt->execute()) {
+                echo "success|Denuncia " . $statusInformacion . " editada !";
+            } else {
+                echo "error|Imposible editar denuncia " . $statusInformacion . " !";
+            }
+        } catch (Exception $e) {
+            echo "error|Sin conexión !";
+        }
+        $stmt = null;
     }
 }

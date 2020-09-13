@@ -60,8 +60,18 @@ if (isset($_SESSION['user_id'])) {
                 <input type="hidden" id="txtStatusFormulario">
                 <input type="hidden" id="txtIdDenuncia">
                 <div class="form-row">
-                    <div class="col-lg-8 col-md-6 col-12 mb-3">
+                    <div class="col-12 mb-3">
                         <h5 class="font-weight-light text-primary" id="txtPresuntoDenuncia"></h5>
+                    </div>
+                    <div class="col-lg-4 col-md-6 col-12 offset-lg-4 offset-md-0 mb-3 d-none" id="contenedorNumExpediente">
+                        <label for="fechaPresentacion">Número de expediente</label>
+                        <input type="text" class="form-control" id="txtNumExpediente" required disabled>
+                        <div class="valid-feedback">
+                            Correcto!
+                        </div>
+                        <div class="invalid-feedback">
+                            Verifique el número de expediente
+                        </div>
                     </div>
                     <div class="col-lg-4 col-md-6 col-12 mb-3">
                         <label for="fechaPresentacion">Fecha de presentación de la denuncia</label>
