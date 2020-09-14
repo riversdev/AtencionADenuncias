@@ -92,10 +92,18 @@ $(document).ready(function () {
         }
     });
 
-    // DENUNCIAS
-    //obtenerDenuncias("inconclusas");
-    //obtenerDenuncias("pendientes");
-    //obtenerDenuncias("concluidas");
+    // IMPRIMIR
+    $('#btnImprimir').on('click', function () {
+        window.print();
+    });
+
+    // MOSTRANDO Y OCULTANDO BOTON DE IMPRIMIR
+    $('#nav-vizualizador-tab').on('shown.bs.tab', function (e) {
+        $('#btnImprimir').removeClass('d-none');
+    });
+    $('#nav-vizualizador-tab').on('hidden.bs.tab', function (e) {
+        $('#btnImprimir').addClass('d-none');
+    });
 });
 
 function prepararValidacionDeFormularios() {
@@ -507,8 +515,7 @@ function tabularDenuncias() {
     // tablaConcluidas.columns.adjust().draw();
 }
 
-function prepararParaEditar(idDenuncia, tipoDenuncia, numExpediente, fechaPresentacion, anonimatoDenunciante, nombreDenunciante, domicilioDenunciante, telefonoDenunciante, correoDenunciante, sexoDenunciante, edadDenunciante, servidorPublicoDenunciante, puestoDenunciante, especificarDenunciante, gradoEstudiosDenunciante, discapacidadDenunciante, nombreDenunciado, entidadDenunciado, telefonoDenunciado, correoDenunciado, sexoDenunciado, edadDenunciado, servidorPublicoDenunciado, especificarDenunciado, relacionDenunciado, lugarDenuncia, fechaDenuncia, horaDenuncia, narracionDenuncia, nombreTestigo, domicilioTestigo, telefonoTestigo, correoTestigo, relacionTestigo, trabajaTestigo, entidadTestigo, cargoTestigo, statusDenuncia,
-) {
+function prepararParaEditar(idDenuncia, tipoDenuncia, numExpediente, fechaPresentacion, anonimatoDenunciante, nombreDenunciante, domicilioDenunciante, telefonoDenunciante, correoDenunciante, sexoDenunciante, edadDenunciante, servidorPublicoDenunciante, puestoDenunciante, especificarDenunciante, gradoEstudiosDenunciante, discapacidadDenunciante, nombreDenunciado, entidadDenunciado, telefonoDenunciado, correoDenunciado, sexoDenunciado, edadDenunciado, servidorPublicoDenunciado, especificarDenunciado, relacionDenunciado, lugarDenuncia, fechaDenuncia, horaDenuncia, narracionDenuncia, nombreTestigo, domicilioTestigo, telefonoTestigo, correoTestigo, relacionTestigo, trabajaTestigo, entidadTestigo, cargoTestigo, statusDenuncia) {
     $("#txtNumExpediente").val(numExpediente);
     $("#contenedorNumExpediente").removeClass("d-none");
     $("#txtTareaFormulario").val("editarInfo");
@@ -579,4 +586,63 @@ function prepararParaEditar(idDenuncia, tipoDenuncia, numExpediente, fechaPresen
     $("#txtCargoTestigo").val(cargoTestigo);
     $("#txtTareaFormulario").val("editarInfo");
     $('#nav-nuevaDenunciaForm-tab').tab('show');
+}
+
+function prepararParaVizualizar(tipoDenuncia, numExpediente, fechaPresentacion, anonimatoDenunciante, nombreDenunciante, domicilioDenunciante, telefonoDenunciante, correoDenunciante, sexoDenunciante, edadDenunciante, servidorPublicoDenunciante, puestoDenunciante, especificarDenunciante, gradoEstudiosDenunciante, discapacidadDenunciante, nombreDenunciado, entidadDenunciado, telefonoDenunciado, correoDenunciado, sexoDenunciado, edadDenunciado, servidorPublicoDenunciado, especificarDenunciado, relacionDenunciado, lugarDenuncia, fechaDenuncia, horaDenuncia, narracionDenuncia, nombreTestigo, domicilioTestigo, telefonoTestigo, correoTestigo, relacionTestigo, trabajaTestigo, entidadTestigo, cargoTestigo, statusDenuncia) {
+    $("#txtNumExpedienteV").val(numExpediente);
+    $("#txtFechaPresentacionV").val(fechaPresentacion);
+    $("#txtAnonimatoDenuncianteV").val(anonimatoDenunciante);
+    $("#txtNombreDenuncianteV").val(nombreDenunciante);
+    $("#txtDomicilioDenuncianteV").val(domicilioDenunciante);
+    $("#txtTelefonoDenuncianteV").val(telefonoDenunciante);
+    $("#txtCorreoDenuncianteV").val(correoDenunciante);
+    $("#txtSexoDenuncianteV").val(sexoDenunciante);
+    $("#txtEdadDenuncianteV").val(edadDenunciante);
+    $("#txtSPDenuncianteV").val(servidorPublicoDenunciante);
+    if (servidorPublicoDenunciante == "si") {
+        $("#inputPuestoV").removeClass("d-none");
+        $("#inputEspecificarV").addClass("d-none");
+    } else if (servidorPublicoDenunciante == "no") {
+        $("#inputPuestoV").addClass("d-none");
+        $("#inputEspecificarV").removeClass("d-none");
+    } else {
+        $("#inputPuestoV").addClass("d-none");
+        $("#inputEspecificarV").addClass("d-none");
+    }
+    $("#txtPuestoDenuncianteV").val(puestoDenunciante);
+    $("#txtEspecificarDenuncianteV").val(especificarDenunciante);
+    $("#txtGradoEstudiosDenuncianteV").val(gradoEstudiosDenunciante);
+    $("#txtDiscapacidadDenuncianteV").val(discapacidadDenunciante);
+    $("#txtNombreDenunciadoV").val(nombreDenunciado);
+    $("#txtEntidadDenunciadoV").val(entidadDenunciado);
+    $("#txtTelefonoDenunciadoV").val(telefonoDenunciado);
+    $("#txtCorreoDenunciadoV").val(correoDenunciado);
+    $("#txtSexoDenunciadoV").val(sexoDenunciado);
+    $("#txtEdadDenunciadoV").val(edadDenunciado);
+    $("#txtSPDenunciadoV").val(servidorPublicoDenunciado);
+    $("#txtEspecificarDenunciadoV").val(especificarDenunciado);
+    $("#txtRelacionDenunciadoV").val(relacionDenunciado);
+    $("#txtLugarDenunciaV").val(lugarDenuncia);
+    $("#txtFechaDenunciaV").val(fechaDenuncia);
+    $("#txtHoraDenunciaV").val(horaDenuncia);
+    $("#txtNarracionDenunciaV").val(narracionDenuncia);
+    $("#txtNombreTestigoV").val(nombreTestigo);
+    $("#txtDomicilioTestigoV").val(domicilioTestigo);
+    $("#txtTelefonoTestigoV").val(telefonoTestigo);
+    $("#txtCorreoTestigoV").val(correoTestigo);
+    $("#txtRelacionTestigoV").val(relacionTestigo);
+    $("#txtTrabajaTestigoV").val(trabajaTestigo);
+    if (trabajaTestigo == "si") {
+        $("#inputEDV").removeClass("d-none");
+        $("#inputCargoV").removeClass("d-none");
+    } else if (trabajaTestigo == "no") {
+        $("#inputEDV").addClass("d-none");
+        $("#inputCargoV").addClass("d-none");
+    } else {
+        $("#inputEDV").addClass("d-none");
+        $("#inputCargoV").addClass("d-none");
+    }
+    $("#txtEntidadTestigoV").val(entidadTestigo);
+    $("#txtCargoTestigoV").val(cargoTestigo);
+    $('#nav-vizualizador-tab').tab('show');
 }

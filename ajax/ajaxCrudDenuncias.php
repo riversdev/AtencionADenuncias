@@ -168,7 +168,45 @@ switch ($accion) {
                                                 '" . $row['cargoTestigo'] . "',
                                                 '" . $row['statusDenuncia'] . "'
                                             " . ');"></i>
-                                            <i class="far fa-eye"></i>
+                                            <i class="far fa-eye" onclick="prepararParaVizualizar(' . "
+                                                '" . $row['tipoDenuncia'] . "',
+                                                '" . $row['numExpediente'] . "',
+                                                '" . $row['fechaPresentacion'] . "',
+                                                '" . $row['anonimatoDenunciante'] . "',
+                                                '" . $row['nombreDenunciante'] . "',
+                                                '" . $row['domicilioDenunciante'] . "',
+                                                '" . $row['telefonoDenunciante'] . "',
+                                                '" . $row['correoDenunciante'] . "',
+                                                '" . $row['sexoDenunciante'] . "',
+                                                '" . $row['edadDenunciante'] . "',
+                                                '" . $row['servidorPublicoDenunciante'] . "',
+                                                '" . $row['puestoDenunciante'] . "',
+                                                '" . $row['especificarDenunciante'] . "',
+                                                '" . $row['gradoEstudiosDenunciante'] . "',
+                                                '" . $row['discapacidadDenunciante'] . "',
+                                                '" . $row['nombreDenunciado'] . "',
+                                                '" . $row['entidadDenunciado'] . "',
+                                                '" . $row['telefonoDenunciado'] . "',
+                                                '" . $row['correoDenunciado'] . "',
+                                                '" . $row['sexoDenunciado'] . "',
+                                                '" . $row['edadDenunciado'] . "',
+                                                '" . $row['servidorPublicoDenunciado'] . "',
+                                                '" . $row['especificarDenunciado'] . "',
+                                                '" . $row['relacionDenunciado'] . "',
+                                                '" . $row['lugarDenuncia'] . "',
+                                                '" . $row['fechaDenuncia'] . "',
+                                                '" . $row['horaDenuncia'] . "',
+                                                '" . preg_replace("/[\r\n|\n|\r]+/", " ", $row['narracionDenuncia']) . "',
+                                                '" . $row['nombreTestigo'] . "',
+                                                '" . $row['domicilioTestigo'] . "',
+                                                '" . $row['telefonoTestigo'] . "',
+                                                '" . $row['correoTestigo'] . "',
+                                                '" . $row['relacionTestigo'] . "',
+                                                '" . $row['trabajaTestigo'] . "',
+                                                '" . $row['entidadTestigo'] . "',
+                                                '" . $row['cargoTestigo'] . "',
+                                                '" . $row['statusDenuncia'] . "'
+                                            " . ');"></i>
                                         </td>
                                     </tr>';
         }
@@ -307,7 +345,45 @@ switch ($accion) {
                                                 '" . $row['cargoTestigo'] . "',
                                                 '" . $row['statusDenuncia'] . "'
                                             " . ');"></i>
-                                            <i class="far fa-eye"></i>
+                                            <i class="far fa-eye" onclick="prepararParaVizualizar(' . "
+                                                '" . $row['tipoDenuncia'] . "',
+                                                '" . $row['numExpediente'] . "',
+                                                '" . $row['fechaPresentacion'] . "',
+                                                '" . $row['anonimatoDenunciante'] . "',
+                                                '" . $row['nombreDenunciante'] . "',
+                                                '" . $row['domicilioDenunciante'] . "',
+                                                '" . $row['telefonoDenunciante'] . "',
+                                                '" . $row['correoDenunciante'] . "',
+                                                '" . $row['sexoDenunciante'] . "',
+                                                '" . $row['edadDenunciante'] . "',
+                                                '" . $row['servidorPublicoDenunciante'] . "',
+                                                '" . $row['puestoDenunciante'] . "',
+                                                '" . $row['especificarDenunciante'] . "',
+                                                '" . $row['gradoEstudiosDenunciante'] . "',
+                                                '" . $row['discapacidadDenunciante'] . "',
+                                                '" . $row['nombreDenunciado'] . "',
+                                                '" . $row['entidadDenunciado'] . "',
+                                                '" . $row['telefonoDenunciado'] . "',
+                                                '" . $row['correoDenunciado'] . "',
+                                                '" . $row['sexoDenunciado'] . "',
+                                                '" . $row['edadDenunciado'] . "',
+                                                '" . $row['servidorPublicoDenunciado'] . "',
+                                                '" . $row['especificarDenunciado'] . "',
+                                                '" . $row['relacionDenunciado'] . "',
+                                                '" . $row['lugarDenuncia'] . "',
+                                                '" . $row['fechaDenuncia'] . "',
+                                                '" . $row['horaDenuncia'] . "',
+                                                '" . preg_replace("/[\r\n|\n|\r]+/", " ", $row['narracionDenuncia']) . "',
+                                                '" . $row['nombreTestigo'] . "',
+                                                '" . $row['domicilioTestigo'] . "',
+                                                '" . $row['telefonoTestigo'] . "',
+                                                '" . $row['correoTestigo'] . "',
+                                                '" . $row['relacionTestigo'] . "',
+                                                '" . $row['trabajaTestigo'] . "',
+                                                '" . $row['entidadTestigo'] . "',
+                                                '" . $row['cargoTestigo'] . "',
+                                                '" . $row['statusDenuncia'] . "'
+                                            " . ');"></i>
                                             <i class="far fa-check-square"></i>
                                         </td>
                                     </tr>';
@@ -407,7 +483,45 @@ switch ($accion) {
                                         <td>' . $row['cargoTestigo'] . '</td>
                                         <td>' . $row['statusDenuncia'] . '</td>
                                         <td class="d-flex justify-content-around">
-                                            <i class="far fa-eye"></i>
+                                            <i class="far fa-eye" onclick="prepararParaVizualizar(' . "
+                                                '" . $row['tipoDenuncia'] . "',
+                                                '" . $row['numExpediente'] . "',
+                                                '" . $row['fechaPresentacion'] . "',
+                                                '" . $row['anonimatoDenunciante'] . "',
+                                                '" . $row['nombreDenunciante'] . "',
+                                                '" . $row['domicilioDenunciante'] . "',
+                                                '" . $row['telefonoDenunciante'] . "',
+                                                '" . $row['correoDenunciante'] . "',
+                                                '" . $row['sexoDenunciante'] . "',
+                                                '" . $row['edadDenunciante'] . "',
+                                                '" . $row['servidorPublicoDenunciante'] . "',
+                                                '" . $row['puestoDenunciante'] . "',
+                                                '" . $row['especificarDenunciante'] . "',
+                                                '" . $row['gradoEstudiosDenunciante'] . "',
+                                                '" . $row['discapacidadDenunciante'] . "',
+                                                '" . $row['nombreDenunciado'] . "',
+                                                '" . $row['entidadDenunciado'] . "',
+                                                '" . $row['telefonoDenunciado'] . "',
+                                                '" . $row['correoDenunciado'] . "',
+                                                '" . $row['sexoDenunciado'] . "',
+                                                '" . $row['edadDenunciado'] . "',
+                                                '" . $row['servidorPublicoDenunciado'] . "',
+                                                '" . $row['especificarDenunciado'] . "',
+                                                '" . $row['relacionDenunciado'] . "',
+                                                '" . $row['lugarDenuncia'] . "',
+                                                '" . $row['fechaDenuncia'] . "',
+                                                '" . $row['horaDenuncia'] . "',
+                                                '" . preg_replace("/[\r\n|\n|\r]+/", " ", $row['narracionDenuncia']) . "',
+                                                '" . $row['nombreTestigo'] . "',
+                                                '" . $row['domicilioTestigo'] . "',
+                                                '" . $row['telefonoTestigo'] . "',
+                                                '" . $row['correoTestigo'] . "',
+                                                '" . $row['relacionTestigo'] . "',
+                                                '" . $row['trabajaTestigo'] . "',
+                                                '" . $row['entidadTestigo'] . "',
+                                                '" . $row['cargoTestigo'] . "',
+                                                '" . $row['statusDenuncia'] . "'
+                                            " . ');"></i>
                                         </td>
                                     </tr>';
         }

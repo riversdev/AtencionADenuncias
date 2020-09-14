@@ -20,7 +20,7 @@ if (isset($_SESSION['user_id'])) {
                     <a class="nav-item nav-link d-none" id="nav-nuevaDenunciaImg-tab" data-toggle="tab" href="#nav-nuevaDenunciaImg" role="tab" aria-controls="nav-nuevaDenunciaImg" aria-selected="false">
                         Nueva denuncia - Subir imagen - Invisible
                     </a>
-                    <a class="nav-item nav-link" id="nav-vizualizador-tab" data-toggle="tab" href="#nav-vizualizador" role="tab" aria-controls="nav-vizualizador" aria-selected="false">
+                    <a class="nav-item nav-link d-none" id="nav-vizualizador-tab" data-toggle="tab" href="#nav-vizualizador" role="tab" aria-controls="nav-vizualizador" aria-selected="false">
                         vizualizador - Invisible
                     </a>
                 </div>
@@ -35,6 +35,9 @@ if (isset($_SESSION['user_id'])) {
                 </li>
             </ul>
             <form class="form-inline my-2 my-lg-0">
+                <button type="button" class="btn btn-transparent d-none" id="btnImprimir">
+                    <i class="fas fa-print"></i>
+                </button>
                 <div class="btn-group">
                     <button type="button" class="btn btn-transparent dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <i class="far fa-user"></i>
