@@ -3,33 +3,92 @@ require_once "../modelos/modeloCrudDenuncias.php";
 
 $accion = (isset($_GET['accion'])) ? $_GET['accion'] : 'leer';
 
-switch ($accion) {
-    case 'guardarInfo':
-        $anioActual = date("Y");
-        $ultimoNumeroExpediente = CrudDenuncias::obtenerUltimoNumeroExpediente($anioActual);
-        if (count($ultimoNumeroExpediente) != 0) {
-            $ultimoExpediente = explode("-", $ultimoNumeroExpediente[0][0])[0];
-            $nuevoExpediente = intval($ultimoExpediente) + 1;
-            if ($nuevoExpediente <= 999) {
-                if (strlen($nuevoExpediente) == 1) {
-                    $cadNuevoExpediente = "00" . strval($nuevoExpediente) . "-" . $anioActual;
-                } elseif (strlen($nuevoExpediente) == 2) {
-                    $cadNuevoExpediente = "0" . strval($nuevoExpediente) . "-" . $anioActual;
-                } else {
-                    $cadNuevoExpediente = strval($nuevoExpediente) . "-" . $anioActual;
-                }
+function nuevoExpediente()
+{
+    $anioActual = date("Y");
+    $ultimoNumeroExpediente = CrudDenuncias::obtenerUltimoNumeroExpediente($anioActual);
+    if (count($ultimoNumeroExpediente) != 0) {
+        $ultimoExpediente = explode("-", $ultimoNumeroExpediente[0][0])[0];
+        $nuevoExpediente = intval($ultimoExpediente) + 1;
+        if ($nuevoExpediente <= 999) {
+            if (strlen($nuevoExpediente) == 1) {
+                return "00" . strval($nuevoExpediente) . "-" . $anioActual;
+            } elseif (strlen($nuevoExpediente) == 2) {
+                return "0" . strval($nuevoExpediente) . "-" . $anioActual;
             } else {
-                echo "error|Imposible guardar una nueva denuncia este año. EL PROTOCOLO DE ATENCIÓN A DENUNCIAS POR LOS INCUMPLIMIENTOS DEL CÓDIGO DE ÉTICA DE LA ADMINISTRACIÓN PÚBLICA DEL ESTADO DE HIDALGO Y CÓDIGO DE CONDUCTA DE OFICIALÍA MAYOR, ASI COMO AL PROCEDIMIENTO PARA LA PRESENTACIÓN DE DENUNCIAS ANTE EL COMITÉ DE ÉTICA Y PREVENCIÓN DE CONFLICTOS DE INTERÉS (CEPCI) DE OFICIALIA MAYOR, punto 6, paso 2 determina un formato específico para el número de expediente, de guardar una nueva denuncia el expediente 1000-" . $anioActual . " no coincide con el formato solicitado.";
-                break;
+                return strval($nuevoExpediente) . "-" . $anioActual;
             }
         } else {
-            $cadNuevoExpediente = "001-" . $anioActual;
+            echo "error|Imposible guardar una nueva denuncia este año. EL PROTOCOLO DE ATENCIÓN A DENUNCIAS POR LOS INCUMPLIMIENTOS DEL CÓDIGO DE ÉTICA DE LA ADMINISTRACIÓN PÚBLICA DEL ESTADO DE HIDALGO Y CÓDIGO DE CONDUCTA DE OFICIALÍA MAYOR, ASI COMO AL PROCEDIMIENTO PARA LA PRESENTACIÓN DE DENUNCIAS ANTE EL COMITÉ DE ÉTICA Y PREVENCIÓN DE CONFLICTOS DE INTERÉS (CEPCI) DE OFICIALIA MAYOR, punto 6, paso 2 determina un formato específico para el número de expediente, de guardar una nueva denuncia el expediente 1000-" . $anioActual . " no coincide con el formato solicitado.";
         }
-        CrudDenuncias::guardarInfo($_POST['txtStatusFormulario'], $_POST['txtTipoDenuncia'], $cadNuevoExpediente, $_POST['txtFechaPresentacion'], $_POST['txtAnonimatoDenunciante'], $_POST['txtNombreDenunciante'], $_POST['txtDomicilioDenunciante'], $_POST['txtTelefonoDenunciante'], $_POST['txtCorreoDenunciante'], $_POST['txtSexoDenunciante'], $_POST['txtEdadDenunciante'], $_POST['txtSPDenunciante'], $_POST['txtPuestoDenunciante'], $_POST['txtEspecificarDenunciante'], $_POST['txtGradoEstudiosDenunciante'], $_POST['txtDiscapacidadDenunciante'], $_POST['txtNombreDenunciado'], $_POST['txtEntidadDenunciado'], $_POST['txtTelefonoDenunciado'], $_POST['txtCorreoDenunciado'], $_POST['txtSexoDenunciado'], $_POST['txtEdadDenunciado'], $_POST['txtSPDenunciado'], $_POST['txtEspecificarDenunciado'], $_POST['txtRelacionDenunciado'], $_POST['txtLugarDenuncia'], $_POST['txtFechaDenuncia'], $_POST['txtHoraDenuncia'], $_POST['txtNarracionDenuncia'], $_POST['txtNombreTestigo'], $_POST['txtDomicilioTestigo'], $_POST['txtTelefonoTestigo'], $_POST['txtCorreoTestigo'], $_POST['txtRelacionTestigo'], $_POST['txtTrabajaTestigo'], $_POST['txtEntidadTestigo'], $_POST['txtCargoTestigo']);
+    } else {
+        return "001-" . $anioActual;
+    }
+}
+
+switch ($accion) {
+    case 'guardarInfo':
+        $nuevoExpediente = nuevoExpediente();
+        if (strlen($nuevoExpediente) > 8) {
+            break;
+        }
+        CrudDenuncias::guardarInfo($_POST['txtStatusFormulario'], $_POST['txtTipoDenuncia'], $nuevoExpediente, $_POST['txtFechaPresentacion'], $_POST['txtAnonimatoDenunciante'], $_POST['txtNombreDenunciante'], $_POST['txtDomicilioDenunciante'], $_POST['txtTelefonoDenunciante'], $_POST['txtCorreoDenunciante'], $_POST['txtSexoDenunciante'], $_POST['txtEdadDenunciante'], $_POST['txtSPDenunciante'], $_POST['txtPuestoDenunciante'], $_POST['txtEspecificarDenunciante'], $_POST['txtGradoEstudiosDenunciante'], $_POST['txtDiscapacidadDenunciante'], $_POST['txtNombreDenunciado'], $_POST['txtEntidadDenunciado'], $_POST['txtTelefonoDenunciado'], $_POST['txtCorreoDenunciado'], $_POST['txtSexoDenunciado'], $_POST['txtEdadDenunciado'], $_POST['txtSPDenunciado'], $_POST['txtEspecificarDenunciado'], $_POST['txtRelacionDenunciado'], $_POST['txtLugarDenuncia'], $_POST['txtFechaDenuncia'], $_POST['txtHoraDenuncia'], $_POST['txtNarracionDenuncia'], $_POST['txtNombreTestigo'], $_POST['txtDomicilioTestigo'], $_POST['txtTelefonoTestigo'], $_POST['txtCorreoTestigo'], $_POST['txtRelacionTestigo'], $_POST['txtTrabajaTestigo'], $_POST['txtEntidadTestigo'], $_POST['txtCargoTestigo']);
+        break;
+
+    case 'guardarImg':
+        $nuevoExpediente = nuevoExpediente();
+        if (strlen($nuevoExpediente) > 8) {
+            break;
+        }
+        if ($_FILES['txtImagenDenuncia']['error'] === 4) {
+            die("error|No se cargó una imagen");
+        } elseif ($_FILES['txtImagenDenuncia']['error'] === 1) {
+            die("error|La imagen sobrepasa el limite de tamaño (2MB)");
+        } elseif ($_FILES['txtImagenDenuncia']['error'] === 0) {
+            $imagenBinaria = addslashes(file_get_contents($_FILES['txtImagenDenuncia']['tmp_name']));
+            $nombreArchivo = $_FILES['txtImagenDenuncia']['name'];
+            $extensiones = array('jpg', 'jpeg', 'gif', 'png', 'bmp');
+            $extension = explode('.', $nombreArchivo);
+            $extension = end($extension);
+            $extension = strtolower($extension);
+            if (!in_array($extension, $extensiones)) {
+                die('error|Sólo elija imagenes con extensiones: ' . implode(', ', $extensiones));
+            } else {
+                CrudDenuncias::guardarImg($_POST['txtImagenPresunto'], $nuevoExpediente, $_POST['txtImagenFechaPresentacion'], $imagenBinaria);
+            }
+        } else {
+            die("error|Verifique sus datos");
+        }
         break;
 
     case 'editarInfo':
         CrudDenuncias::editarInfo($_POST['txtIdDenuncia'], $_POST['txtStatusFormulario'], $_POST['txtTipoDenuncia'], $_POST['txtNumExpediente'], $_POST['txtFechaPresentacion'], $_POST['txtAnonimatoDenunciante'], $_POST['txtNombreDenunciante'], $_POST['txtDomicilioDenunciante'], $_POST['txtTelefonoDenunciante'], $_POST['txtCorreoDenunciante'], $_POST['txtSexoDenunciante'], $_POST['txtEdadDenunciante'], $_POST['txtSPDenunciante'], $_POST['txtPuestoDenunciante'], $_POST['txtEspecificarDenunciante'], $_POST['txtGradoEstudiosDenunciante'], $_POST['txtDiscapacidadDenunciante'], $_POST['txtNombreDenunciado'], $_POST['txtEntidadDenunciado'], $_POST['txtTelefonoDenunciado'], $_POST['txtCorreoDenunciado'], $_POST['txtSexoDenunciado'], $_POST['txtEdadDenunciado'], $_POST['txtSPDenunciado'], $_POST['txtEspecificarDenunciado'], $_POST['txtRelacionDenunciado'], $_POST['txtLugarDenuncia'], $_POST['txtFechaDenuncia'], $_POST['txtHoraDenuncia'], $_POST['txtNarracionDenuncia'], $_POST['txtNombreTestigo'], $_POST['txtDomicilioTestigo'], $_POST['txtTelefonoTestigo'], $_POST['txtCorreoTestigo'], $_POST['txtRelacionTestigo'], $_POST['txtTrabajaTestigo'], $_POST['txtEntidadTestigo'], $_POST['txtCargoTestigo']);
+        break;
+
+    case 'editarImg':
+        if ($_FILES['txtImagenDenuncia']['error'] === 4) {
+            CrudDenuncias::editarImgSinImg($_POST['txtImagenIdDenuncia'], $_POST['txtImagenPresunto'], $_POST['txtImagenNumExpediente'], $_POST['txtImagenFechaPresentacion']);
+        } elseif ($_FILES['txtImagenDenuncia']['error'] === 1) {
+            die("error|La imagen sobrepasa el limite de tamaño (2MB)");
+        } elseif ($_FILES['txtImagenDenuncia']['error'] === 0) {
+            $imagenBinaria = addslashes(file_get_contents($_FILES['txtImagenDenuncia']['tmp_name']));
+            $nombreArchivo = $_FILES['txtImagenDenuncia']['name'];
+            $extensiones = array('jpg', 'jpeg', 'gif', 'png', 'bmp');
+            $extension = explode('.', $nombreArchivo);
+            $extension = end($extension);
+            $extension = strtolower($extension);
+            if (!in_array($extension, $extensiones)) {
+                die('error|Sólo elija imagenes con extensiones: ' . implode(', ', $extensiones));
+            } else {
+                CrudDenuncias::editarImg($_POST['txtImagenIdDenuncia'], $_POST['txtImagenPresunto'], $_POST['txtImagenNumExpediente'], $_POST['txtImagenFechaPresentacion'], $imagenBinaria);
+            }
+        } else {
+            die("error|Verifique sus datos");
+        }
+        break;
+
+    case 'concluirDenuncia':
+        CrudDenuncias::concluirDenuncia($_POST['txtIdDenuncia']);
         break;
 
     default:
@@ -133,6 +192,7 @@ switch ($accion) {
                                                 '" . $row['tipoDenuncia'] . "',
                                                 '" . $row['numExpediente'] . "',
                                                 '" . $row['fechaPresentacion'] . "',
+                                                '" . base64_encode($row['imagenDenuncia']) . "',
                                                 '" . $row['anonimatoDenunciante'] . "',
                                                 '" . $row['nombreDenunciante'] . "',
                                                 '" . $row['domicilioDenunciante'] . "',
@@ -172,6 +232,7 @@ switch ($accion) {
                                                 '" . $row['tipoDenuncia'] . "',
                                                 '" . $row['numExpediente'] . "',
                                                 '" . $row['fechaPresentacion'] . "',
+                                                '" . base64_encode($row['imagenDenuncia']) . "',
                                                 '" . $row['anonimatoDenunciante'] . "',
                                                 '" . $row['nombreDenunciante'] . "',
                                                 '" . $row['domicilioDenunciante'] . "',
@@ -310,6 +371,7 @@ switch ($accion) {
                                                 '" . $row['tipoDenuncia'] . "',
                                                 '" . $row['numExpediente'] . "',
                                                 '" . $row['fechaPresentacion'] . "',
+                                                '" . base64_encode($row['imagenDenuncia']) . "',
                                                 '" . $row['anonimatoDenunciante'] . "',
                                                 '" . $row['nombreDenunciante'] . "',
                                                 '" . $row['domicilioDenunciante'] . "',
@@ -349,6 +411,7 @@ switch ($accion) {
                                                 '" . $row['tipoDenuncia'] . "',
                                                 '" . $row['numExpediente'] . "',
                                                 '" . $row['fechaPresentacion'] . "',
+                                                '" . base64_encode($row['imagenDenuncia']) . "',
                                                 '" . $row['anonimatoDenunciante'] . "',
                                                 '" . $row['nombreDenunciante'] . "',
                                                 '" . $row['domicilioDenunciante'] . "',
@@ -384,7 +447,12 @@ switch ($accion) {
                                                 '" . $row['cargoTestigo'] . "',
                                                 '" . $row['statusDenuncia'] . "'
                                             " . ');"></i>
-                                            <i class="far fa-check-square"></i>
+                                            <i class="far fa-check-square" onclick="prepararParaConcluir(' . "
+                                                '" . $row['idDenuncia'] . "',
+                                                '" . $row['nombreDenunciante'] . "',
+                                                '" . $row['nombreDenunciado'] . "',
+                                                '" . $row['tipoDenuncia'] . "'
+                                            " . ')"></i>
                                         </td>
                                     </tr>';
         }
@@ -487,6 +555,7 @@ switch ($accion) {
                                                 '" . $row['tipoDenuncia'] . "',
                                                 '" . $row['numExpediente'] . "',
                                                 '" . $row['fechaPresentacion'] . "',
+                                                '" . base64_encode($row['imagenDenuncia']) . "',
                                                 '" . $row['anonimatoDenunciante'] . "',
                                                 '" . $row['nombreDenunciante'] . "',
                                                 '" . $row['domicilioDenunciante'] . "',

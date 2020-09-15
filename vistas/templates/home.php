@@ -2,6 +2,16 @@
 session_start();
 
 if (isset($_SESSION['user_id'])) {
+    require_once "modelos/modeloConexion.php";
+    $idUsuario = $_SESSION['user_id'];
+    $stmt = Conexion::conectar()->prepare("SELECT usuario FROM usuarios WHERE idUsuario='$idUsuario';");
+    $stmt->execute();
+    $resultado = $stmt->fetch(PDO::FETCH_ASSOC);
+    $usuario = null;
+    if (count($resultado) > 0) {
+        $usuario = $resultado;
+        $stmt = null;
+    }
 ?>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <a class="navbar-brand" href="/AtencionADenuncias">Atención a denuncias</a>
@@ -44,7 +54,7 @@ if (isset($_SESSION['user_id'])) {
                     </button>
                     <div class="dropdown-menu dropdown-menu-right">
                         <div class="dropdown-item text-center">
-                            <h5 class="text-dark">Usuario</h5>
+                            <h5 class="text-dark"><?php echo $usuario['usuario']; ?></h5>
                         </div>
                         <div class="dropdown-divider"></div>
                         <div class="dropdown-item text-center bg-white">
@@ -54,6 +64,15 @@ if (isset($_SESSION['user_id'])) {
                 </div>
             </form>
         </div>
+    </nav>
+    <nav class="navbar navbar-light bg-white d-none" id="navTipoDenuncia">
+        <form class="px-5 pt-2" style="width: 100%;">
+            <div class="form-row">
+                <div class="col-12" style="color: #537F33;">
+                    <h6 class="text-justify text-center text-uppercase" id="txtPresuntoDenunciaV"></h6>
+                </div>
+            </div>
+        </form>
     </nav>
 
     <div class="tab-content" id="nav-tabContent">
@@ -66,9 +85,14 @@ if (isset($_SESSION['user_id'])) {
                 <input type="hidden" id="txtStatusFormulario">
                 <input type="hidden" id="txtIdDenuncia">
                 <div class="form-row">
-                    <div class="col-12 mb-3">
-                        <h5 class="font-weight-light text-primary" id="txtPresuntoDenuncia"></h5>
+                    <div class="col-12 mb-3 d-flex align-items-center">
+                        <h5 class="font-weight-light text-primary pt-1" id="txtPresuntoDenuncia"></h5>
+                        <button type="button" class="btn btn-transparent ml-3" data-toggle="modal" data-target="#modalPresuntoDenuncia">
+                            <i class="far fa-edit"></i>
+                        </button>
                     </div>
+                </div>
+                <div class="form-row">
                     <div class="col-lg-4 col-md-6 col-12 offset-lg-4 offset-md-0 mb-3 d-none" id="contenedorNumExpediente">
                         <label for="fechaPresentacion">Número de expediente</label>
                         <input type="text" class="form-control" id="txtNumExpediente" required disabled>
@@ -540,18 +564,68 @@ if (isset($_SESSION['user_id'])) {
             </form>
         </div>
         <div class="tab-pane fade" id="nav-nuevaDenunciaImg" role="tabpanel" aria-labelledby="nav-nuevaDenunciaImg-tab">
-            imagen denuncia
+            <div class="row align-items-center justify-content-center mx-1" style="min-height: 90vh;">
+                <div class="card my-3" style="max-width: 30rem;">
+                    <div class="card-body">
+                        <form id="formImgFormatoPresentacionDenuncia" class="needs-validation" novalidate>
+                            <input type="hidden" id="txtImagenIdDenuncia" name="txtImagenIdDenuncia" required>
+                            <input type="hidden" id="txtImagenPresunto" name="txtImagenPresunto" required>
+                            <input type="hidden" id="txtImagenNumExpediente" name="txtImagenNumExpediente" required>
+                            <input type="hidden" id="txtImagenFechaPresentacion" name="txtImagenFechaPresentacion" required>
+                            <div class="form-row">
+                                <div class="col-12 mb-3 d-flex align-items-center">
+                                    <h5 class="font-weight-light text-primary pt-1" id="txtImagenPresuntoDenuncia"></h5>
+                                    <button type="button" class="btn btn-transparent ml-3" data-toggle="modal" data-target="#modalPresuntoDenuncia">
+                                        <i class="far fa-edit"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="col-md-6 col-12 mb-3 d-none" id="contenedorNumExpedienteImg">
+                                    <label for="fechaPresentacion">Número de expediente</label>
+                                    <input type="text" class="form-control" id="txtImagenNumExpedienteV" required disabled>
+                                </div>
+                                <div class="col-md-6 col-12 mb-3">
+                                    <label for="fechaPresentacion">Fecha de presentación</label>
+                                    <input type="date" class="form-control" id="txtImagenFechaPresentacionV" required disabled>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="col-12">
+                                    <div class="custom-file mb-3">
+                                        <input type="file" class="custom-file-input" id="txtImagenDenuncia" name="txtImagenDenuncia" accept="image/png, .jpeg, .jpg, image/gif" required>
+                                        <label class="custom-file-label text-truncate" for="txtImagenDenuncia" id="labelImgDenuncia">Elegir imagen...</label>
+                                        <div class="valid-feedback">Correcto!</div>
+                                        <div class="invalid-feedback">Elija una imagen</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-row mb-3">
+                                <div class="col-12 d-flex justify-content-center">
+                                    <div id="contenedorImagen" class="px-1 text-center"></div>
+                                </div>
+                            </div>
+                            <div class="form-row justify-content-between px-1">
+                                <button class="btn btn-transparent" type="button" data-toggle="modal" data-target="#modalAyuda">
+                                    <i class="far fa-question-circle"></i>
+                                </button>
+                                <button class="btn btn-primary" type="submit">
+                                    Guardar denuncia
+                                    <i class="fas fa-arrow-circle-right"></i>
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
         </div>
         <div class="tab-pane fade" id="nav-vizualizador" role="tabpanel" aria-labelledby="nav-vizualizador-tab">
-            <form class="px-5 py-3">
-                <div class="form-row d-flex justify-content-between">
+            <form class="px-5 pb-3">
+                <div class="form-row d-flex justify-content-between px-2">
                     <img src="" style="height: 8vh;width: 8vh;">
                     <img src="vistas\static\img\Escudo_de_Armas_Oficial_del_Estado_de_Hidalgo.png" style="height: 8vh;width: 8vh;">
                 </div>
                 <div class="form-row">
-                    <!--<div class="col-12 mb-3">
-                        <h5 class="font-weight-light text-primary" id="txtPresuntoDenunciaV"></h5>
-                    </div>-->
                     <div class="col-12 py-2" style="color: #537F33;">
                         <h6 class="text-justify">FORMATO PARA LA PRESENTACIÓN DE UNA DENUNCIA ENTRE EL COMITÉ DE ÉTICA Y DE PREVENCIÓN DE CONFLICTOS DE INTERÉS DE LA OFICIALÍA MAYOR</h6>
                     </div>
@@ -564,222 +638,236 @@ if (isset($_SESSION['user_id'])) {
                         <input type="date" class="form-control form-control-sm" id="txtFechaPresentacionV" disabled>
                     </div>
                 </div>
-                <div class="form-row">
-                    <div class="col-12">
-                        <h6 class="text-justify text-white text-center py-1" style="background-color: #39511D;">DATOS DE LA PERSONA QUE PRESENTA LA DENUNCIA</h6>
-                    </div>
-                </div>
-                <div class="form-row">
-                    <div class="col-lg-2 col-md-3 mb-3">
-                        <label for="txtAnonimatoDenunciante">¿Desea el anonimato?</label>
-                        <select class="custom-select custom-select-sm" id="txtAnonimatoDenuncianteV" disabled>
-                            <option selected disabled value="">Elegir...</option>
-                            <option value="si">SI</option>
-                            <option value="no">NO</option>
-                        </select>
-                    </div>
-                    <div class="col-lg-4 col-md-4 mb-3">
-                        <label for="txtNombreDenunciante">Nombre</label>
-                        <input type="text" class="form-control form-control-sm" id="txtNombreDenuncianteV" disabled>
-                    </div>
-                    <div class="col-lg-4 col-md-5 mb-3">
-                        <label for="txtDomicilioDenunciante">Domicilio</label>
-                        <input type="text" class="form-control form-control-sm" id="txtDomicilioDenuncianteV" disabled>
-                    </div>
-                    <div class="col-lg-2 col-md-3 mb-3">
-                        <label for="txtTelefonoDenunciante">Teléfono</label>
-                        <input type="tel" class="form-control form-control-sm" id="txtTelefonoDenuncianteV" disabled>
-                    </div>
-                    <div class="col-lg-3 col-md-4 mb-3">
-                        <label for="txtCorreoDenunciante">Correo electrónico</label>
-                        <input type="email" class="form-control form-control-sm" id="txtCorreoDenuncianteV" disabled>
-                    </div>
-                    <div class="col-lg-2 col-md-3 mb-3">
-                        <label for="txtSexoDenunciante">Sexo</label>
-                        <select class="custom-select custom-select-sm" id="txtSexoDenuncianteV" disabled>
-                            <option selected disabled value="">Elegir...</option>
-                            <option value="masculino">Masculino</option>
-                            <option value="femenino">Femenino</option>
-                        </select>
-                    </div>
-                    <div class="col-lg-1 col-md-2 mb-3">
-                        <label for="txtEdadDenunciante">Edad</label>
-                        <input type="number" class="form-control form-control-sm" id="txtEdadDenuncianteV" disabled>
-                    </div>
-                    <div class="col-lg-3 col-md-6 mb-3">
-                        <label for="txtSPDenunciante">¿Es una persona servidora pública?</label>
-                        <select class="custom-select custom-select-sm" id="txtSPDenuncianteV" disabled>
-                            <option selected disabled value="">Elegir...</option>
-                            <option value="si">SI</option>
-                            <option value="no">NO</option>
-                        </select>
-                    </div>
-                    <div class="col-lg-3 col-md-6 mb-3 d-none" id="inputPuestoV">
-                        <label for="txtPuestoDenunciante" class="text-white">L</label>
-                        <div class="input-group input-group-sm">
-                            <div class="input-group-prepend">
-                                <div class="input-group-text">Puesto</div>
-                            </div>
-                            <input type="text" class="form-control" id="txtPuestoDenuncianteV" disabled>
+                <div id="contenedorDatosGenerales" class="d-none">
+                    <div class="form-row">
+                        <div class="col-12">
+                            <h6 class="text-justify text-white text-center py-1" style="background-color: #39511D;">DATOS DE LA PERSONA QUE PRESENTA LA DENUNCIA</h6>
                         </div>
                     </div>
-                    <div class="col-lg-3 col-md-6 mb-3 d-none" id="inputEspecificarV">
-                        <label for="txtEspecificarDenunciante" class="text-white">L</label>
-                        <div class="input-group input-group-sm">
-                            <div class="input-group-prepend">
-                                <div class="input-group-text">Especifique:</div>
+                    <div class="form-row">
+                        <div class="col-lg-2 col-md-3 mb-3">
+                            <label for="txtAnonimatoDenunciante">¿Desea el anonimato?</label>
+                            <select class="custom-select custom-select-sm" id="txtAnonimatoDenuncianteV" disabled>
+                                <option selected disabled value="">Elegir...</option>
+                                <option value="si">SI</option>
+                                <option value="no">NO</option>
+                            </select>
+                        </div>
+                        <div class="col-lg-4 col-md-4 mb-3">
+                            <label for="txtNombreDenunciante">Nombre</label>
+                            <input type="text" class="form-control form-control-sm" id="txtNombreDenuncianteV" disabled>
+                        </div>
+                        <div class="col-lg-4 col-md-5 mb-3">
+                            <label for="txtDomicilioDenunciante">Domicilio</label>
+                            <input type="text" class="form-control form-control-sm" id="txtDomicilioDenuncianteV" disabled>
+                        </div>
+                        <div class="col-lg-2 col-md-3 mb-3">
+                            <label for="txtTelefonoDenunciante">Teléfono</label>
+                            <input type="tel" class="form-control form-control-sm" id="txtTelefonoDenuncianteV" disabled>
+                        </div>
+                        <div class="col-lg-3 col-md-4 mb-3">
+                            <label for="txtCorreoDenunciante">Correo electrónico</label>
+                            <input type="email" class="form-control form-control-sm" id="txtCorreoDenuncianteV" disabled>
+                        </div>
+                        <div class="col-lg-2 col-md-3 mb-3">
+                            <label for="txtSexoDenunciante">Sexo</label>
+                            <select class="custom-select custom-select-sm" id="txtSexoDenuncianteV" disabled>
+                                <option selected disabled value="">Elegir...</option>
+                                <option value="masculino">Masculino</option>
+                                <option value="femenino">Femenino</option>
+                            </select>
+                        </div>
+                        <div class="col-lg-1 col-md-2 mb-3">
+                            <label for="txtEdadDenunciante">Edad</label>
+                            <input type="number" class="form-control form-control-sm" id="txtEdadDenuncianteV" disabled>
+                        </div>
+                        <div class="col-lg-3 col-md-6 mb-3">
+                            <label for="txtSPDenunciante">¿Es una persona servidora pública?</label>
+                            <select class="custom-select custom-select-sm" id="txtSPDenuncianteV" disabled>
+                                <option selected disabled value="">Elegir...</option>
+                                <option value="si">SI</option>
+                                <option value="no">NO</option>
+                            </select>
+                        </div>
+                        <div class="col-lg-3 col-md-6 mb-3 d-none" id="inputPuestoV">
+                            <label for="txtPuestoDenunciante" class="text-white">L</label>
+                            <div class="input-group input-group-sm">
+                                <div class="input-group-prepend">
+                                    <div class="input-group-text">Puesto</div>
+                                </div>
+                                <input type="text" class="form-control" id="txtPuestoDenuncianteV" disabled>
                             </div>
-                            <input type="text" class="form-control" id="txtEspecificarDenuncianteV" disabled>
+                        </div>
+                        <div class="col-lg-3 col-md-6 mb-3 d-none" id="inputEspecificarV">
+                            <label for="txtEspecificarDenunciante" class="text-white">L</label>
+                            <div class="input-group input-group-sm">
+                                <div class="input-group-prepend">
+                                    <div class="input-group-text">Especifique:</div>
+                                </div>
+                                <input type="text" class="form-control" id="txtEspecificarDenuncianteV" disabled>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-lg-6 col-md-6 mb-3">
+                            <label for="txtGradoEstudiosDenunciante">Grado de estudios</label>
+                            <input type="text" class="form-control form-control-sm" id="txtGradoEstudiosDenuncianteV" disabled>
+                        </div>
+                        <div class="col-lg-6 col-md-6 mb-3">
+                            <label for="txtDiscapacidadDenunciante">¿Vive con alguna discapacidad?</label>
+                            <input type="text" class="form-control form-control-sm" id="txtDiscapacidadDenuncianteV" disabled>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-12">
+                            <h6 class="text-justify text-white text-center py-1" style="background-color: #39511D;">DATOS DE LA PERSONA CONTRA QUIEN PRESENTA LA DENUNCIA</h6>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-lg-4 col-md-4 mb-3">
+                            <label for="txtNombreDenunciado">Nombre</label>
+                            <input type="text" class="form-control form-control-sm" id="txtNombreDenunciadoV" disabled>
+                        </div>
+                        <div class="col-lg-5 col-md-5 mb-3">
+                            <label for="txtEntidadDenunciado">Entidad o dependencia en la que se desempeña</label>
+                            <input type="text" class="form-control form-control-sm" id="txtEntidadDenunciadoV" disabled>
+                        </div>
+                        <div class="col-lg-3 col-md-3 mb-3">
+                            <label for="txtTelefonoDenunciado">Teléfono</label>
+                            <input type="tel" class="form-control form-control-sm" id="txtTelefonoDenunciadoV" disabled>
+                        </div>
+                        <div class="col-lg-3 col-md-5 mb-3">
+                            <label for="txtCorreoDenunciado">Correo electrónico</label>
+                            <input type="email" class="form-control form-control-sm" id="txtCorreoDenunciadoV" disabled>
+                        </div>
+                        <div class="col-lg-2 col-md-4 mb-3">
+                            <label for="txtSexoDenunciado">Sexo</label>
+                            <select class="custom-select custom-select-sm" id="txtSexoDenunciadoV" disabled>
+                                <option selected disabled value="">Elegir...</option>
+                                <option value="masculino">Masculino</option>
+                                <option value="femenino">Femenino</option>
+                            </select>
+                        </div>
+                        <div class="col-lg-1 col-md-3 mb-3">
+                            <label for="txtEdadDenunciado">Edad</label>
+                            <input type="number" class="form-control form-control-sm" id="txtEdadDenunciadoV" disabled>
+                        </div>
+                        <div class="col-lg-3 col-md-6 mb-3">
+                            <label for="txtSPDenunciado">¿Es una persona servidora pública?</label>
+                            <select class="custom-select custom-select-sm" id="txtSPDenunciadoV" disabled>
+                                <option selected disabled value="">Elegir...</option>
+                                <option value="si">SI</option>
+                                <option value="no">NO</option>
+                            </select>
+                        </div>
+                        <div class="col-lg-3 col-md-6 mb-3">
+                            <label for="txtEspecificarDenunciado" class="text-white">L</label>
+                            <div class="input-group input-group-sm">
+                                <div class="input-group-prepend">
+                                    <div class="input-group-text">Especifique:</div>
+                                </div>
+                                <input type="text" class="form-control" id="txtEspecificarDenunciadoV" disabled>
+                            </div>
+                        </div>
+                        <div class="col-12 mb-3">
+                            <label for="txtRelacionDenunciado">Relación con el denunciante</label>
+                            <input type="text" class="form-control form-control-sm" id="txtRelacionDenunciadoV" disabled>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-12">
+                            <h6 class="text-justify text-white text-center py-1" style="background-color: #39511D;">INFORMACIÓN DE LA DENUNCIA</h6>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-12 text-center">
+                            <h6 class="font-weight-light text-muted">Ocurrió en:</h6>
+                        </div>
+                        <div class="col-lg-4 col-md-4 mb-3">
+                            <label for="txtLugarDenuncia">Lugar</label>
+                            <input type="text" class="form-control form-control-sm" id="txtLugarDenunciaV" disabled>
+                        </div>
+                        <div class="col-lg-4 col-md-4 mb-3">
+                            <label for="txtFechaDenuncia">Fecha</label>
+                            <input type="date" class="form-control form-control-sm" id="txtFechaDenunciaV" disabled>
+                        </div>
+                        <div class="col-lg-4 col-md-4 mb-3">
+                            <label for="txtHoraDenuncia">Hora</label>
+                            <input type="time" class="form-control form-control-sm" id="txtHoraDenunciaV" disabled>
+                        </div>
+                        <div class="col-12 mb-3">
+                            <label for="txtNarracionDenuncia">Breve narración del hecho o conducta</label>
+                            <textarea class="form-control form-control-sm" id="txtNarracionDenunciaV" rows="3" disabled></textarea>
+                        </div>
+                        <div class="col-12">
+                            <p class="text-muted text-justify border p-2" style="font-size: small;"><b>Nota:</b> Puede anexar la narración en un documento independiente o utilizar las páginas que le sean necesarias.</p>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-12">
+                            <h6 class="text-justify text-white text-center py-1" style="background-color: #39511D;">DATOS DE LA PERSONA QUE HAYA SIDO TESTIGO DE LOS HECHOS</h6>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-lg-4 col-md-4 mb-3">
+                            <label for="txtNombreTestigo">Nombre</label>
+                            <input type="text" class="form-control form-control-sm" id="txtNombreTestigoV" disabled>
+                        </div>
+                        <div class="col-lg-4 col-md-5 mb-3">
+                            <label for="txtDomicilioTestigo">Domicilio</label>
+                            <input type="text" class="form-control form-control-sm" id="txtDomicilioTestigoV" disabled>
+                        </div>
+                        <div class="col-lg-4 col-md-3 mb-3">
+                            <label for="txtTelefonoTestigo">Teléfono</label>
+                            <input type="tel" class="form-control form-control-sm" id="txtTelefonoTestigoV" disabled>
+                        </div>
+                        <div class="col-lg-6 col-md-6 mb-3">
+                            <label for="txtCorreoTestigo">Correo electrónico</label>
+                            <input type="email" class="form-control form-control-sm" id="txtCorreoTestigoV" disabled>
+                        </div>
+                        <div class="col-lg-6 col-md-6 mb-3">
+                            <label for="txtRelacionTestigo">Relación con el denunciante</label>
+                            <input type="text" class="form-control form-control-sm" id="txtRelacionTestigoV" disabled>
+                        </div>
+                        <div class="col-lg-4 col-md-6 offset-lg-0 offset-md-3 mb-3">
+                            <label for="txtTrabajaTestigo">¿Trabaja en la administración pública estatal?</label>
+                            <select class="custom-select custom-select-sm" id="txtTrabajaTestigoV" disabled>
+                                <option selected disabled value="">Elegir...</option>
+                                <option value="si">SI</option>
+                                <option value="no">NO</option>
+                            </select>
+                        </div>
+                        <div class="col-lg-4 col-md-6 mb-3 d-none" id="inputEDV">
+                            <label for="txtEntidadTestigo" class="text-white">+</label>
+                            <div class="input-group input-group-sm">
+                                <div class="input-group-prepend">
+                                    <div class="input-group-text">Entidad o dependencia</div>
+                                </div>
+                                <input type="text" class="form-control" id="txtEntidadTestigoV" disabled>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-6 mb-3 d-none" id="inputCargoV">
+                            <label for="txtCargoTestigo" class="text-white">+</label>
+                            <div class="input-group input-group-sm">
+                                <div class="input-group-prepend">
+                                    <div class="input-group-text">Cargo</div>
+                                </div>
+                                <input type="text" class="form-control" id="txtCargoTestigoV" disabled>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div class="form-row">
-                    <div class="col-lg-6 col-md-6 mb-3">
-                        <label for="txtGradoEstudiosDenunciante">Grado de estudios</label>
-                        <input type="text" class="form-control form-control-sm" id="txtGradoEstudiosDenuncianteV" disabled>
-                    </div>
-                    <div class="col-lg-6 col-md-6 mb-3">
-                        <label for="txtDiscapacidadDenunciante">¿Vive con alguna discapacidad?</label>
-                        <input type="text" class="form-control form-control-sm" id="txtDiscapacidadDenuncianteV" disabled>
-                    </div>
-                </div>
-                <div class="form-row">
-                    <div class="col-12">
-                        <h6 class="text-justify text-white text-center py-1" style="background-color: #39511D;">DATOS DE LA PERSONA CONTRA QUIEN PRESENTA LA DENUNCIA</h6>
-                    </div>
-                </div>
-                <div class="form-row">
-                    <div class="col-lg-4 col-md-4 mb-3">
-                        <label for="txtNombreDenunciado">Nombre</label>
-                        <input type="text" class="form-control form-control-sm" id="txtNombreDenunciadoV" disabled>
-                    </div>
-                    <div class="col-lg-5 col-md-5 mb-3">
-                        <label for="txtEntidadDenunciado">Entidad o dependencia en la que se desempeña</label>
-                        <input type="text" class="form-control form-control-sm" id="txtEntidadDenunciadoV" disabled>
-                    </div>
-                    <div class="col-lg-3 col-md-3 mb-3">
-                        <label for="txtTelefonoDenunciado">Teléfono</label>
-                        <input type="tel" class="form-control form-control-sm" id="txtTelefonoDenunciadoV" disabled>
-                    </div>
-                    <div class="col-lg-3 col-md-5 mb-3">
-                        <label for="txtCorreoDenunciado">Correo electrónico</label>
-                        <input type="email" class="form-control form-control-sm" id="txtCorreoDenunciadoV" disabled>
-                    </div>
-                    <div class="col-lg-2 col-md-4 mb-3">
-                        <label for="txtSexoDenunciado">Sexo</label>
-                        <select class="custom-select custom-select-sm" id="txtSexoDenunciadoV" disabled>
-                            <option selected disabled value="">Elegir...</option>
-                            <option value="masculino">Masculino</option>
-                            <option value="femenino">Femenino</option>
-                        </select>
-                    </div>
-                    <div class="col-lg-1 col-md-3 mb-3">
-                        <label for="txtEdadDenunciado">Edad</label>
-                        <input type="number" class="form-control form-control-sm" id="txtEdadDenunciadoV" disabled>
-                    </div>
-                    <div class="col-lg-3 col-md-6 mb-3">
-                        <label for="txtSPDenunciado">¿Es una persona servidora pública?</label>
-                        <select class="custom-select custom-select-sm" id="txtSPDenunciadoV" disabled>
-                            <option selected disabled value="">Elegir...</option>
-                            <option value="si">SI</option>
-                            <option value="no">NO</option>
-                        </select>
-                    </div>
-                    <div class="col-lg-3 col-md-6 mb-3">
-                        <label for="txtEspecificarDenunciado" class="text-white">L</label>
-                        <div class="input-group input-group-sm">
-                            <div class="input-group-prepend">
-                                <div class="input-group-text">Especifique:</div>
-                            </div>
-                            <input type="text" class="form-control" id="txtEspecificarDenunciadoV" disabled>
+                <div id="contenedorImagenGeneral" class="d-none">
+                    <div class="form-row">
+                        <div class="col-12 mb-1">
+                            <h6 class="text-justify text-white text-center py-1" style="background-color: #39511D;">DATOS GENERALES DE LA DENUNCIA</h6>
                         </div>
                     </div>
-                    <div class="col-12 mb-3">
-                        <label for="txtRelacionDenunciado">Relación con el denunciante</label>
-                        <input type="text" class="form-control form-control-sm" id="txtRelacionDenunciadoV" disabled>
+                    <div class="form-row">
+                        <div class="col-12 text-center mb-3" id="contenedorImagenFormato"></div>
                     </div>
                 </div>
                 <div class="form-row">
-                    <div class="col-12">
-                        <h6 class="text-justify text-white text-center py-1" style="background-color: #39511D;">INFORMACIÓN DE LA DENUNCIA</h6>
-                    </div>
-                </div>
-                <div class="form-row">
-                    <div class="col-12 text-center">
-                        <h6 class="font-weight-light text-muted">Ocurrió en:</h6>
-                    </div>
-                    <div class="col-lg-4 col-md-4 mb-3">
-                        <label for="txtLugarDenuncia">Lugar</label>
-                        <input type="text" class="form-control form-control-sm" id="txtLugarDenunciaV" disabled>
-                    </div>
-                    <div class="col-lg-4 col-md-4 mb-3">
-                        <label for="txtFechaDenuncia">Fecha</label>
-                        <input type="date" class="form-control form-control-sm" id="txtFechaDenunciaV" disabled>
-                    </div>
-                    <div class="col-lg-4 col-md-4 mb-3">
-                        <label for="txtHoraDenuncia">Hora</label>
-                        <input type="time" class="form-control form-control-sm" id="txtHoraDenunciaV" disabled>
-                    </div>
-                    <div class="col-12 mb-3">
-                        <label for="txtNarracionDenuncia">Breve narración del hecho o conducta</label>
-                        <textarea class="form-control form-control-sm" id="txtNarracionDenunciaV" rows="3" disabled></textarea>
-                    </div>
-                    <div class="col-12">
-                        <p class="text-muted text-justify border p-2" style="font-size: small;"><b>Nota:</b> Puede anexar la narración en un documento independiente o utilizar las páginas que le sean necesarias.</p>
-                    </div>
-                </div>
-                <div class="form-row">
-                    <div class="col-12">
-                        <h6 class="text-justify text-white text-center py-1" style="background-color: #39511D;">DATOS DE LA PERSONA QUE HAYA SIDO TESTIGO DE LOS HECHOS</h6>
-                    </div>
-                </div>
-                <div class="form-row">
-                    <div class="col-lg-4 col-md-4 mb-3">
-                        <label for="txtNombreTestigo">Nombre</label>
-                        <input type="text" class="form-control form-control-sm" id="txtNombreTestigoV" disabled>
-                    </div>
-                    <div class="col-lg-4 col-md-5 mb-3">
-                        <label for="txtDomicilioTestigo">Domicilio</label>
-                        <input type="text" class="form-control form-control-sm" id="txtDomicilioTestigoV" disabled>
-                    </div>
-                    <div class="col-lg-4 col-md-3 mb-3">
-                        <label for="txtTelefonoTestigo">Teléfono</label>
-                        <input type="tel" class="form-control form-control-sm" id="txtTelefonoTestigoV" disabled>
-                    </div>
-                    <div class="col-lg-6 col-md-6 mb-3">
-                        <label for="txtCorreoTestigo">Correo electrónico</label>
-                        <input type="email" class="form-control form-control-sm" id="txtCorreoTestigoV" disabled>
-                    </div>
-                    <div class="col-lg-6 col-md-6 mb-3">
-                        <label for="txtRelacionTestigo">Relación con el denunciante</label>
-                        <input type="text" class="form-control form-control-sm" id="txtRelacionTestigoV" disabled>
-                    </div>
-                    <div class="col-lg-4 col-md-6 offset-lg-0 offset-md-3 mb-3">
-                        <label for="txtTrabajaTestigo">¿Trabaja en la administración pública estatal?</label>
-                        <select class="custom-select custom-select-sm" id="txtTrabajaTestigoV" disabled>
-                            <option selected disabled value="">Elegir...</option>
-                            <option value="si">SI</option>
-                            <option value="no">NO</option>
-                        </select>
-                    </div>
-                    <div class="col-lg-4 col-md-6 mb-3 d-none" id="inputEDV">
-                        <label for="txtEntidadTestigo" class="text-white">+</label>
-                        <div class="input-group input-group-sm">
-                            <div class="input-group-prepend">
-                                <div class="input-group-text">Entidad o dependencia</div>
-                            </div>
-                            <input type="text" class="form-control" id="txtEntidadTestigoV" disabled>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-6 mb-3 d-none" id="inputCargoV">
-                        <label for="txtCargoTestigo" class="text-white">+</label>
-                        <div class="input-group input-group-sm">
-                            <div class="input-group-prepend">
-                                <div class="input-group-text">Cargo</div>
-                            </div>
-                            <input type="text" class="form-control" id="txtCargoTestigoV" disabled>
-                        </div>
-                    </div>
                     <div class="col-12">
                         <p class="text-muted text-justify border p-2" style="font-size: small;"><b>Nota:</b> Se hace de su conocimiento que es responsabilidad de los integrantes del Comité de Ética y de Prevención de Conflictos de Interés (CEPCI) de la Oficialía Mayor, proteger los datos personales que estén bajo custodia y sujetarse a lo establecido en las leyes correspondientes a la materia.</p>
                     </div>
@@ -794,6 +882,9 @@ if (isset($_SESSION['user_id'])) {
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="modalPresuntoDenunciaLabel">La denuncia es por un presunto...</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
                 </div>
                 <div class="modal-body">
                     <div class="row">
@@ -854,6 +945,24 @@ if (isset($_SESSION['user_id'])) {
                                 </div>
                             </div>
                         </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Ayuda -->
+    <div class="modal fade" id="modalAyuda" tabindex="-1" aria-labelledby="modalAyudaLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <div class="form-row">
+                        <div class="col-12 mb-3">
+                            <p class="card-text text-justify p-2 border text-muted" style="font-size: small;"><b>Nota:</b> Asegurate de que la imagen que intentas subir tenga un peso menor a 2MB y contenga la totalidad de los datos requeridos en el formato para la presentación de una denuncia ante el comité de ética y de prevención de conflictos de interés de la oficicialía mayor. Usar esta opción solo permitirá una imagen por denuncia y se guardará como una denuncia pendiente de evaluación por los miembros del comité.</p>
+                        </div>
+                    </div>
+                    <div class="form-row justify-content-end pr-1">
+                        <button type="button" class="btn btn-sm btn-outline-secondary" data-dismiss="modal">Entendido</button>
                     </div>
                 </div>
             </div>

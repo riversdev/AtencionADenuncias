@@ -1,4 +1,6 @@
 <?php
+error_reporting(0);
+
 require_once "modeloConexion.php";
 
 class CrudDenuncias
@@ -33,6 +35,21 @@ class CrudDenuncias
             }
         } catch (Exception $e) {
             echo "error|Sin conexión !";
+        }
+        $stmt = null;
+    }
+    public static function guardarImg($tipoDenuncia, $numExpediente, $fechaPresentacion, $imagenDenuncia)
+    {
+        $SQL = "INSERT INTO denuncias (tipoDenuncia,numExpediente,fechaPresentacion,imagenDenuncia,statusDenuncia) VALUES ('$tipoDenuncia','$numExpediente','$fechaPresentacion','$imagenDenuncia','pendiente');";
+        $stmt = Conexion::conectar()->prepare($SQL);
+        try {
+            if ($stmt->execute()) {
+                echo "success|Denuncia pendiente guardada !";
+            } else {
+                echo "error|Imposible guardar denuncia pendiente !";
+            }
+        } catch (Exception $e) {
+            echo "error|Imagen demasiado grande !";
         }
         $stmt = null;
     }
@@ -83,6 +100,62 @@ class CrudDenuncias
                 echo "success|Denuncia " . $statusInformacion . " editada !";
             } else {
                 echo "error|Imposible editar denuncia " . $statusInformacion . " !";
+            }
+        } catch (Exception $e) {
+            echo "error|Sin conexión !";
+        }
+        $stmt = null;
+    }
+    public static function editarImg($idDenuncia, $tipoDenuncia, $numExpediente, $fechaPresentacion, $imagenDenuncia)
+    {
+        $SQL = "UPDATE denuncias
+                SET tipoDenuncia='$tipoDenuncia',
+                    numExpediente='$numExpediente',
+                    fechaPresentacion='$fechaPresentacion',
+                    imagenDenuncia='$imagenDenuncia'
+                WHERE idDenuncia='$idDenuncia';";
+        $stmt = Conexion::conectar()->prepare($SQL);
+        try {
+            if ($stmt->execute()) {
+                echo "success|Denuncia pendiente editada !";
+            } else {
+                echo "error|Imposible editar denuncia pendiente !";
+            }
+        } catch (Exception $e) {
+            echo "error|Imagen demasiado grande !";
+        }
+        $stmt = null;
+    }
+    public static function editarImgSinImg($idDenuncia, $tipoDenuncia, $numExpediente, $fechaPresentacion)
+    {
+        $SQL = "UPDATE denuncias
+                SET tipoDenuncia='$tipoDenuncia',
+                    numExpediente='$numExpediente',
+                    fechaPresentacion='$fechaPresentacion'
+                WHERE idDenuncia='$idDenuncia';";
+        $stmt = Conexion::conectar()->prepare($SQL);
+        try {
+            if ($stmt->execute()) {
+                echo "success|Denuncia pendiente editada !";
+            } else {
+                echo "error|Imposible editar denuncia pendiente !";
+            }
+        } catch (Exception $e) {
+            echo "error|Imagen demasiado grande !";
+        }
+        $stmt = null;
+    }
+    public static function concluirDenuncia($idDenuncia)
+    {
+        $SQL = "UPDATE denuncias
+                SET statusDenuncia='concluida'
+                WHERE idDenuncia='$idDenuncia';";
+        $stmt = Conexion::conectar()->prepare($SQL);
+        try {
+            if ($stmt->execute()) {
+                echo "success|Denuncia concluida !";
+            } else {
+                echo "error|Imposible concluir denuncia !";
             }
         } catch (Exception $e) {
             echo "error|Sin conexión !";
