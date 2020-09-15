@@ -5,22 +5,23 @@ if (isset($_SESSION['user_id'])) {
     header("Location: /AtencionADenuncias/home");
 } else {
 ?>
-    <div class="container" style="overflow-y: hidden;">
+    <div id="particles-js"></div>
+    <div class="container contenedor" style="overflow-y: hidden;">
         <div class="row align-items-center justify-content-center" style="height: 100vh;">
-            <div class="col-lg-7 col-sm-6 col-12 border">
+            <div class="col-lg-7 col-sm-6 col-12">
                 <div class="row align-items-center justify-content-start">
-                    <div class="card border border-0">
+                    <div class="card border border-0 bg-transparent">
                         <div class="card-body">
-                            <h5 class="card-text text-justify">ATENCIÓN A DENUNCIAS POR LOS INCUMPLIMIENTOS DEL CÓDIGO DE ÉTICA DE LA ADMINISTRACIÓN PÚBLICA DEL ESTADO DE HIDALGO Y CÓDIGO DE CONDUCTA DE OFICIALÍA MAYOR.</h5>
+                            <h3 class="card-text text-justify text-white">ATENCIÓN A DENUNCIAS POR LOS INCUMPLIMIENTOS DEL CÓDIGO DE ÉTICA DE LA ADMINISTRACIÓN PÚBLICA DEL ESTADO DE HIDALGO Y CÓDIGO DE CONDUCTA DE OFICIALÍA MAYOR.</h3>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="col-lg-5 col-sm-6 col-12 border">
+            <div class="col-lg-5 col-sm-6 col-12">
                 <div class="row align-items-center justify-content-end">
                     <div class="card" style="max-width: 20rem;">
                         <div class="card-body">
-                            <h5 class="card-title">Identifícate</h5>
+                            <h5 class="card-title text-primary">Identifícate</h5>
                             <div class="dropdown-divider"></div>
                             <form id="formIdentificarUsuario" class="needs-validation" novalidate>
                                 <div class="form-row">
@@ -46,7 +47,7 @@ if (isset($_SESSION['user_id'])) {
                                     </div>
                                 </div>
                                 <div class="form-row d-flex justify-content-end">
-                                    <button class="btn btn-primary" type="submit">
+                                    <button class="btn btn-outline-primary" type="submit">
                                         Ingresar
                                         <i class="fas fa-arrow-circle-right"></i>
                                     </button>
@@ -61,6 +62,10 @@ if (isset($_SESSION['user_id'])) {
 <?php
 }
 ?>
+
+<!-- PARTICLES JS 2.0.0 -->
+<script src="vistas\static\particles\particles.js-master\particles.js"></script>
+<script src="vistas\static\particles\app.js"></script>
 
 <script>
     // VALIDACION DE FORMULARIOS BIENVENIDA Y EVENTOS SUBMIT
@@ -110,3 +115,19 @@ if (isset($_SESSION['user_id'])) {
         }, false);
     })();
 </script>
+
+<style>
+    #particles-js {
+        height: 100vh;
+        width: 100%;
+        position: fixed;
+        z-index: -1;
+        background-color: #092432;
+    }
+
+    .contenedor {
+        position: relative;
+        height: 85vh;
+        z-index: 1;
+    }
+</style>
