@@ -331,9 +331,13 @@ switch ($accion) {
                                         <td>' . $row['tipoDenuncia'] . '</td>
                                         <th scope="row" class="text-center">' . $row['numExpediente'] . '</th>
                                         <td class="text-center">' . date("d-m-Y", strtotime($row['fechaPresentacion'])) . '</td>
-                                        <td>' . $row['anonimatoDenunciante'] . '</td>
-                                        <td>' . $row['nombreDenunciante'] . '</td>
-                                        <td>' . $row['domicilioDenunciante'] . '</td>
+                                        <td>' . $row['anonimatoDenunciante'] . '</td>';
+            if ($row['nombreDenunciante'] != "") {
+                echo '                  <td>' . $row['nombreDenunciante'] . '</td>';
+            } else {
+                echo '                  <td class="text-success" style="font-size:x-small;"> contiene imagen </td>';
+            }
+            echo '                      <td>' . $row['domicilioDenunciante'] . '</td>
                                         <td>' . $row['telefonoDenunciante'] . '</td>
                                         <td>' . $row['correoDenunciante'] . '</td>
                                         <td>' . $row['sexoDenunciante'] . '</td>
@@ -342,9 +346,13 @@ switch ($accion) {
                                         <td>' . $row['puestoDenunciante'] . '</td>
                                         <td>' . $row['especificarDenunciante'] . '</td>
                                         <td>' . $row['gradoEstudiosDenunciante'] . '</td>
-                                        <td>' . $row['discapacidadDenunciante'] . '</td>
-                                        <td>' . $row['nombreDenunciado'] . '</td>
-                                        <td>' . $row['entidadDenunciado'] . '</td>
+                                        <td>' . $row['discapacidadDenunciante'] . '</td>';
+            if ($row['nombreDenunciante'] != "") {
+                echo '                  <td>' . $row['nombreDenunciado'] . '</td>';
+            } else {
+                echo '                  <td class="text-success" style="font-size:x-small;"> contiene imagen </td>';
+            }
+            echo '                      <td>' . $row['entidadDenunciado'] . '</td>
                                         <td>' . $row['telefonoDenunciado'] . '</td>
                                         <td>' . $row['correoDenunciado'] . '</td>
                                         <td>' . $row['sexoDenunciado'] . '</td>
