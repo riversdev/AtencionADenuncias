@@ -34,7 +34,7 @@ class CrudDenuncias
                 echo "error|Imposible guardar denuncia " . $statusInformacion . " !";
             }
         } catch (Exception $e) {
-            echo "error|Sin conexión !";
+            echo "error|Imposible guardar denuncia !|" . $e;
         }
         $stmt = null;
     }
@@ -49,7 +49,7 @@ class CrudDenuncias
                 echo "error|Imposible guardar denuncia pendiente !";
             }
         } catch (Exception $e) {
-            echo "error|Imagen demasiado grande !";
+            echo "error|Imagen demasiado grande !|" . $e;
         }
         $stmt = null;
     }
@@ -102,7 +102,7 @@ class CrudDenuncias
                 echo "error|Imposible editar denuncia " . $statusInformacion . " !";
             }
         } catch (Exception $e) {
-            echo "error|Sin conexión !";
+            echo "error|Imposible editar denuncia !|" . $e;
         }
         $stmt = null;
     }
@@ -122,7 +122,7 @@ class CrudDenuncias
                 echo "error|Imposible editar denuncia pendiente !";
             }
         } catch (Exception $e) {
-            echo "error|Imagen demasiado grande !";
+            echo "error|Imagen demasiado grande !|" . $e;
         }
         $stmt = null;
     }
@@ -141,7 +141,7 @@ class CrudDenuncias
                 echo "error|Imposible editar denuncia pendiente !";
             }
         } catch (Exception $e) {
-            echo "error|Imagen demasiado grande !";
+            echo "error|Imposible editar denuncia !|" . $e;
         }
         $stmt = null;
     }
@@ -158,7 +158,7 @@ class CrudDenuncias
                 echo "error|Imposible concluir denuncia !";
             }
         } catch (Exception $e) {
-            echo "error|Sin conexión !";
+            echo "error|Imposible concluir denuncia !|" . $e;
         }
         $stmt = null;
     }

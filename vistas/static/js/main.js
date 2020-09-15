@@ -357,6 +357,9 @@ function enviarDenuncia(objDenuncia, accion) {
                     alertify.success(mensaje[1]);
                 } else if (mensaje[0] == "error") {
                     alertify.error(mensaje[1]);
+                    if (mensaje[2]) {
+                        console.log(mensaje[2]);
+                    }
                 } else {
                     console.log("Tipo de respuesta no definido. " + data);
                 }
@@ -388,6 +391,9 @@ function enviarImagenDenuncia(form, accion) {
             alertify.success(mensaje[1]);
         } else if (mensaje[0] == 'error') {
             alertify.error(mensaje[1]);
+            if (mensaje[2]) {
+                console.log(mensaje[2]);
+            }
         } else {
             console.log("Tipo de respuesta no definido. " + data);
         }
