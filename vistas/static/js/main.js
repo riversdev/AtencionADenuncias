@@ -161,7 +161,7 @@ function prepararValidacionDeFormularios() {
                 event.preventDefault();
                 event.stopPropagation();
                 if (form.id == "formFormatoPresentacionDenuncia") {
-                    if ($("#txtNumExpediente").val() == "") {
+                    if ($("#txtIdDenuncia").val() == "") {
                         alertify.confirm('Guardando denuncia...', 'La información está incompleta y/o es incorrecta, si acepta se guardará como denuncia inconclusa y tendrá 3 dias para completarla en el menú "Denuncias".',
                             function () {
                                 $("#txtStatusFormulario").val("inconclusa");
@@ -186,7 +186,7 @@ function prepararValidacionDeFormularios() {
             } else {
                 event.preventDefault();
                 if (form.id == "formFormatoPresentacionDenuncia") {
-                    if ($("#txtNumExpediente").val() == "") {
+                    if ($("#txtIdDenuncia").val() == "") {
                         $("#txtStatusFormulario").val("pendiente");
                         enviarDenuncia(recolectarDatosDenuncia(), "guardarInfo");
                     } else {
@@ -194,7 +194,7 @@ function prepararValidacionDeFormularios() {
                         enviarDenuncia(recolectarDatosDenuncia(), "editarInfo");
                     }
                 } else if (form.id == "formImgFormatoPresentacionDenuncia") {
-                    if ($("#txtImagenNumExpediente").val() == "") {
+                    if ($("#txtImagenIdDenuncia").val() == "") {
                         enviarImagenDenuncia(form.id, "guardarImg");
                     } else {
                         enviarImagenDenuncia(form.id, "editarImg");
@@ -210,6 +210,7 @@ function prepararFormato(presunto) {
     if (tipoNuevaDenuncia == "llenarFormulario") {
         // CONFIGURACIONES INICIALES DEL FORMULARIO FORMATO DE DENUNCIAS
         document.getElementById("formFormatoPresentacionDenuncia").reset();
+        $("#txtIdDenuncia").val("");
         $("#contenedorNumExpediente").addClass("d-none");
         cadPresuntoDenuncia = "Denuncia por " + presuntoDenuncia[presunto];
         $("#txtPresuntoDenuncia").html(cadPresuntoDenuncia);
@@ -221,6 +222,7 @@ function prepararFormato(presunto) {
         $('#nav-nuevaDenunciaForm-tab').tab('show');
     } else if (tipoNuevaDenuncia == "subirImagen") {
         document.getElementById("formImgFormatoPresentacionDenuncia").reset();
+        $("#txtImagenIdDenuncia").val("");
         $("#contenedorNumExpedienteImg").addClass("d-none");
         $("#txtImagenDenuncia").prop("required", true);
         cadPresuntoDenuncia = "Denuncia por " + presuntoDenuncia[presunto];
