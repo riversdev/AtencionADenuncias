@@ -144,10 +144,12 @@ $(document).ready(function () {
     $('#nav-vizualizador-tab').on('shown.bs.tab', function (e) {
         $('#btnImprimir').removeClass('d-none');
         $('#navTipoDenuncia').removeClass('d-none');
+        document.body.style.backgroundColor = "white";
     });
     $('#nav-vizualizador-tab').on('hidden.bs.tab', function (e) {
         $('#btnImprimir').addClass('d-none');
         $('#navTipoDenuncia').addClass('d-none');
+        document.body.style.backgroundColor = "#F0F4F7";
     });
 });
 

@@ -9,11 +9,15 @@
     <script src="vistas\static\js\jquery-3.5.1.min.js"></script>
     <!-- bootstrap-4.5.2-dist -->
     <link type="text/css" rel="stylesheet" href="vistas\static\bootstrap\css\bootstrap.min.css">
+    <!-- Bootswatch - Flatly -->
+    <link rel="stylesheet" href="vistas\static\bootswatch\bootswatch-flatly.css">
     <script type="text/javascript" src="vistas\static\bootstrap\js\bootstrap.min.js"></script>
     <script src="vistas\static\bootstrap\js\bootstrap.bundle.min.js"></script>
     <!-- DataTables-1.10.21 -->
     <link rel="stylesheet" href="vistas\static\datatables\datatables.css">
     <script src="vistas\static\datatables\datatables.js"></script>
+    <link rel="stylesheet" href="vistas\static\datatables\DataTables-1.10.21\css\dataTables.bootstrap4.css">
+    <script src="vistas\static\datatables\DataTables-1.10.21\js\dataTables.bootstrap4.js"></script>
     <!-- fontawesome-free-5.14.0-web -->
     <link rel="stylesheet" href="vistas\static\fontawesome\css\all.css">
     <script src="vistas\static\fontawesome\js\all.js"></script>
@@ -23,9 +27,11 @@
     <script src="vistas\static\alertify\js\alertify.js"></script>
     <!-- Custom JS -->
     <script src="vistas\static\js\main.js"></script>
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="vistas\static\css\main.css">
 </head>
 
-<body>
+<body style="background-color: #F0F4F7;">
     <?php
     require_once "./controladores/controladorVistas.php";
     $vt = new controladorVistas();

@@ -98,9 +98,9 @@ switch ($accion) {
         echo '
             <div class="row align-items-center justify-content-center mx-5">
                 <div class="col-12 p-3">
-                    <div class="card">
+                    <div class="card bg-white border border-info border-top-0 border-bottom-0 border-right-0 shadow-sm bg-white rounded">
                         <div class="card-body">
-                            <h5 class="card-title">Inconclusas</h5>
+                            <h6 class="card-title text-info">INCONCLUSAS</h6>
                             <table id="tablaInconclusas" class="order-column hover nowrap compact" style="width: 100%;">
                                 <thead>
                                     <tr>
@@ -277,9 +277,9 @@ switch ($accion) {
                     </div>
                 </div>
                 <div class="col-12 p-3">
-                    <div class="card">
+                    <div class="card bg-white border border-info border-top-0 border-bottom-0 border-right-0 shadow-sm bg-white rounded">
                         <div class="card-body">
-                            <h5 class="card-title">Pendientes</h5>
+                            <h6 class="card-title text-info">PENDIENTES</h6>
                             <table id="tablaPendientes" class="order-column hover nowrap compact" style="width: 100%;">
                                 <thead>
                                     <tr>
@@ -462,9 +462,9 @@ switch ($accion) {
                     </div>
                 </div>
                 <div class="col-12 p-3">
-                    <div class="card">
+                    <div class="card bg-white border border-info border-top-0 border-bottom-0 border-right-0 shadow-sm bg-white rounded">
                         <div class="card-body">
-                            <h5 class="card-title">Concluidas</h5>
+                            <h6 class="card-title text-info">CONCLUIDAS</h6>
                             <table id="tablaConcluidas" class="order-column hover nowrap compact" style="width: 100%;">
                                 <thead>
                                     <tr>

@@ -1,0 +1,18 @@
+.dataTables_wrapper .dataTables_paginate .paginate_button {
+  padding: 0px;
+  margin-left: 0px;
+  display: inline;
+  border: 1px solid white !important;
+}
+.dataTables_wrapper .dataTables_paginate .paginate_button:hover {
+  border: 1px solid white !important;
+}
+
+.page-item.active .page-link {
+  background-color: #e63c4d !important;
+  color: white !important;
+}
+.page-link {
+  color: #e63c4d !important;
+  background-color: white !important;
+}
