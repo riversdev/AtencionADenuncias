@@ -29,20 +29,22 @@ $(document).ready(function () {
         }
     });
     // Previzualizar imagen
-    document.getElementById("txtImagenDenuncia").onchange = function (e) {
-        if (e.target.files[0] != undefined) {
-            let reader = new FileReader();
-            reader.readAsDataURL(e.target.files[0]);
-            reader.onload = function () {
-                let contenedorImagen = document.getElementById('contenedorImagen');
-                let image = document.createElement('img');
-                image.src = reader.result;
-                image.style = "height: 30vh; max-width: 27rem;";
-                contenedorImagen.innerHTML = '';
-                contenedorImagen.append(image);
-            };
-        } else {
-            $("#contenedorImagen").empty();
+    if ($("#txtImagenDenuncia").val() != undefined) {
+        document.getElementById("txtImagenDenuncia").onchange = function (e) {
+            if (e.target.files[0] != undefined) {
+                let reader = new FileReader();
+                reader.readAsDataURL(e.target.files[0]);
+                reader.onload = function () {
+                    let contenedorImagen = document.getElementById('contenedorImagen');
+                    let image = document.createElement('img');
+                    image.src = reader.result;
+                    image.style = "height: 30vh; max-width: 27rem;";
+                    contenedorImagen.innerHTML = '';
+                    contenedorImagen.append(image);
+                };
+            } else {
+                $("#contenedorImagen").empty();
+            }
         }
     }
     alertify.success("Todo está listo!");
