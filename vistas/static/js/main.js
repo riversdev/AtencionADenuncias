@@ -153,6 +153,16 @@ $(document).ready(function () {
         $('#navTipoDenuncia').addClass('d-none');
         document.body.style.backgroundColor = "#F0F4F7";
     });
+
+    // ACTIVE MANUAL NAVBAR
+    $('#nav-denuncias-tab').on('shown.bs.tab', function (e) {
+        $('#nav-denuncias-tab').addClass('text-white');
+        $('#nav-denuncias-tab').removeClass('text-secondary');
+    });
+    $('#nav-denuncias-tab').on('hidden.bs.tab', function (e) {
+        $('#nav-denuncias-tab').addClass('text-secondary');
+        $('#nav-denuncias-tab').removeClass('text-white');
+    });
 });
 
 function prepararValidacionDeFormularios() {

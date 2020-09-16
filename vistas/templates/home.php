@@ -35,7 +35,7 @@ if (isset($_SESSION['user_id'])) {
                     </a>
                 </div>
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" id="opcionDenuncia" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <a class="nav-link dropdown-toggle text-secondary" id="opcionDenuncia" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         Nueva denuncia
                     </a>
                     <div class="dropdown-menu" aria-labelledby="opcionDenuncia">
