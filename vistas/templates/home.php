@@ -13,7 +13,7 @@ if (isset($_SESSION['user_id'])) {
         $stmt = null;
     }
 ?>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary sticky-top shadow-sm">
         <a class="navbar-brand" href="/AtencionADenuncias">Atención a denuncias</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
