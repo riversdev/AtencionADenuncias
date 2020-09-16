@@ -91,6 +91,15 @@ switch ($accion) {
         CrudDenuncias::concluirDenuncia($_POST['txtIdDenuncia']);
         break;
 
+    case 'verificar':
+        $denunciasPen = CrudDenuncias::verificarDenuncias($_POST['fechaVerificar'], $_POST['fechaActual']);
+        if (count($denunciasPen) != 0) {
+            echo "warning|Tiene denuncias por completar !";
+        } else {
+            echo "success|No tiene denuncias por completar !";
+        }
+        break;
+
     default:
         $denunciasInconclusas = CrudDenuncias::obtenerDenuncias("inconclusa");
         $denunciasPendientes = CrudDenuncias::obtenerDenuncias("pendiente");

@@ -162,4 +162,13 @@ class CrudDenuncias
         }
         $stmt = null;
     }
+    public static function verificarDenuncias($fechaVerificar, $fechaActual)
+    {
+        $SQL = "SELECT * FROM denuncias WHERE statusDenuncia='inconclusa' AND fechaPresentacion BETWEEN '$fechaVerificar' AND '$fechaActual';";
+        $stmt = Conexion::conectar()->prepare($SQL);
+        $stmt->execute();
+        $resultado = $stmt->fetchAll();
+        $stmt = null;
+        return $resultado;
+    }
 }

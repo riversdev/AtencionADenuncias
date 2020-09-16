@@ -13,6 +13,56 @@ if (isset($_SESSION['user_id'])) {
         $stmt = null;
     }
 ?>
+    <!-- <script>
+        verificarDenuncias();
+        setInterval(function() {
+            verificarDenuncias();
+        }, 5000);
+
+        function verificarDenuncias() {
+            // FECHA ACTUAL Y -3 DIAS HABILES
+            let f = new Date();
+            let anio = f.getFullYear();
+            let mes = f.getMonth() + 1;
+            let dia = f.getDate();
+            mes < 10 ? mes = '0' + mes : mes = mes;
+            dia < 10 ? dia = '0' + dia : dia = dia;
+            let fechaActual = anio + '-' + mes + '-' + dia;
+            let i = 0;
+            while (i < 3) {
+                f.setTime(f.getTime() - 24 * 60 * 60 * 1000); // + 1 día
+                if (f.getDay() != 6 && f.getDay() != 0) {
+                    i++;
+                }
+            }
+            let fechaVerificar = f.getFullYear() + '-' + (f.getMonth() + 1) + '-' + f.getDate();
+            console.log(fechaActual);
+            console.log(fechaVerificar);
+            $.ajax({
+                type: "POST",
+                url: "ajax/ajaxCrudDenuncias.php?accion=verificar",
+                data: {
+                    fechaActual,
+                    fechaVerificar
+                },
+                error: function(data) {
+                    console.error("Error peticion ajax para enviar información de denuncia, DETALLES: " + data);
+                },
+                success: function(data) {
+                    let mensaje = data.split('|');
+                    if (mensaje[0] == "success") {
+                        alertify.success(mensaje[1]);
+                    } else if (mensaje[0] == "warning") {
+                        alertify.warning(mensaje[1]);
+                    } else if (mensaje[0] == "error") {
+                        alertify.error(mensaje[1]);
+                    } else {
+                        console.log("Tipo de respuesta no definido. " + data);
+                    }
+                }
+            });
+        }
+    </script> -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary sticky-top shadow-sm">
         <a class="navbar-brand" href="/AtencionADenuncias">Atención a denuncias</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
