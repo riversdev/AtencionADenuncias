@@ -53,7 +53,6 @@ $(document).ready(function () {
             }
         }
     }
-    alertify.success("Todo está listo!");
 
     // CERRAR SESION
     $('#salir').on('click', function () {

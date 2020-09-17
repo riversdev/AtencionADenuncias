@@ -14,6 +14,7 @@ if (isset($_SESSION['user_id'])) {
     }
 ?>
     <script>
+        alertify.success("Todo está listo !");
         verificarDenuncias();
         setInterval(function() {
             verificarDenuncias();
