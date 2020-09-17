@@ -357,6 +357,12 @@ function validarCamposDenunciante() {
 }
 
 function recolectarDatosDenuncia() {
+    if ($("#txtFechaDenuncia").val() == "") {
+        $("#txtFechaDenuncia").val($("#txtFechaPresentacion").val());
+    }
+    if ($("#txtHoraDenuncia").val() == "") {
+        $("#txtHoraDenuncia").val("00:00");
+    }
     return {
         txtNumExpediente: $("#txtNumExpediente").val(),
         txtTareaFormulario: $("#txtTareaFormulario").val(),
