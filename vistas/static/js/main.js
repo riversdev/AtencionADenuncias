@@ -97,6 +97,22 @@ $(document).ready(function () {
         prepararFormato(6);
     });
 
+    // MOSTRAR INPUTS DENUNCIANTE
+    if (document.getElementById("mostrarInfoDenunciante") != null) {
+        document.getElementById("mostrarInfoDenunciante").addEventListener('change', (event) => {
+            if (document.getElementById("mostrarInfoDenunciante").checked) {
+                document.getElementById("contenedorInformacionDenunciante").classList.remove("d-none");
+                requerirCamposDenunciante();
+                document.getElementById("txtSPDenunciante").value = "";
+                document.getElementById("inputPuesto").classList.add("d-none");
+                document.getElementById("inputEspecificar").classList.add("d-none");
+            } else {
+                document.getElementById("contenedorInformacionDenunciante").classList.add("d-none");
+                noRequerirCamposDenunciante();
+            }
+        });
+    }
+
     // SERVIDOR PUBLICO ?
     $("#txtSPDenunciante").change(function () {
         let sp = $("#txtSPDenunciante").val();
@@ -173,31 +189,40 @@ function prepararValidacionDeFormularios() {
                 event.preventDefault();
                 event.stopPropagation();
                 if (form.id == "formFormatoPresentacionDenuncia") {
-                    if ($("#txtIdDenuncia").val() == "") {
-                        alertify.confirm('Guardando denuncia...', 'La información está incompleta y/o es incorrecta, si acepta se guardará como denuncia inconclusa y tendrá 3 dias para completarla en el menú "Denuncias".',
-                            function () {
-                                $("#txtStatusFormulario").val("inconclusa");
-                                enviarDenuncia(recolectarDatosDenuncia(), "guardarInfo");
-                            },
-                            function () {
-                                alertify.error('Cancelado')
+                    if (validarCamposDenunciante()) {
+                        if ($("#txtIdDenuncia").val() == "") {
+                            alertify.confirm('Guardando denuncia...', 'La información está incompleta, si prosigue se guardará como denuncia inconclusa.<br>Tendrá:<br>3 dias para solicitar al denunciante subsane su información.<br>5 días para completarla.<br>De lo contrario se archivará como concluida 8 días hábiles a partir de hoy.',
+                                function () {
+                                    $("#txtStatusFormulario").val("inconclusa");
+                                    enviarDenuncia(recolectarDatosDenuncia(), "guardarInfo");
+                                },
+                                function () {
+                                    alertify.error('Cancelado')
+                                }
+                            );
+                        } else {
+                            if (!document.getElementById("contenedorInformacionDenunciante").classList.contains("d-none")) {
+                                alertify.confirm('Editando denuncia...', 'La información está incompleta, si prosigue se guardará como denuncia inconclusa.<br>Tendrá:<br>3 dias para solicitar al denunciante subsane su información.<br>5 días para completarla.<br>De lo contrario se archivará como concluida 8 días hábiles a partir de su fecha de presentación.',
+                                    function () {
+                                        $("#txtStatusFormulario").val("inconclusa");
+                                        enviarDenuncia(recolectarDatosDenuncia(), "editarInfo");
+                                    },
+                                    function () {
+                                        alertify.error('Cancelado')
+                                    }
+                                );
                             }
-                        );
+                        }
                     } else {
-                        alertify.confirm('Editando denuncia...', 'La información está incompleta y/o es incorrecta, si acepta se guardará como denuncia inconclusa y tendrá 3 dias a partir de su fecha de presentación para completarla en el menú "Denuncias".',
-                            function () {
-                                $("#txtStatusFormulario").val("inconclusa");
-                                enviarDenuncia(recolectarDatosDenuncia(), "editarInfo");
-                            },
-                            function () {
-                                alertify.error('Cancelado')
-                            }
-                        );
+                        alertify.error("Verifique almenos la información del denunciante");
                     }
                 }
             } else {
                 event.preventDefault();
                 if (form.id == "formFormatoPresentacionDenuncia") {
+                    if (!document.getElementById("mostrarInfoDenunciante").checked) {
+                        vaciarCamposDenunciante();
+                    }
                     if ($("#txtIdDenuncia").val() == "") {
                         $("#txtStatusFormulario").val("pendiente");
                         enviarDenuncia(recolectarDatosDenuncia(), "guardarInfo");
@@ -227,6 +252,9 @@ function prepararFormato(presunto) {
         cadPresuntoDenuncia = "Denuncia por " + presuntoDenuncia[presunto];
         $("#txtPresuntoDenuncia").html(cadPresuntoDenuncia);
         $("#txtFechaPresentacion").val(cadFechaActual);
+        document.getElementById("contenedorSwitchCamposDenunciante").classList.remove("d-none");
+        document.getElementById("contenedorInformacionDenunciante").classList.remove("d-none");
+        requerirCamposDenunciante();
         $("#inputPuesto").addClass("d-none");
         $("#inputEspecificar").addClass("d-none");
         $("#txtTareaFormulario").val("guardarInfo");
@@ -253,6 +281,72 @@ function prepararFormato(presunto) {
         cadPresuntoDenuncia = "Denuncia por " + presuntoDenuncia[presunto];
         $("#txtImagenPresuntoDenuncia").html(cadPresuntoDenuncia);
         $("#modalPresuntoDenuncia").modal("hide");
+    }
+}
+
+function vaciarCamposDenunciante() {
+    document.getElementById("txtAnonimatoDenunciante").value = "";
+    document.getElementById("txtNombreDenunciante").value = "";
+    document.getElementById("txtDomicilioDenunciante").value = "";
+    document.getElementById("txtTelefonoDenunciante").value = "";
+    document.getElementById("txtCorreoDenunciante").value = "";
+    document.getElementById("txtSexoDenunciante").value = "";
+    document.getElementById("txtEdadDenunciante").value = "";
+    document.getElementById("txtSPDenunciante").value = "";
+    document.getElementById("txtPuestoDenunciante").value = "";
+    document.getElementById("txtEspecificarDenunciante").value = "";
+    document.getElementById("txtGradoEstudiosDenunciante").value = "";
+    document.getElementById("txtDiscapacidadDenunciante").value = "";
+}
+
+function noRequerirCamposDenunciante() {
+    document.getElementById("txtAnonimatoDenunciante").removeAttribute("required");
+    document.getElementById("txtNombreDenunciante").removeAttribute("required");
+    document.getElementById("txtDomicilioDenunciante").removeAttribute("required");
+    document.getElementById("txtTelefonoDenunciante").removeAttribute("required");
+    document.getElementById("txtCorreoDenunciante").removeAttribute("required");
+    document.getElementById("txtSexoDenunciante").removeAttribute("required");
+    document.getElementById("txtEdadDenunciante").removeAttribute("required");
+    document.getElementById("txtSPDenunciante").removeAttribute("required");
+    document.getElementById("txtPuestoDenunciante").removeAttribute("required");
+    document.getElementById("txtEspecificarDenunciante").removeAttribute("required");
+    document.getElementById("txtGradoEstudiosDenunciante").removeAttribute("required");
+    document.getElementById("txtDiscapacidadDenunciante").removeAttribute("required");
+}
+
+function requerirCamposDenunciante() {
+    document.getElementById("txtAnonimatoDenunciante").setAttribute("required", "");
+    document.getElementById("txtNombreDenunciante").setAttribute("required", "");
+    document.getElementById("txtDomicilioDenunciante").setAttribute("required", "");
+    document.getElementById("txtTelefonoDenunciante").setAttribute("required", "");
+    document.getElementById("txtCorreoDenunciante").setAttribute("required", "");
+    document.getElementById("txtSexoDenunciante").setAttribute("required", "");
+    document.getElementById("txtEdadDenunciante").setAttribute("required", "");
+    document.getElementById("txtSPDenunciante").setAttribute("required", "");
+    document.getElementById("txtPuestoDenunciante").setAttribute("required", "");
+    document.getElementById("txtEspecificarDenunciante").setAttribute("required", "");
+    document.getElementById("txtGradoEstudiosDenunciante").setAttribute("required", "");
+    document.getElementById("txtDiscapacidadDenunciante").setAttribute("required", "");
+}
+
+function validarCamposDenunciante() {
+    if (
+        document.getElementById("txtAnonimatoDenunciante").checkValidity() === true &&
+        document.getElementById("txtNombreDenunciante").checkValidity() === true &&
+        document.getElementById("txtDomicilioDenunciante").checkValidity() === true &&
+        document.getElementById("txtTelefonoDenunciante").checkValidity() === true &&
+        document.getElementById("txtCorreoDenunciante").checkValidity() === true &&
+        document.getElementById("txtSexoDenunciante").checkValidity() === true &&
+        document.getElementById("txtEdadDenunciante").checkValidity() === true &&
+        document.getElementById("txtSPDenunciante").checkValidity() === true &&
+        document.getElementById("txtPuestoDenunciante").checkValidity() === true &&
+        document.getElementById("txtEspecificarDenunciante").checkValidity() === true &&
+        document.getElementById("txtGradoEstudiosDenunciante").checkValidity() === true &&
+        document.getElementById("txtDiscapacidadDenunciante").checkValidity() === true
+    ) {
+        return true;
+    } else {
+        return false;
     }
 }
 
@@ -647,6 +741,14 @@ function prepararParaEditar(idDenuncia, tipoDenuncia, numExpediente, fechaPresen
         contenedorImagen.append(image);
         $('#nav-nuevaDenunciaImg-tab').tab('show');
     } else {
+        document.getElementById("contenedorSwitchCamposDenunciante").classList.add("d-none");
+        if (nombreDenunciante == "") {
+            document.getElementById("contenedorInformacionDenunciante").classList.add("d-none");
+            noRequerirCamposDenunciante();
+        } else {
+            document.getElementById("contenedorInformacionDenunciante").classList.remove("d-none");
+            requerirCamposDenunciante();
+        }
         tipoNuevaDenuncia = "editarInfo";
         $("#txtNumExpediente").val(numExpediente);
         $("#contenedorNumExpediente").removeClass("d-none");

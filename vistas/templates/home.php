@@ -164,161 +164,171 @@ if (isset($_SESSION['user_id'])) {
                                 Verifique la fecha
                             </div>
                         </div>
-                    </div>
-                    <div class="form-row">
-                        <div class="col-4">
-                            <hr>
-                        </div>
-                        <div class="col-4 text-center">
-                            <h6 class="font-weight-light text-muted pt-2">Datos de la persona que presenta la denuncia</h6>
-                        </div>
-                        <div class="col-4">
-                            <hr>
-                        </div>
-                    </div>
-                    <div class="form-row">
-                        <div class="col-lg-2 col-md-3 mb-3">
-                            <label for="txtAnonimatoDenunciante">¿Desea el anonimato?</label>
-                            <select class="custom-select" id="txtAnonimatoDenunciante" required>
-                                <option selected disabled value="">Elegir...</option>
-                                <option value="si">SI</option>
-                                <option value="no">NO</option>
-                            </select>
-                            <div class="valid-feedback">
-                                Correcto!
-                            </div>
-                            <div class="invalid-feedback">
-                                Elija una opción
-                            </div>
-                        </div>
-                        <div class="col-lg-4 col-md-4 mb-3">
-                            <label for="txtNombreDenunciante">Nombre</label>
-                            <input type="text" class="form-control" id="txtNombreDenunciante" required>
-                            <div class="valid-feedback">
-                                Correcto!
-                            </div>
-                            <div class="invalid-feedback">
-                                Verifique el nombre
-                            </div>
-                        </div>
-                        <div class="col-lg-4 col-md-5 mb-3">
-                            <label for="txtDomicilioDenunciante">Domicilio</label>
-                            <input type="text" class="form-control" id="txtDomicilioDenunciante" required>
-                            <div class="valid-feedback">
-                                Correcto!
-                            </div>
-                            <div class="invalid-feedback">
-                                Verifique el domicilio
-                            </div>
-                        </div>
-                        <div class="col-lg-2 col-md-3 mb-3">
-                            <label for="txtTelefonoDenunciante">Teléfono</label>
-                            <input type="tel" class="form-control" id="txtTelefonoDenunciante" pattern="[0-9]{10,15}" required>
-                            <div class="valid-feedback">
-                                Correcto!
-                            </div>
-                            <div class="invalid-feedback">
-                                Verifique el teléfono
-                            </div>
-                        </div>
-                        <div class="col-lg-3 col-md-4 mb-3">
-                            <label for="txtCorreoDenunciante">Correo electrónico</label>
-                            <input type="email" class="form-control" id="txtCorreoDenunciante" required>
-                            <div class="valid-feedback">
-                                Correcto!
-                            </div>
-                            <div class="invalid-feedback">
-                                Verifique el correo electrónico
-                            </div>
-                        </div>
-                        <div class="col-lg-2 col-md-3 mb-3">
-                            <label for="txtSexoDenunciante">Sexo</label>
-                            <select class="custom-select" id="txtSexoDenunciante" required>
-                                <option selected disabled value="">Elegir...</option>
-                                <option value="masculino">Masculino</option>
-                                <option value="femenino">Femenino</option>
-                            </select>
-                            <div class="valid-feedback">
-                                Correcto!
-                            </div>
-                            <div class="invalid-feedback">
-                                Elija una opción
-                            </div>
-                        </div>
-                        <div class="col-lg-1 col-md-2 mb-3">
-                            <label for="txtEdadDenunciante">Edad</label>
-                            <input type="number" class="form-control" id="txtEdadDenunciante" min="18" max="120" required>
-                            <div class="valid-feedback">
-                                Correcto!
-                            </div>
-                            <div class="invalid-feedback">
-                                Verifique la edad
-                            </div>
-                        </div>
-                        <div class="col-lg-3 col-md-6 mb-3">
-                            <label for="txtSPDenunciante">¿Es una persona servidora pública?</label>
-                            <select class="custom-select" id="txtSPDenunciante" required>
-                                <option selected disabled value="">Elegir...</option>
-                                <option value="si">SI</option>
-                                <option value="no">NO</option>
-                            </select>
-                            <div class="valid-feedback">
-                                Correcto!
-                            </div>
-                            <div class="invalid-feedback">
-                                Elija una opción
-                            </div>
-                        </div>
-                        <div class="col-lg-3 col-md-6 mb-3 d-none" id="inputPuesto">
-                            <label for="txtPuestoDenunciante" class="text-white">L</label>
-                            <div class="input-group">
-                                <div class="input-group-prepend">
-                                    <div class="input-group-text">Puesto</div>
+                        <div class="col-12 text-center" id="contenedorSwitchCamposDenunciante">
+                            <div class="form-group">
+                                <div class="custom-control custom-switch text-primary">
+                                    <input type="checkbox" class="custom-control-input" id="mostrarInfoDenunciante" checked>
+                                    <label class="custom-control-label text-primary font-weight-bolder" for="mostrarInfoDenunciante">¿Se conoce la identidad del denunciante?</label>
                                 </div>
-                                <input type="text" class="form-control" id="txtPuestoDenunciante" required>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="contenedorInformacionDenunciante">
+                        <div class="form-row">
+                            <div class="col-4">
+                                <hr>
+                            </div>
+                            <div class="col-4 text-center">
+                                <h6 class="font-weight-light text-muted pt-2">Datos de la persona que presenta la denuncia</h6>
+                            </div>
+                            <div class="col-4">
+                                <hr>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="col-lg-2 col-md-3 mb-3">
+                                <label for="txtAnonimatoDenunciante">¿Desea el anonimato?</label>
+                                <select class="custom-select" id="txtAnonimatoDenunciante" required>
+                                    <option selected disabled value="">Elegir...</option>
+                                    <option value="si">SI</option>
+                                    <option value="no">NO</option>
+                                </select>
                                 <div class="valid-feedback">
                                     Correcto!
                                 </div>
                                 <div class="invalid-feedback">
-                                    Verifique el puesto
+                                    Elija una opción
                                 </div>
                             </div>
-                        </div>
-                        <div class="col-lg-3 col-md-6 mb-3 d-none" id="inputEspecificar">
-                            <label for="txtEspecificarDenunciante" class="text-white">L</label>
-                            <div class="input-group">
-                                <div class="input-group-prepend">
-                                    <div class="input-group-text">Especifique:</div>
-                                </div>
-                                <input type="text" class="form-control" id="txtEspecificarDenunciante" required>
+                            <div class="col-lg-4 col-md-4 mb-3">
+                                <label for="txtNombreDenunciante">Nombre</label>
+                                <input type="text" class="form-control" id="txtNombreDenunciante" required>
                                 <div class="valid-feedback">
                                     Correcto!
                                 </div>
                                 <div class="invalid-feedback">
-                                    Especifíquese
+                                    Verifique el nombre
+                                </div>
+                            </div>
+                            <div class="col-lg-4 col-md-5 mb-3">
+                                <label for="txtDomicilioDenunciante">Domicilio</label>
+                                <input type="text" class="form-control" id="txtDomicilioDenunciante" required>
+                                <div class="valid-feedback">
+                                    Correcto!
+                                </div>
+                                <div class="invalid-feedback">
+                                    Verifique el domicilio
+                                </div>
+                            </div>
+                            <div class="col-lg-2 col-md-3 mb-3">
+                                <label for="txtTelefonoDenunciante">Teléfono</label>
+                                <input type="tel" class="form-control" id="txtTelefonoDenunciante" pattern="[0-9]{10,15}" required>
+                                <div class="valid-feedback">
+                                    Correcto!
+                                </div>
+                                <div class="invalid-feedback">
+                                    Verifique el teléfono
+                                </div>
+                            </div>
+                            <div class="col-lg-3 col-md-4 mb-3">
+                                <label for="txtCorreoDenunciante">Correo electrónico</label>
+                                <input type="email" class="form-control" id="txtCorreoDenunciante" required>
+                                <div class="valid-feedback">
+                                    Correcto!
+                                </div>
+                                <div class="invalid-feedback">
+                                    Verifique el correo electrónico
+                                </div>
+                            </div>
+                            <div class="col-lg-2 col-md-3 mb-3">
+                                <label for="txtSexoDenunciante">Sexo</label>
+                                <select class="custom-select" id="txtSexoDenunciante" required>
+                                    <option selected disabled value="">Elegir...</option>
+                                    <option value="masculino">Masculino</option>
+                                    <option value="femenino">Femenino</option>
+                                </select>
+                                <div class="valid-feedback">
+                                    Correcto!
+                                </div>
+                                <div class="invalid-feedback">
+                                    Elija una opción
+                                </div>
+                            </div>
+                            <div class="col-lg-1 col-md-2 mb-3">
+                                <label for="txtEdadDenunciante">Edad</label>
+                                <input type="number" class="form-control" id="txtEdadDenunciante" min="18" max="120" required>
+                                <div class="valid-feedback">
+                                    Correcto!
+                                </div>
+                                <div class="invalid-feedback">
+                                    Verifique la edad
+                                </div>
+                            </div>
+                            <div class="col-lg-3 col-md-6 mb-3">
+                                <label for="txtSPDenunciante">¿Es una persona servidora pública?</label>
+                                <select class="custom-select" id="txtSPDenunciante" required>
+                                    <option selected disabled value="">Elegir...</option>
+                                    <option value="si">SI</option>
+                                    <option value="no">NO</option>
+                                </select>
+                                <div class="valid-feedback">
+                                    Correcto!
+                                </div>
+                                <div class="invalid-feedback">
+                                    Elija una opción
+                                </div>
+                            </div>
+                            <div class="col-lg-3 col-md-6 mb-3 d-none" id="inputPuesto">
+                                <label for="txtPuestoDenunciante" class="text-white">L</label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text">Puesto</div>
+                                    </div>
+                                    <input type="text" class="form-control" id="txtPuestoDenunciante" required>
+                                    <div class="valid-feedback">
+                                        Correcto!
+                                    </div>
+                                    <div class="invalid-feedback">
+                                        Verifique el puesto
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-3 col-md-6 mb-3 d-none" id="inputEspecificar">
+                                <label for="txtEspecificarDenunciante" class="text-white">L</label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text">Especifique:</div>
+                                    </div>
+                                    <input type="text" class="form-control" id="txtEspecificarDenunciante" required>
+                                    <div class="valid-feedback">
+                                        Correcto!
+                                    </div>
+                                    <div class="invalid-feedback">
+                                        Especifíquese
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="form-row">
-                        <div class="col-lg-6 col-md-6 mb-3">
-                            <label for="txtGradoEstudiosDenunciante">Grado de estudios</label>
-                            <input type="text" class="form-control" id="txtGradoEstudiosDenunciante" required>
-                            <div class="valid-feedback">
-                                Correcto!
+                        <div class="form-row">
+                            <div class="col-lg-6 col-md-6 mb-3">
+                                <label for="txtGradoEstudiosDenunciante">Grado de estudios</label>
+                                <input type="text" class="form-control" id="txtGradoEstudiosDenunciante" required>
+                                <div class="valid-feedback">
+                                    Correcto!
+                                </div>
+                                <div class="invalid-feedback">
+                                    Verifique el grado de estudios
+                                </div>
                             </div>
-                            <div class="invalid-feedback">
-                                Verifique el grado de estudios
-                            </div>
-                        </div>
-                        <div class="col-lg-6 col-md-6 mb-3">
-                            <label for="txtDiscapacidadDenunciante">¿Vive con alguna discapacidad?</label>
-                            <input type="text" class="form-control" id="txtDiscapacidadDenunciante" required>
-                            <div class="valid-feedback">
-                                Correcto!
-                            </div>
-                            <div class="invalid-feedback">
-                                Responda la pregunta
+                            <div class="col-lg-6 col-md-6 mb-3">
+                                <label for="txtDiscapacidadDenunciante">¿Vive con alguna discapacidad?</label>
+                                <input type="text" class="form-control" id="txtDiscapacidadDenunciante" required>
+                                <div class="valid-feedback">
+                                    Correcto!
+                                </div>
+                                <div class="invalid-feedback">
+                                    Responda la pregunta
+                                </div>
                             </div>
                         </div>
                     </div>
