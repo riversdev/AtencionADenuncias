@@ -23,7 +23,7 @@
     <script src="vistas\static\fontawesome\js\all.js"></script>
     <!-- Alertify JS 1.13.1 -->
     <link rel="stylesheet" href="vistas\static\alertify\css\alertify.css">
-    <link rel="stylesheet" href="vistas\static\alertify\css\themes\default.css">
+    <link rel="stylesheet" href="vistas\static\alertify\css\themes\bootstrap.css">
     <script src="vistas\static\alertify\js\alertify.js"></script>
     <!-- Custom JS -->
     <script src="vistas\static\js\main.js"></script>

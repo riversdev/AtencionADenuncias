@@ -15,6 +15,12 @@ $(document).ready(function () {
     $('#txtFechaDenuncia').attr("max", cadFechaActual);
     enviarDenuncia(recolectarDatosDenuncia(), "leer");
     prepararValidacionDeFormularios();
+    // Diseño de alertas
+    //override defaults
+    alertify.defaults.transition = "zoom";
+    alertify.defaults.theme.ok = "btn btn-transparent";
+    alertify.defaults.theme.cancel = "btn btn-transparent";
+    alertify.defaults.theme.input = "form-control";
     // Label de input file
     $('.custom-file-input').on('change', function (event) {
         var inputFile = event.currentTarget;
@@ -199,7 +205,7 @@ function prepararValidacionDeFormularios() {
                                 function () {
                                     alertify.error('Cancelado')
                                 }
-                            );
+                            ).set('labels', { cancel: 'Cancelar' });
                         } else {
                             if (!document.getElementById("contenedorInformacionDenunciante").classList.contains("d-none")) {
                                 alertify.confirm('Editando denuncia...', 'La información está incompleta, si prosigue se guardará como denuncia inconclusa.<br>Tendrá:<br>3 dias para solicitar al denunciante subsane su información.<br>5 días para completarla.<br>De lo contrario se archivará como concluida 8 días hábiles a partir de su fecha de presentación.',
@@ -210,7 +216,7 @@ function prepararValidacionDeFormularios() {
                                     function () {
                                         alertify.error('Cancelado')
                                     }
-                                );
+                                ).set('labels', { cancel: 'Cancelar' });
                             }
                         }
                     } else {
@@ -897,8 +903,8 @@ function prepararParaVizualizar(tipoDenuncia, numExpediente, fechaPresentacion, 
     $('#nav-vizualizador-tab').tab('show');
 }
 
-function prepararParaConcluir(idDenuncia, denunciante, denunciado, tipoDenuncia) {
-    alertify.confirm('Concluyendo denuncia...', '¿Está seguro de que querer concluir con la denuncia de ' + denunciante + ' para ' + denunciado + '? <br><br>Tipo de denuncia: ' + tipoDenuncia,
+function prepararParaConcluir(idDenuncia, numExpediente) {
+    alertify.confirm('Concluyendo denuncia...', '¿Está seguro de que querer concluir con la denuncia? <br><br>Número de expediente: ' + numExpediente,
         function () {
             $("#txtIdDenuncia").val(idDenuncia);
             enviarDenuncia(recolectarDatosDenuncia(), "concluirDenuncia");
@@ -906,5 +912,5 @@ function prepararParaConcluir(idDenuncia, denunciante, denunciado, tipoDenuncia)
         function () {
             alertify.error('Cancelado')
         }
-    );
+    ).set('labels', { cancel: 'Cancelar' });
 }
