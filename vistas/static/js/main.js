@@ -195,7 +195,7 @@ function prepararValidacionDeFormularios() {
                 event.preventDefault();
                 event.stopPropagation();
                 if (form.id == "formFormatoPresentacionDenuncia") {
-                    if (validarCamposDenunciante()) {
+                    if (document.getElementById("mostrarInfoDenunciante").checked == true && validarCamposDenunciante()) {
                         if ($("#txtIdDenuncia").val() == "") {
                             alertify.confirm('Guardando denuncia...', 'La información está incompleta, si prosigue se guardará como denuncia inconclusa.<br>Tendrá:<br>3 dias para solicitar al denunciante subsane su información.<br>5 días para completarla.<br>De lo contrario se archivará como concluida 8 días hábiles a partir de hoy.',
                                 function () {
