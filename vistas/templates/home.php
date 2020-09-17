@@ -13,11 +13,11 @@ if (isset($_SESSION['user_id'])) {
         $stmt = null;
     }
 ?>
-    <!-- <script>
+    <script>
         verificarDenuncias();
         setInterval(function() {
             verificarDenuncias();
-        }, 5000);
+        }, 300000);
 
         function verificarDenuncias() {
             // FECHA ACTUAL Y -3 DIAS HABILES
@@ -62,7 +62,7 @@ if (isset($_SESSION['user_id'])) {
                 }
             });
         }
-    </script> -->
+    </script>
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary sticky-top shadow-sm">
         <a class="navbar-brand" href="/AtencionADenuncias">Atención a denuncias</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
