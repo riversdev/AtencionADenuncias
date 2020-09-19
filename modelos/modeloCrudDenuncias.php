@@ -25,7 +25,8 @@ class CrudDenuncias
     }
     public static function guardarInfo($statusInformacion, $tipoDenuncia, $numExpediente, $fechaPresentacion, $anonimatoDenunciante, $nombreDenunciante, $domicilioDenunciante, $telefonoDenunciante, $correoDenunciante, $sexoDenunciante, $edadDenunciante, $servidorPublicoDenunciante, $puestoDenunciante, $especificarDenunciante, $gradoEstudiosDenunciante, $discapacidadDenunciante, $nombreDenunciado, $entidadDenunciado, $telefonoDenunciado, $correoDenunciado, $sexoDenunciado, $edadDenunciado, $servidorPublicoDenunciado, $especificarDenunciado, $relacionDenunciado, $lugarDenuncia, $fechaDenuncia, $horaDenuncia, $narracionDenuncia, $nombreTestigo, $domicilioTestigo, $telefonoTestigo, $correoTestigo, $relacionTestigo, $trabajaTestigo, $entidadTestigo, $cargoTestigo)
     {
-        $SQL = "INSERT INTO denuncias (tipoDenuncia,numExpediente,fechaPresentacion,anonimatoDenunciante,nombreDenunciante,domicilioDenunciante,telefonoDenunciante,correoDenunciante,sexoDenunciante,edadDenunciante,servidorPublicoDenunciante,puestoDenunciante,especificarDenunciante,gradoEstudiosDenunciante,discapacidadDenunciante,nombreDenunciado,entidadDenunciado,telefonoDenunciado,correoDenunciado,sexoDenunciado,edadDenunciado,servidorPublicoDenunciado,especificarDenunciado,relacionDenunciado,lugarDenuncia,fechaDenuncia,horaDenuncia,narracionDenuncia,nombreTestigo,domicilioTestigo,telefonoTestigo,correoTestigo,relacionTestigo,trabajaTestigo,entidadTestigo,cargoTestigo,statusDenuncia) VALUES ('$tipoDenuncia','$numExpediente','$fechaPresentacion','$anonimatoDenunciante','$nombreDenunciante','$domicilioDenunciante','$telefonoDenunciante','$correoDenunciante','$sexoDenunciante','$edadDenunciante','$servidorPublicoDenunciante','$puestoDenunciante','$especificarDenunciante','$gradoEstudiosDenunciante','$discapacidadDenunciante','$nombreDenunciado','$entidadDenunciado','$telefonoDenunciado','$correoDenunciado','$sexoDenunciado','$edadDenunciado','$servidorPublicoDenunciado','$especificarDenunciado','$relacionDenunciado','$lugarDenuncia','$fechaDenuncia','$horaDenuncia','$narracionDenuncia','$nombreTestigo','$domicilioTestigo','$telefonoTestigo','$correoTestigo','$relacionTestigo','$trabajaTestigo','$entidadTestigo','$cargoTestigo','$statusInformacion');";
+        $marcaDeTiempo = date("Y-m-d H:i:s", strtotime(date("Y-m-d H:i:s") . "- 7 hours"));
+        $SQL = "INSERT INTO denuncias (tipoDenuncia,numExpediente,fechaPresentacion,anonimatoDenunciante,nombreDenunciante,domicilioDenunciante,telefonoDenunciante,correoDenunciante,sexoDenunciante,edadDenunciante,servidorPublicoDenunciante,puestoDenunciante,especificarDenunciante,gradoEstudiosDenunciante,discapacidadDenunciante,nombreDenunciado,entidadDenunciado,telefonoDenunciado,correoDenunciado,sexoDenunciado,edadDenunciado,servidorPublicoDenunciado,especificarDenunciado,relacionDenunciado,lugarDenuncia,fechaDenuncia,horaDenuncia,narracionDenuncia,nombreTestigo,domicilioTestigo,telefonoTestigo,correoTestigo,relacionTestigo,trabajaTestigo,entidadTestigo,cargoTestigo,statusDenuncia) VALUES ('$tipoDenuncia','$numExpediente','$marcaDeTiempo','$anonimatoDenunciante','$nombreDenunciante','$domicilioDenunciante','$telefonoDenunciante','$correoDenunciante','$sexoDenunciante','$edadDenunciante','$servidorPublicoDenunciante','$puestoDenunciante','$especificarDenunciante','$gradoEstudiosDenunciante','$discapacidadDenunciante','$nombreDenunciado','$entidadDenunciado','$telefonoDenunciado','$correoDenunciado','$sexoDenunciado','$edadDenunciado','$servidorPublicoDenunciado','$especificarDenunciado','$relacionDenunciado','$lugarDenuncia','$fechaDenuncia','$horaDenuncia','$narracionDenuncia','$nombreTestigo','$domicilioTestigo','$telefonoTestigo','$correoTestigo','$relacionTestigo','$trabajaTestigo','$entidadTestigo','$cargoTestigo','$statusInformacion');";
         $stmt = Conexion::conectar()->prepare($SQL);
         try {
             if ($stmt->execute()) {
@@ -40,7 +41,8 @@ class CrudDenuncias
     }
     public static function guardarImg($tipoDenuncia, $numExpediente, $fechaPresentacion, $imagenDenuncia)
     {
-        $SQL = "INSERT INTO denuncias (tipoDenuncia,numExpediente,fechaPresentacion,imagenDenuncia,statusDenuncia) VALUES ('$tipoDenuncia','$numExpediente','$fechaPresentacion','$imagenDenuncia','pendiente');";
+        $marcaDeTiempo = date("Y-m-d H:i:s", strtotime(date("Y-m-d H:i:s") . "- 7 hours"));
+        $SQL = "INSERT INTO denuncias (tipoDenuncia,numExpediente,fechaPresentacion,imagenDenuncia,statusDenuncia) VALUES ('$tipoDenuncia','$numExpediente','$marcaDeTiempo','$imagenDenuncia','pendiente');";
         $stmt = Conexion::conectar()->prepare($SQL);
         try {
             if ($stmt->execute()) {
@@ -58,7 +60,6 @@ class CrudDenuncias
         $SQL = "UPDATE denuncias
                 SET tipoDenuncia='$tipoDenuncia',
                     numExpediente='$numExpediente',
-                    fechaPresentacion='$fechaPresentacion',
                     anonimatoDenunciante='$anonimatoDenunciante',
                     nombreDenunciante='$nombreDenunciante',
                     domicilioDenunciante='$domicilioDenunciante',
@@ -111,7 +112,6 @@ class CrudDenuncias
         $SQL = "UPDATE denuncias
                 SET tipoDenuncia='$tipoDenuncia',
                     numExpediente='$numExpediente',
-                    fechaPresentacion='$fechaPresentacion',
                     imagenDenuncia='$imagenDenuncia'
                 WHERE idDenuncia='$idDenuncia';";
         $stmt = Conexion::conectar()->prepare($SQL);
@@ -130,8 +130,7 @@ class CrudDenuncias
     {
         $SQL = "UPDATE denuncias
                 SET tipoDenuncia='$tipoDenuncia',
-                    numExpediente='$numExpediente',
-                    fechaPresentacion='$fechaPresentacion'
+                    numExpediente='$numExpediente'
                 WHERE idDenuncia='$idDenuncia';";
         $stmt = Conexion::conectar()->prepare($SQL);
         try {
@@ -198,7 +197,7 @@ class CrudDenuncias
     }
     public static function buscarSinSeguimiento($fechaVerificar)
     {
-        $SQL = "SELECT * FROM denuncias WHERE fechaPresentacion<='$fechaVerificar';";
+        $SQL = "SELECT * FROM denuncias WHERE fechaPresentacion<='$fechaVerificar' AND statusDenuncia='inconclusa';";
         $stmt = Conexion::conectar()->prepare($SQL);
         $stmt->execute();
         $resultado = $stmt->fetchAll();
