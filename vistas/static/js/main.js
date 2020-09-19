@@ -13,7 +13,6 @@ let cadFechaActual = anio + '-' + mes + '-' + dia;
 $(document).ready(function () {
     // VALIDACIONES Y PREPARACIONES INICIALES
     $('#txtFechaDenuncia').attr("max", cadFechaActual);
-    enviarDenuncia(recolectarDatosDenuncia(), "leer");
     prepararValidacionDeFormularios();
     // Diseño de alertas
     //override defaults
@@ -185,6 +184,82 @@ $(document).ready(function () {
         $('#nav-denuncias-tab').removeClass('text-white');
     });
 });
+
+function obtenerFechas() {
+    // FECHA ACTUAL Y -3 DIAS HABILES
+    let f = new Date();
+    let anio = f.getFullYear();
+    let mes = f.getMonth() + 1;
+    let dia = f.getDate();
+    mes < 10 ? mes = '0' + mes : mes = mes;
+    dia < 10 ? dia = '0' + dia : dia = dia;
+    let fechaActual = anio + '-' + mes + '-' + dia;
+    let i = 0;
+    while (i < 8) {
+        f.setTime(f.getTime() - 24 * 60 * 60 * 1000); // + 1 día
+        if (f.getDay() != 6 && f.getDay() != 0) {
+            i++;
+        }
+    }
+    let fechaVerificar = f.getFullYear() + '-' + (f.getMonth() + 1) + '-' + f.getDate();
+    return [fechaActual, fechaVerificar]
+}
+
+function verificarDenuncias() {
+    let fechas = obtenerFechas();
+    let fechaActual = fechas[0];
+    let fechaVerificar = fechas[1];
+    $.ajax({
+        type: "POST",
+        url: "ajax/ajaxCrudDenuncias.php?accion=verificarInconclusas",
+        data: {
+            fechaActual,
+            fechaVerificar
+        },
+        error: function (data) {
+            console.error("Error peticion ajax para enviar información de denuncia, DETALLES: " + data);
+        },
+        success: function (data) {
+            let mensaje = data.split('|');
+            if (mensaje[0] == "success") {
+                alertify.success(mensaje[1]).delay(10);
+            } else if (mensaje[0] == "warning") {
+                alertify.warning(mensaje[1]).delay(10);
+            } else if (mensaje[0] == "error") {
+                alertify.error(mensaje[1]);
+            } else {
+                console.log("Tipo de respuesta no definido. " + data);
+            }
+        }
+    });
+}
+
+function concluirDenunciasSinSeguimiento() {
+    let fechaVerificar = obtenerFechas()[1];
+    $.ajax({
+        type: "POST",
+        url: "ajax/ajaxCrudDenuncias.php?accion=concluirSinSeguimiento",
+        data: {
+            fechaVerificar
+        },
+        error: function (data) {
+            console.error("Error peticion ajax para enviar información de denuncia, DETALLES: " + data);
+        },
+        success: function (data) {
+            let mensaje = data.split('|');
+            if (mensaje[0] == "success") {
+                // alertify.success(mensaje[1]).delay(10);
+            } else if (mensaje[0] == "warning") {
+                alertify.warning(mensaje[1]).delay(10);
+            } else if (mensaje[0] == "error") {
+                alertify.error(mensaje[1]).delay(10);
+            } else {
+                console.log("Tipo de respuesta no definido. " + data);
+            }
+            enviarDenuncia(recolectarDatosDenuncia(), "leer");
+        }
+    });
+}
 
 function prepararValidacionDeFormularios() {
     var forms = document.getElementsByClassName('needs-validation');
@@ -849,7 +924,13 @@ function prepararParaVizualizar(tipoDenuncia, numExpediente, fechaPresentacion, 
         $("#contenedorDatosGenerales").removeClass("d-none");
         $("#contenedorImagenGeneral").addClass("d-none");
     }
-    $("#txtPresuntoDenunciaV").html(tipoDenuncia);
+    let presuntoDenuncia = tipoDenuncia.split("-");
+    $("#txtPresuntoDenunciaV").html(presuntoDenuncia[0]);
+    if (presuntoDenuncia[1]) {
+        $("#txtPresuntoDenunciaV2").html(presuntoDenuncia[1]);
+    } else {
+        $("#txtPresuntoDenunciaV2").html("");
+    }
     $("#txtNumExpedienteV").val(numExpediente);
     $("#txtFechaPresentacionV").val(fechaPresentacion);
     $("#txtAnonimatoDenuncianteV").val(anonimatoDenunciante);

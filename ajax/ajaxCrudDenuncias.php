@@ -91,12 +91,19 @@ switch ($accion) {
         CrudDenuncias::concluirDenuncia($_POST['txtIdDenuncia']);
         break;
 
-    case 'verificar':
-        $denunciasPen = CrudDenuncias::verificarDenuncias($_POST['fechaVerificar'], $_POST['fechaActual']);
-        if (count($denunciasPen) != 0) {
-            echo "warning|Tiene denuncias por completar !";
+    case 'verificarInconclusas':
+        CrudDenuncias::verificarDenunciasInconclusas($_POST['fechaVerificar'], $_POST['fechaActual']);
+        break;
+
+    case 'concluirSinSeguimiento':
+        if (count(CrudDenuncias::buscarSinSeguimiento($_POST['fechaVerificar'])) != 0) {
+            if (CrudDenuncias::concluirDenunciasSinSeguimiento($_POST['fechaVerificar'])) {
+                echo "warning|Se concluyeron denuncias sin seguimiento !";
+            } else {
+                echo "error|Imposible concluir denuncias sin seguimiento !";
+            }
         } else {
-            echo "success|No tiene denuncias por completar !";
+            echo "success|No existen denuncias sin seguimiento !";
         }
         break;
 
@@ -562,7 +569,11 @@ switch ($accion) {
             if ($row['nombreDenunciado'] != "") {
                 echo '                  <td>' . $row['nombreDenunciado'] . '</td>';
             } else {
-                echo '                  <td class="text-success" style="font-size:x-small;"> contiene imagen </td>';
+                if (base64_encode($row['imagenDenuncia']) != "") {
+                    echo '              <td class="text-success" style="font-size:x-small;"> contiene imagen </td>';
+                } else {
+                    echo '              <td class="text-success" style="font-size:x-small;"> - - - - - - - </td>';
+                }
             }
             echo '                      <td>' . $row['entidadDenunciado'] . '</td>
                                         <td>' . $row['telefonoDenunciado'] . '</td>

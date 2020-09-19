@@ -162,9 +162,43 @@ class CrudDenuncias
         }
         $stmt = null;
     }
-    public static function verificarDenuncias($fechaVerificar, $fechaActual)
+    public static function verificarDenunciasInconclusas($fechaVerificar, $fechaActual)
     {
         $SQL = "SELECT * FROM denuncias WHERE statusDenuncia='inconclusa' AND fechaPresentacion BETWEEN '$fechaVerificar' AND '$fechaActual';";
+        $stmt = Conexion::conectar()->prepare($SQL);
+        try {
+            $stmt->execute();
+            if (count($stmt->fetchAll()) != 0) {
+                echo "warning|Tiene denuncias por completar !";
+            } else {
+                echo "success|No tiene denuncias por completar !";
+            }
+        } catch (Exception $e) {
+            echo "error|Imposible leer denuncias inconclusas !|" . $e;
+        }
+        $stmt = null;
+    }
+    public static function concluirDenunciasSinSeguimiento($fechaVerificar)
+    {
+        $SQL = "UPDATE denuncias
+                SET statusDenuncia='concluida',
+                    tipoDenuncia=CONCAT(tipoDenuncia,'-¡Inconclusa!')
+                WHERE fechaPresentacion<='$fechaVerificar';";
+        $stmt = Conexion::conectar()->prepare($SQL);
+        try {
+            if ($stmt->execute()) {
+                return true;
+            } else {
+                return false;
+            }
+        } catch (Exception $e) {
+            return false;
+        }
+        $stmt = null;
+    }
+    public static function buscarSinSeguimiento($fechaVerificar)
+    {
+        $SQL = "SELECT * FROM denuncias WHERE fechaPresentacion<='$fechaVerificar';";
         $stmt = Conexion::conectar()->prepare($SQL);
         $stmt->execute();
         $resultado = $stmt->fetchAll();
