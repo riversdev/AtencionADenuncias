@@ -482,8 +482,52 @@ switch ($accion) {
                                             <i class="far fa-check-square" onclick="prepararParaConcluir(' . "
                                                 '" . $row['idDenuncia'] . "',
                                                 '" . $row['numExpediente'] . "'
-                                            " . ')"></i>
-                                        </td>
+                                            " . ')"></i>';
+            if ($row['imagenDenuncia'] != "" || $row['nombreDenunciante'] != "") {
+                echo '                      <i class="far fa-plus-square" onclick="prepararParaGenerarAcuse(' . "
+                                                '" . $row['tipoDenuncia'] . "',
+                                                '" . $row['numExpediente'] . "',
+                                                '" . date("Y-m-d", strtotime($row['fechaPresentacion'])) . "',
+                                                '" . date("H:i:s", strtotime($row['fechaPresentacion'])) . "',
+                                                '" . base64_encode($row['imagenDenuncia']) . "',
+                                                '" . $row['anonimatoDenunciante'] . "',
+                                                '" . $row['nombreDenunciante'] . "',
+                                                '" . $row['domicilioDenunciante'] . "',
+                                                '" . $row['telefonoDenunciante'] . "',
+                                                '" . $row['correoDenunciante'] . "',
+                                                '" . $row['sexoDenunciante'] . "',
+                                                '" . $row['edadDenunciante'] . "',
+                                                '" . $row['servidorPublicoDenunciante'] . "',
+                                                '" . $row['puestoDenunciante'] . "',
+                                                '" . $row['especificarDenunciante'] . "',
+                                                '" . $row['gradoEstudiosDenunciante'] . "',
+                                                '" . $row['discapacidadDenunciante'] . "',
+                                                '" . $row['nombreDenunciado'] . "',
+                                                '" . $row['entidadDenunciado'] . "',
+                                                '" . $row['telefonoDenunciado'] . "',
+                                                '" . $row['correoDenunciado'] . "',
+                                                '" . $row['sexoDenunciado'] . "',
+                                                '" . $row['edadDenunciado'] . "',
+                                                '" . $row['servidorPublicoDenunciado'] . "',
+                                                '" . $row['especificarDenunciado'] . "',
+                                                '" . $row['relacionDenunciado'] . "',
+                                                '" . $row['lugarDenuncia'] . "',
+                                                '" . $row['fechaDenuncia'] . "',
+                                                '" . $row['horaDenuncia'] . "',
+                                                '" . preg_replace("/[\r\n|\n|\r]+/", " ", $row['narracionDenuncia']) . "',
+                                                '" . $row['nombreTestigo'] . "',
+                                                '" . $row['domicilioTestigo'] . "',
+                                                '" . $row['telefonoTestigo'] . "',
+                                                '" . $row['correoTestigo'] . "',
+                                                '" . $row['relacionTestigo'] . "',
+                                                '" . $row['trabajaTestigo'] . "',
+                                                '" . $row['entidadTestigo'] . "',
+                                                '" . $row['cargoTestigo'] . "'
+                                            " . ');"></i>';
+            } else {
+                echo '                      <i class="far fa-minus-square text-white"></i>';
+            }
+            echo '                      </td>
                                     </tr>';
         }
         echo '                  </tbody>

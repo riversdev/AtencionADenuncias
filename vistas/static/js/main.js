@@ -15,7 +15,6 @@ $(document).ready(function () {
     $('#txtFechaDenuncia').attr("max", cadFechaActual);
     prepararValidacionDeFormularios();
     // Diseño de alertas
-    //override defaults
     alertify.defaults.transition = "zoom";
     alertify.defaults.theme.ok = "btn btn-transparent";
     alertify.defaults.theme.cancel = "btn btn-transparent";
@@ -169,6 +168,16 @@ $(document).ready(function () {
         document.body.style.backgroundColor = "white";
     });
     $('#nav-vizualizador-tab').on('hidden.bs.tab', function (e) {
+        $('#btnImprimir').addClass('d-none');
+        $('#navTipoDenuncia').addClass('d-none');
+        document.body.style.backgroundColor = "#F0F4F7";
+    });
+    $('#nav-acuse-tab').on('shown.bs.tab', function (e) {
+        $('#btnImprimir').removeClass('d-none');
+        $('#navTipoDenuncia').removeClass('d-none');
+        document.body.style.backgroundColor = "white";
+    });
+    $('#nav-acuse-tab').on('hidden.bs.tab', function (e) {
         $('#btnImprimir').addClass('d-none');
         $('#navTipoDenuncia').addClass('d-none');
         document.body.style.backgroundColor = "#F0F4F7";
@@ -999,4 +1008,8 @@ function prepararParaConcluir(idDenuncia, numExpediente) {
             alertify.error('Cancelado')
         }
     ).set('labels', { cancel: 'Cancelar' });
+}
+
+function prepararParaGenerarAcuse(tipoDenuncia, numExpediente, fechaPresentacion, horaPresentacion, imagenDenuncia, anonimatoDenunciante, nombreDenunciante, domicilioDenunciante, telefonoDenunciante, correoDenunciante, sexoDenunciante, edadDenunciante, servidorPublicoDenunciante, puestoDenunciante, especificarDenunciante, gradoEstudiosDenunciante, discapacidadDenunciante, nombreDenunciado, entidadDenunciado, telefonoDenunciado, correoDenunciado, sexoDenunciado, edadDenunciado, servidorPublicoDenunciado, especificarDenunciado, relacionDenunciado, lugarDenuncia, fechaDenuncia, horaDenuncia, narracionDenuncia, nombreTestigo, domicilioTestigo, telefonoTestigo, correoTestigo, relacionTestigo, trabajaTestigo, entidadTestigo, cargoTestigo) {
+    alertify.success("All is well");
 }
