@@ -32,7 +32,7 @@ if (isset($_SESSION['user_id'])) {
             <ul class="navbar-nav mr-auto">
                 <div class="nav d-flex justify-content-center align-items-center" id="nav-tab" role="tablist">
                     <a class="nav-item nav-link active" id="nav-denuncias-tab" data-toggle="tab" href="#nav-denuncias" role="tab" aria-controls="nav-denuncias" aria-selected="true">
-                        Denuncias
+                        <i class="fa fa-gavel"></i> Denuncias
                     </a>
                     <a class="nav-item nav-link d-none" id="nav-nuevaDenunciaForm-tab" data-toggle="tab" href="#nav-nuevaDenunciaForm" role="tab" aria-controls="nav-nuevaDenunciaForm" aria-selected="false">
                         Nueva denuncia - Llenar formulario - Invisible
@@ -46,16 +46,22 @@ if (isset($_SESSION['user_id'])) {
                     <a class="nav-item nav-link" id="nav-acuse-tab" data-toggle="tab" href="#nav-acuse" role="tab" aria-controls="nav-acuse" aria-selected="false">
                         Acuse - Invisible
                     </a>
+                    <a class="nav-item nav-link d-none" id="nav-adminuser-tab" data-toggle="tab" href="#nav-adminuser" role="tab" aria-controls="nav-adminuser" aria-selected="false">
+                        usuarios - Invisible
+                    </a>
                 </div>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle text-secondary" id="opcionDenuncia" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Nueva denuncia
+                        <i class="fa fa-plus"></i> Nueva denuncia
                     </a>
                     <div class="dropdown-menu" aria-labelledby="opcionDenuncia">
                         <a class="dropdown-item" id="llenarFormulario">Llenar formulario</a>
                         <a class="dropdown-item" id="subirImagen">Subir imagen</a>
                     </div>
                 </li>
+                <a class="nav-item nav-link active" id="usuario" data-toggle="tab" href="#nav-user" role="tab" aria-controls="nav-user" aria-selected="true">
+                    <i class="fa fa-users"></i> Administrar Usuarios
+                </a>
             </ul>
             <form class="form-inline my-2 my-lg-0">
                 <button type="button" class="btn btn-outline-light d-none" id="btnImprimir">
@@ -589,6 +595,212 @@ if (isset($_SESSION['user_id'])) {
                 </form>
             </div>
         </div>
+        <div class="tab-pane fade" id="nav-adminuser" role="tabpanel" aria-labelledby="nav-adminuser-tab">
+            <div class="row align-items-center justify-content-center mx-1">
+                <div class="card bg-white border border-info border-top-0 border-bottom-0 border-right-0 shadow-sm bg-white rounded my-3">
+                    <div class="card-body">
+                        <form id="formAdministradorUser" class="needs-validation" novalidate>
+                            <div class="col-12 m-auto">
+                                <div class="row">
+                                    <div id="Ad" class="tabcontent col-12" style="display: block;">
+                                        <div class="row no-gutters py-2 ">
+                                            <div class="col-lg-12 input-group ml-3 pull-right">
+                                                <button type="button" class="btn" data-toggle="modal" data-target="#newAdmin" style="background: #6fb430;color: white">
+                                                    Agregar Usuario
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <!--  -->
+                                        <div class="row">
+                                            <div class="col-lg-12 col-md-12 col-sm-12 mb-3">
+                                                <!-- Inicio cuer´po tabla -->
+                                                <div style="border-left: 0px solid #5cb85c;">
+                                                    <div id="tablePrintAdmins" class="pl-3 justify-content-center align-items-center"></div>
+                                                </div>
+                                                <!-- Fin cuerpo tabla -->
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div id="Us" class="tabcontent col-12">
+                                        <div class="container-fluid">
+                                            <div class="row">
+                                                <div class="col-lg-12">
+                                                    <div class="table-responsive" id="AdminMuestra"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal -->
+        <div class="modal fade" id="newAdmin" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header" style="background: linear-gradient(to right, #243B55,#141E30);">
+                        <h5 class="modal-title text-white" id="exampleModalLongTitle">Agregar Usuario / Administrador</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="exit">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <form id="newaddadmin">
+                        <div class="modal-body">
+                            <div class="box-body">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="inputForm01">Nombre</label>
+                                            <input type="text" class="form-control" id="nombre" aria-describedby="emailHelp" placeholder="Nombre">
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="inputForm01">Apellido Paterno</label>
+                                            <input type="text" class="form-control" id="app" aria-describedby="emailHelp" placeholder="Apellido Paterno">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="inputForm01">Apellido Materno</label>
+                                            <input type="text" class="form-control" id="apm" aria-describedby="emailHelp" placeholder="Apellido Materno">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="inputForm02">Contraseña</label>
+                                            <input type="password" class="form-control" id="pass" placeholder="Contraseña">
+                                            <span style="font-size: 11px;" id="msj"></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label for="inputForm01">Correo Electrónico</label>
+                                            <input type="email" class="form-control" id="email" aria-describedby="emailHelp" placeholder="Correo">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="inputForm01">Teléfono</label>
+                                            <input type="text" class="form-control" id="tel" aria-describedby="emailHelp" placeholder="Teléfono">
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="inputForm03">Tipo Usuario</label>
+                                            <select class="custom-select" id="tipou" required>
+                                                <option disabled="true" selected="true">Seleccionar...</option>
+                                                <option>Administrador</option>
+                                                <option>Usuario Consulta</option>
+
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <input type="hidden" id="status" value="1" name="estadoUsuario">
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal" id="exit">Salir</button>
+                                    <button type="submit" class="btn btn-primary">Guardar</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <!-- Modal editar usuario -->
+        <div class="modal fade" id="editAdministrador" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header" style="background: linear-gradient(to right, #243B55,#141E30);">
+                        <h5 class="modal-title text-white" id="exampleModalLongTitle">Editar Usuario / Administrador</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="exit">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <form id="editaddadmin">
+                        <div class="modal-body">
+                            <div class="box-body">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="inputForm01">Nombre</label>
+                                            <input type="hidden" id="input1">
+                                            <input type="text" class="form-control" id="enombre" aria-describedby="emailHelp" placeholder="Nombre">
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="inputForm01">Apellido Paterno</label>
+                                            <input type="text" class="form-control" id="eapp" aria-describedby="emailHelp" placeholder="Apellido Paterno">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="inputForm01">Apellido Materno</label>
+                                            <input type="text" class="form-control" id="eapm" aria-describedby="emailHelp" placeholder="Apellido Materno">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="inputForm02">Contraseña</label>
+                                            <input type="password" class="form-control" id="epass" placeholder="Contraseña">
+                                            <input type="hidden" id="defi">
+                                            <span style="font-size: 11px;" id="msj2"></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label for="inputForm01">Correo Electrónico</label>
+                                            <input type="email" class="form-control" id="eemail" aria-describedby="emailHelp" placeholder="Correo">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="inputForm01">Teléfono</label>
+                                            <input type="text" class="form-control" id="etel" aria-describedby="emailHelp" placeholder="Teléfono">
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="inputForm03">Tipo Usuario</label>
+                                            <select class="custom-select" id="etipou" required>
+                                                <option disabled="true" selected="true">Seleccionar...</option>
+                                                <option>Administrador</option>
+                                                <option>Usuario Consulta</option>
+
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Salir</button>
+                                    <button type="submit" class="btn btn-primary">Guardar</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <script src="vistas/static/js/AdminUser.js"></script>
+
+
+
+
+
+
+
+
         <div class="tab-pane fade" id="nav-nuevaDenunciaImg" role="tabpanel" aria-labelledby="nav-nuevaDenunciaImg-tab">
             <div class="row align-items-center justify-content-center mx-1" style="min-height: 85vh;">
                 <div class="card bg-white border border-info border-top-0 border-bottom-0 border-right-0 shadow-sm bg-white rounded my-3" style="max-width: 30rem;">

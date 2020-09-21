@@ -69,6 +69,14 @@ $(document).ready(function () {
         });
     });
 
+        //Administrar Usuarios//
+  $('#usuario').on('click', function () {
+        tipoNuevaDenuncia = "usuario";
+      
+        $('#nav-adminuser-tab').tab('show');
+    });
+        //Administrar Usuarios//
+
     // PRESUNTO DE NUEVA DENUNCIA
     $('#llenarFormulario').on('click', function () {
         tipoNuevaDenuncia = "llenarFormulario";
