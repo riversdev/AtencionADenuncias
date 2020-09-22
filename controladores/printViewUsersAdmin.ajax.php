@@ -1,6 +1,17 @@
 <script>
   $(document).ready(function() {
     var tableAdmins = $('#tableAdmins').DataTable({
+      "order": [
+        [0, "asc"]
+      ],
+      responsive: "true",
+      "sDom": "<'row'<'col-lg-3 col-md-4 col-9'l><'col-lg-5 col-md-3 col-3'B><'col-lg-4 col-md-5 col-12'f>r>t<'row'<'col-md-7 col-12'i><'col-md-5 col-12'p>>",
+      buttons: [{
+        extend: 'excelHtml5',
+        text: '<i class="fas fa-file-excel"></i>',
+        titleAttr: 'Exportar a excel',
+        className: 'btn btn-sm btn-warning bg-warning'
+      }],
       language: {
         sProcessing: "Procesando...",
         sLengthMenu: "Mostrar _MENU_ registros",
@@ -39,17 +50,15 @@ if ($contar != 0) {
   if ($respuesta) {
     $json = array();
     echo '
-      <table id="tableAdmins" class="table table-striped">
-        <thead style="background: linear-gradient(to right, #243B55,#141E30);">
+      <table id="tableAdmins" class="table table-hover" style="width: 100%;">
+        <thead class="text-white" style="background: linear-gradient(to right, #243B55,#141E30);">
           <tr style="font-weight:bolder;font-size:small;">
-            <th scope="col" class="text-white">Nombre</th>
-            <th scope="col" class="text-white">Apellido Paterno</th>
-            <th scope="col" class="text-white">Apellido Materno</th>
-            <th scope="col" class="text-white">Correo Electrónico</th>
-            <th scope="col" class="text-white">Teléfono</th>
-            <th scope="col" class="text-white">Tipo Usuario</th>
-            <th scope="col" class="text-white">Status</th>
-            <th scope="col" style="width: 100px" class="text-white">Acciones</th>
+            <th scope="col">Nombre</th>
+            <th scope="col">Correo Electrónico</th>
+            <th scope="col">Teléfono</th>
+            <th scope="col">Tipo Usuario</th>
+            <th scope="col" class="text-center">Status</th>
+            <th scope="col" class="text-center">Acciones</th>
           </tr>
         </thead>
         <tbody>
@@ -57,27 +66,25 @@ if ($contar != 0) {
     foreach ($respuesta as $key => $value) {
       echo '
       <tr style="font-size:small;">                   <!-- 1 -->
-        <td>' . $value['usuario'] . '</td>              <!-- 2 -->
-        <td>' . $value['app'] . '</td>
-        <td>' . $value['apm'] . '</td>
+        <td>' . $value['usuario'] . ' ' . $value['app'] . ' ' . $value['apm'] . '</td>              <!-- 2 -->
         <td>' . $value['email'] . '</td>
         <td>' . $value['tel'] . '</td>
         <td>' . $value['tipoUsuario'] . '</td>
-        <td>
+        <td class="text-center">
             <div class="custom-control custom-switch">';
-            if ($value['status'] != 0) {
-                echo '<input type="checkbox" class="custom-control-input switchActivar2" estadoAdmin="0" idUsuario="' . $value['idUsuario'] . '" id="customSwitch' . $value['idUsuario'] . '" checked> <label class="custom-control-label" for="customSwitch' . $value['idUsuario'] . '"></label> ';
-            } else {
-                echo '<input type="checkbox" class="custom-control-input switchActivar2" estadoAdmin="1" idUsuario="' . $value['idUsuario'] . '" id="customSwitch' . $value['idUsuario'] . '"> <label class="custom-control-label" for="customSwitch' . $value['idUsuario'] . '"></label> ';
-            }
-        echo ' 
+      if ($value['status'] != 0) {
+        echo '<input type="checkbox" class="custom-control-input switchActivar2" estadoAdmin="0" idUsuario="' . $value['idUsuario'] . '" id="customSwitch' . $value['idUsuario'] . '" checked> <label class="custom-control-label" for="customSwitch' . $value['idUsuario'] . '"></label> ';
+      } else {
+        echo '<input type="checkbox" class="custom-control-input switchActivar2" estadoAdmin="1" idUsuario="' . $value['idUsuario'] . '" id="customSwitch' . $value['idUsuario'] . '"> <label class="custom-control-label" for="customSwitch' . $value['idUsuario'] . '"></label> ';
+      }
+      echo ' 
             </div> 
         </td>                                               <!-- 4 -->
-        <td align="center">
-          <button type="button" class="task-edit-admin btn btn-xs" editAd="' . $value['idUsuario'] . '" data-toggle="modal" data-target="#editAdministrador"  style="background:#6fb430; color: white">
+        <td class="d-flex justify-content-around">
+          <button type="button" class="task-edit-admin btn btn-sm" editAd="' . $value['idUsuario'] . '" data-toggle="modal" data-target="#editAdministrador"  style="background:#6fb430; color: white">
             <i class="fa fa-edit"></i>
           </button>
-          <button type="button" class="task-delete-admin btn btn-xs" deteleAd="' . $value['idUsuario'] . '"  style="background: #b91926;color: white">
+          <button type="button" class="task-delete-admin btn btn-sm" deteleAd="' . $value['idUsuario'] . '"  style="background: #b91926;color: white">
           <i class="fa fa-trash"></i>
         </button>
         </td>

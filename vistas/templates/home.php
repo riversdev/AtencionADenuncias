@@ -21,9 +21,13 @@ if (isset($_SESSION['user_id'])) {
 
         setInterval(function() {
             verificarDenuncias();
-        }, 30000);
+        }, 3600000);
     </script>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-primary sticky-top shadow-sm">
+    <!-- Main usuarios -->
+    <script src="vistas/static/js/AdminUser.js"></script>
+
+    <!-- Navegaciones -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary sticky-top shadow-sm" style="background: linear-gradient(to right, #243B55,#141E30);">
         <a class="navbar-brand" href="/AtencionADenuncias">Atención a denuncias</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -34,6 +38,9 @@ if (isset($_SESSION['user_id'])) {
                     <a class="nav-item nav-link active" id="nav-denuncias-tab" data-toggle="tab" href="#nav-denuncias" role="tab" aria-controls="nav-denuncias" aria-selected="true">
                         <i class="fa fa-gavel"></i> Denuncias
                     </a>
+                    <a class="nav-item nav-link text-secondary" id="nav-adminuser-tab" data-toggle="tab" href="#nav-adminuser" role="tab" aria-controls="nav-adminuser" aria-selected="false">
+                        <i class="fa fa-users"></i> Administrar Usuarios
+                    </a>
                     <a class="nav-item nav-link d-none" id="nav-nuevaDenunciaForm-tab" data-toggle="tab" href="#nav-nuevaDenunciaForm" role="tab" aria-controls="nav-nuevaDenunciaForm" aria-selected="false">
                         Nueva denuncia - Llenar formulario - Invisible
                     </a>
@@ -43,11 +50,8 @@ if (isset($_SESSION['user_id'])) {
                     <a class="nav-item nav-link d-none" id="nav-vizualizador-tab" data-toggle="tab" href="#nav-vizualizador" role="tab" aria-controls="nav-vizualizador" aria-selected="false">
                         vizualizador - Invisible
                     </a>
-                    <a class="nav-item nav-link" id="nav-acuse-tab" data-toggle="tab" href="#nav-acuse" role="tab" aria-controls="nav-acuse" aria-selected="false">
+                    <a class="nav-item nav-link d-none" id="nav-acuse-tab" data-toggle="tab" href="#nav-acuse" role="tab" aria-controls="nav-acuse" aria-selected="false">
                         Acuse - Invisible
-                    </a>
-                    <a class="nav-item nav-link d-none" id="nav-adminuser-tab" data-toggle="tab" href="#nav-adminuser" role="tab" aria-controls="nav-adminuser" aria-selected="false">
-                        usuarios - Invisible
                     </a>
                 </div>
                 <li class="nav-item dropdown">
@@ -59,12 +63,12 @@ if (isset($_SESSION['user_id'])) {
                         <a class="dropdown-item" id="subirImagen">Subir imagen</a>
                     </div>
                 </li>
-                <a class="nav-item nav-link active" id="usuario" data-toggle="tab" href="#nav-user" role="tab" aria-controls="nav-user" aria-selected="true">
-                    <i class="fa fa-users"></i> Administrar Usuarios
-                </a>
             </ul>
             <form class="form-inline my-2 my-lg-0">
-                <button type="button" class="btn btn-outline-light d-none" id="btnImprimir">
+                <button type="button" class="btn btn-outline-light d-none" id="btnAgregarUsuario" data-toggle="modal" data-target="#newAdmin">
+                    <i class="fas fa-user-plus" data-toggle="tooltip" data-placement="bottom" title="Agregar usuario"></i>
+                </button>
+                <button type="button" class="btn btn-outline-light d-none" id="btnImprimir" data-toggle="tooltip" data-placement="bottom" title="Imprimir">
                     <i class="fas fa-print"></i>
                 </button>
                 <div class="btn-group pl-3">
@@ -95,12 +99,13 @@ if (isset($_SESSION['user_id'])) {
         </form>
     </nav>
 
+    <!-- Contenido -->
     <div class="tab-content" id="nav-tabContent">
         <div class="tab-pane fade show active" id="nav-denuncias" role="tabpanel" aria-labelledby="nav-denuncias-tab">
             <div id="contenedorTablasDenuncias"></div>
         </div>
         <div class="tab-pane fade" id="nav-nuevaDenunciaForm" role="tabpanel" aria-labelledby="nav-nuevaDenunciaForm-tab">
-            <div class="card bg-white border border-info border-top-0 border-bottom-0 border-right-0 shadow-sm bg-white rounded mx-5 my-3">
+            <div class="card bg-white border border-primary border-top-0 border-bottom-0 border-right-0 shadow-sm rounded mx-5 my-3">
                 <form id="formFormatoPresentacionDenuncia" class="needs-validation m-3" novalidate>
                     <input type="hidden" id="txtTareaFormulario">
                     <input type="hidden" id="txtStatusFormulario">
@@ -596,29 +601,18 @@ if (isset($_SESSION['user_id'])) {
             </div>
         </div>
         <div class="tab-pane fade" id="nav-adminuser" role="tabpanel" aria-labelledby="nav-adminuser-tab">
-            <div class="row align-items-center justify-content-center mx-1">
-                <div class="card bg-white border border-info border-top-0 border-bottom-0 border-right-0 shadow-sm bg-white rounded my-3">
-                    <div class="card-body">
-                        <form id="formAdministradorUser" class="needs-validation" novalidate>
-                            <div class="col-12 m-auto">
+            <div class="row align-items-center justify-content-center m-5">
+                <div class="col-12">
+                    <div class="card bg-white border border-primary border-top-0 border-bottom-0 border-right-0 shadow-sm rounded">
+                        <div class="card-body">
+                            <form id="formAdministradorUser" class="needs-validation" novalidate>
                                 <div class="row">
                                     <div id="Ad" class="tabcontent col-12" style="display: block;">
-                                        <div class="row no-gutters py-2 ">
-                                            <div class="col-lg-12 input-group ml-3 pull-right">
-                                                <button type="button" class="btn" data-toggle="modal" data-target="#newAdmin" style="background: #6fb430;color: white">
-                                                    Agregar Usuario
-                                                </button>
-                                            </div>
-                                        </div>
-                                        <!--  -->
                                         <div class="row">
-                                            <div class="col-lg-12 col-md-12 col-sm-12 mb-3">
-                                                <!-- Inicio cuer´po tabla -->
-                                                <div style="border-left: 0px solid #5cb85c;">
-                                                    <div id="tablePrintAdmins" class="pl-3 justify-content-center align-items-center"></div>
-                                                </div>
+                                            <div class="col-12">
+                                                <!-- Inicio cuerpo tabla -->
+                                                <div id="tablePrintAdmins"></div>
                                                 <!-- Fin cuerpo tabla -->
-
                                             </div>
                                         </div>
                                     </div>
@@ -632,178 +626,15 @@ if (isset($_SESSION['user_id'])) {
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Modal -->
-        <div class="modal fade" id="newAdmin" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered" role="document">
-                <div class="modal-content">
-                    <div class="modal-header" style="background: linear-gradient(to right, #243B55,#141E30);">
-                        <h5 class="modal-title text-white" id="exampleModalLongTitle">Agregar Usuario / Administrador</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="exit">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <form id="newaddadmin">
-                        <div class="modal-body">
-                            <div class="box-body">
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label for="inputForm01">Nombre</label>
-                                            <input type="text" class="form-control" id="nombre" aria-describedby="emailHelp" placeholder="Nombre">
-                                        </div>
-                                    </div>
-
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label for="inputForm01">Apellido Paterno</label>
-                                            <input type="text" class="form-control" id="app" aria-describedby="emailHelp" placeholder="Apellido Paterno">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label for="inputForm01">Apellido Materno</label>
-                                            <input type="text" class="form-control" id="apm" aria-describedby="emailHelp" placeholder="Apellido Materno">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label for="inputForm02">Contraseña</label>
-                                            <input type="password" class="form-control" id="pass" placeholder="Contraseña">
-                                            <span style="font-size: 11px;" id="msj"></span>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-12">
-                                        <div class="form-group">
-                                            <label for="inputForm01">Correo Electrónico</label>
-                                            <input type="email" class="form-control" id="email" aria-describedby="emailHelp" placeholder="Correo">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label for="inputForm01">Teléfono</label>
-                                            <input type="text" class="form-control" id="tel" aria-describedby="emailHelp" placeholder="Teléfono">
-                                        </div>
-                                    </div>
-
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label for="inputForm03">Tipo Usuario</label>
-                                            <select class="custom-select" id="tipou" required>
-                                                <option disabled="true" selected="true">Seleccionar...</option>
-                                                <option>Administrador</option>
-                                                <option>Usuario Consulta</option>
-
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <input type="hidden" id="status" value="1" name="estadoUsuario">
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal" id="exit">Salir</button>
-                                    <button type="submit" class="btn btn-primary">Guardar</button>
-                                </div>
-                            </div>
+                            </form>
                         </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-        <!-- Modal editar usuario -->
-        <div class="modal fade" id="editAdministrador" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered" role="document">
-                <div class="modal-content">
-                    <div class="modal-header" style="background: linear-gradient(to right, #243B55,#141E30);">
-                        <h5 class="modal-title text-white" id="exampleModalLongTitle">Editar Usuario / Administrador</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="exit">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
                     </div>
-                    <form id="editaddadmin">
-                        <div class="modal-body">
-                            <div class="box-body">
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label for="inputForm01">Nombre</label>
-                                            <input type="hidden" id="input1">
-                                            <input type="text" class="form-control" id="enombre" aria-describedby="emailHelp" placeholder="Nombre">
-                                        </div>
-                                    </div>
-
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label for="inputForm01">Apellido Paterno</label>
-                                            <input type="text" class="form-control" id="eapp" aria-describedby="emailHelp" placeholder="Apellido Paterno">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label for="inputForm01">Apellido Materno</label>
-                                            <input type="text" class="form-control" id="eapm" aria-describedby="emailHelp" placeholder="Apellido Materno">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label for="inputForm02">Contraseña</label>
-                                            <input type="password" class="form-control" id="epass" placeholder="Contraseña">
-                                            <input type="hidden" id="defi">
-                                            <span style="font-size: 11px;" id="msj2"></span>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-12">
-                                        <div class="form-group">
-                                            <label for="inputForm01">Correo Electrónico</label>
-                                            <input type="email" class="form-control" id="eemail" aria-describedby="emailHelp" placeholder="Correo">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label for="inputForm01">Teléfono</label>
-                                            <input type="text" class="form-control" id="etel" aria-describedby="emailHelp" placeholder="Teléfono">
-                                        </div>
-                                    </div>
-
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label for="inputForm03">Tipo Usuario</label>
-                                            <select class="custom-select" id="etipou" required>
-                                                <option disabled="true" selected="true">Seleccionar...</option>
-                                                <option>Administrador</option>
-                                                <option>Usuario Consulta</option>
-
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Salir</button>
-                                    <button type="submit" class="btn btn-primary">Guardar</button>
-                                </div>
-                            </div>
-                        </div>
-                    </form>
                 </div>
             </div>
         </div>
-        <script src="vistas/static/js/AdminUser.js"></script>
-
-
-
-
-
-
-
-
         <div class="tab-pane fade" id="nav-nuevaDenunciaImg" role="tabpanel" aria-labelledby="nav-nuevaDenunciaImg-tab">
             <div class="row align-items-center justify-content-center mx-1" style="min-height: 85vh;">
-                <div class="card bg-white border border-info border-top-0 border-bottom-0 border-right-0 shadow-sm bg-white rounded my-3" style="max-width: 30rem;">
+                <div class="card bg-white border border-primary border-top-0 border-bottom-0 border-right-0 shadow-sm rounded my-3" style="max-width: 30rem;">
                     <div class="card-body">
                         <form id="formImgFormatoPresentacionDenuncia" class="needs-validation" novalidate>
                             <input type="hidden" id="txtImagenIdDenuncia" name="txtImagenIdDenuncia" required>
@@ -1118,16 +949,16 @@ if (isset($_SESSION['user_id'])) {
                     <img src="" style="height: 8vh;width: 8vh;">
                     <img src="vistas\static\img\Escudo_de_Armas_Oficial_del_Estado_de_Hidalgo.png" style="height: 8vh;width: 8vh;">
                 </div>
-                <div class="form-row">
+                <div class="form-row mb-3">
                     <div class="col-12 py-2" style="color: #537F33;">
                         <h4 class="text-justify text-center font-weight-bold">ACUSE DE RECIBO DE DENUNCIA PRESENTADA</h4>
                     </div>
                     <div class="col-12 ml-3 pr-4">
                         <div class="row">
-                            <div class="col-5 bg-success">
+                            <div class="col-lg-5 col-sm-6 col-12 bg-success">
                                 <h5 class="text-white text-center p-4 pt-5 mt-2">DATOS GENERALES DE LA DENUNCIA</h5>
                             </div>
-                            <div class="col-7">
+                            <div class="col-lg-7 col-sm-6 col-12 my-3">
                                 <div class="row">
                                     <div class="col-12">
                                         <div class="input-group mb-2">
@@ -1158,234 +989,234 @@ if (isset($_SESSION['user_id'])) {
                         </div>
                     </div>
                 </div>
-                <div class="form-row mt-4">
+                <div class="form-row mb-4">
                     <div class="col-12">
                         <h6 class="text-justify text-white text-center py-2 bg-success">ELEMENTOS APORTADOS POR EL DENUNCIANTE</h6>
                     </div>
-                    <div id="contenedorDatosGeneralesAcuse">
-                        <div class="form-row">
-                            <div class="col-12">
-                                <h6 class="text-justify text-success text-center py-1">DATOS DE LA PERSONA QUE PRESENTA LA DENUNCIA</h6>
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="col-lg-2 col-md-3 mb-3">
-                                <label for="txtAnonimatoDenuncianteA">¿Desea el anonimato?</label>
-                                <select class="custom-select custom-select-sm" id="txtAnonimatoDenuncianteA" disabled>
-                                    <option selected disabled value="">Elegir...</option>
-                                    <option value="si">SI</option>
-                                    <option value="no">NO</option>
-                                </select>
-                            </div>
-                            <div class="col-lg-4 col-md-4 mb-3">
-                                <label for="txtNombreDenuncianteA">Nombre</label>
-                                <input type="text" class="form-control form-control-sm" id="txtNombreDenuncianteA" disabled>
-                            </div>
-                            <div class="col-lg-4 col-md-5 mb-3">
-                                <label for="txtDomicilioDenuncianteA">Domicilio</label>
-                                <input type="text" class="form-control form-control-sm" id="txtDomicilioDenuncianteA" disabled>
-                            </div>
-                            <div class="col-lg-2 col-md-3 mb-3">
-                                <label for="txtTelefonoDenuncianteA">Teléfono</label>
-                                <input type="tel" class="form-control form-control-sm" id="txtTelefonoDenuncianteA" disabled>
-                            </div>
-                            <div class="col-lg-3 col-md-4 mb-3">
-                                <label for="txtCorreoDenuncianteA">Correo electrónico</label>
-                                <input type="email" class="form-control form-control-sm" id="txtCorreoDenuncianteA" disabled>
-                            </div>
-                            <div class="col-lg-2 col-md-3 mb-3">
-                                <label for="txtSexoDenuncianteA">Sexo</label>
-                                <select class="custom-select custom-select-sm" id="txtSexoDenuncianteA" disabled>
-                                    <option selected disabled value="">Elegir...</option>
-                                    <option value="masculino">Masculino</option>
-                                    <option value="femenino">Femenino</option>
-                                </select>
-                            </div>
-                            <div class="col-lg-1 col-md-2 mb-3">
-                                <label for="txtEdadDenuncianteA">Edad</label>
-                                <input type="number" class="form-control form-control-sm" id="txtEdadDenuncianteA" disabled>
-                            </div>
-                            <div class="col-lg-3 col-md-6 mb-3">
-                                <label for="txtSPDenuncianteA">¿Es una persona servidora pública?</label>
-                                <select class="custom-select custom-select-sm" id="txtSPDenuncianteA" disabled>
-                                    <option selected disabled value="">Elegir...</option>
-                                    <option value="si">SI</option>
-                                    <option value="no">NO</option>
-                                </select>
-                            </div>
-                            <div class="col-lg-3 col-md-6 mb-3 d-none" id="inputPuestoA">
-                                <label for="txtPuestoDenuncianteA" class="text-white">L</label>
-                                <div class="input-group input-group-sm">
-                                    <div class="input-group-prepend">
-                                        <div class="input-group-text">Puesto</div>
-                                    </div>
-                                    <input type="text" class="form-control" id="txtPuestoDenuncianteA" disabled>
+                    <div class="col-12">
+                        <div id="contenedorDatosGeneralesAcuse" class="d-none">
+                            <div class="form-row">
+                                <div class="col-12">
+                                    <h6 class="text-justify text-success text-center py-1">DATOS DE LA PERSONA QUE PRESENTA LA DENUNCIA</h6>
                                 </div>
                             </div>
-                            <div class="col-lg-3 col-md-6 mb-3 d-none" id="inputEspecificarA">
-                                <label for="txtEspecificarDenuncianteA" class="text-white">L</label>
-                                <div class="input-group input-group-sm">
-                                    <div class="input-group-prepend">
-                                        <div class="input-group-text">Especifique:</div>
+                            <div class="form-row">
+                                <div class="col-lg-2 col-md-3 mb-3">
+                                    <label for="txtAnonimatoDenuncianteA">¿Desea el anonimato?</label>
+                                    <select class="custom-select custom-select-sm" id="txtAnonimatoDenuncianteA" disabled>
+                                        <option selected disabled value="">Elegir...</option>
+                                        <option value="si">SI</option>
+                                        <option value="no">NO</option>
+                                    </select>
+                                </div>
+                                <div class="col-lg-4 col-md-4 mb-3">
+                                    <label for="txtNombreDenuncianteA">Nombre</label>
+                                    <input type="text" class="form-control form-control-sm" id="txtNombreDenuncianteA" disabled>
+                                </div>
+                                <div class="col-lg-4 col-md-5 mb-3">
+                                    <label for="txtDomicilioDenuncianteA">Domicilio</label>
+                                    <input type="text" class="form-control form-control-sm" id="txtDomicilioDenuncianteA" disabled>
+                                </div>
+                                <div class="col-lg-2 col-md-3 mb-3">
+                                    <label for="txtTelefonoDenuncianteA">Teléfono</label>
+                                    <input type="tel" class="form-control form-control-sm" id="txtTelefonoDenuncianteA" disabled>
+                                </div>
+                                <div class="col-lg-3 col-md-4 mb-3">
+                                    <label for="txtCorreoDenuncianteA">Correo electrónico</label>
+                                    <input type="email" class="form-control form-control-sm" id="txtCorreoDenuncianteA" disabled>
+                                </div>
+                                <div class="col-lg-2 col-md-3 mb-3">
+                                    <label for="txtSexoDenuncianteA">Sexo</label>
+                                    <select class="custom-select custom-select-sm" id="txtSexoDenuncianteA" disabled>
+                                        <option selected disabled value="">Elegir...</option>
+                                        <option value="masculino">Masculino</option>
+                                        <option value="femenino">Femenino</option>
+                                    </select>
+                                </div>
+                                <div class="col-lg-1 col-md-2 mb-3">
+                                    <label for="txtEdadDenuncianteA">Edad</label>
+                                    <input type="number" class="form-control form-control-sm" id="txtEdadDenuncianteA" disabled>
+                                </div>
+                                <div class="col-lg-3 col-md-6 mb-3">
+                                    <label for="txtSPDenuncianteA">¿Es una persona servidora pública?</label>
+                                    <select class="custom-select custom-select-sm" id="txtSPDenuncianteA" disabled>
+                                        <option selected disabled value="">Elegir...</option>
+                                        <option value="si">SI</option>
+                                        <option value="no">NO</option>
+                                    </select>
+                                </div>
+                                <div class="col-lg-3 col-md-6 mb-3 d-none" id="inputPuestoA">
+                                    <label for="txtPuestoDenuncianteA" class="text-white">L</label>
+                                    <div class="input-group input-group-sm">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text">Puesto</div>
+                                        </div>
+                                        <input type="text" class="form-control" id="txtPuestoDenuncianteA" disabled>
                                     </div>
-                                    <input type="text" class="form-control" id="txtEspecificarDenuncianteA" disabled>
+                                </div>
+                                <div class="col-lg-3 col-md-6 mb-3 d-none" id="inputEspecificarA">
+                                    <label for="txtEspecificarDenuncianteA" class="text-white">L</label>
+                                    <div class="input-group input-group-sm">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text">Especifique:</div>
+                                        </div>
+                                        <input type="text" class="form-control" id="txtEspecificarDenuncianteA" disabled>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="col-lg-6 col-md-6 mb-3">
+                                    <label for="txtGradoEstudiosDenuncianteA">Grado de estudios</label>
+                                    <input type="text" class="form-control form-control-sm" id="txtGradoEstudiosDenuncianteA" disabled>
+                                </div>
+                                <div class="col-lg-6 col-md-6 mb-3">
+                                    <label for="txtDiscapacidadDenuncianteA">¿Vive con alguna discapacidad?</label>
+                                    <input type="text" class="form-control form-control-sm" id="txtDiscapacidadDenuncianteA" disabled>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="col-12">
+                                    <h6 class="text-justify text-success text-center py-1">DATOS DE LA PERSONA CONTRA QUIEN PRESENTA LA DENUNCIA</h6>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="col-lg-4 col-md-4 mb-3">
+                                    <label for="txtNombreDenunciadoA">Nombre</label>
+                                    <input type="text" class="form-control form-control-sm" id="txtNombreDenunciadoA" disabled>
+                                </div>
+                                <div class="col-lg-5 col-md-5 mb-3">
+                                    <label for="txtEntidadDenunciadoA">Entidad o dependencia en la que se desempeña</label>
+                                    <input type="text" class="form-control form-control-sm" id="txtEntidadDenunciadoA" disabled>
+                                </div>
+                                <div class="col-lg-3 col-md-3 mb-3">
+                                    <label for="txtTelefonoDenunciadoA">Teléfono</label>
+                                    <input type="tel" class="form-control form-control-sm" id="txtTelefonoDenunciadoA" disabled>
+                                </div>
+                                <div class="col-lg-3 col-md-5 mb-3">
+                                    <label for="txtCorreoDenunciadoA">Correo electrónico</label>
+                                    <input type="email" class="form-control form-control-sm" id="txtCorreoDenunciadoA" disabled>
+                                </div>
+                                <div class="col-lg-2 col-md-4 mb-3">
+                                    <label for="txtSexoDenunciadoA">Sexo</label>
+                                    <select class="custom-select custom-select-sm" id="txtSexoDenunciadoA" disabled>
+                                        <option selected disabled value="">Elegir...</option>
+                                        <option value="masculino">Masculino</option>
+                                        <option value="femenino">Femenino</option>
+                                    </select>
+                                </div>
+                                <div class="col-lg-1 col-md-3 mb-3">
+                                    <label for="txtEdadDenunciadoA">Edad</label>
+                                    <input type="number" class="form-control form-control-sm" id="txtEdadDenunciadoA" disabled>
+                                </div>
+                                <div class="col-lg-3 col-md-6 mb-3">
+                                    <label for="txtSPDenunciadoA">¿Es una persona servidora pública?</label>
+                                    <select class="custom-select custom-select-sm" id="txtSPDenunciadoA" disabled>
+                                        <option selected disabled value="">Elegir...</option>
+                                        <option value="si">SI</option>
+                                        <option value="no">NO</option>
+                                    </select>
+                                </div>
+                                <div class="col-lg-3 col-md-6 mb-3">
+                                    <label for="txtEspecificarDenunciadoA" class="text-white">L</label>
+                                    <div class="input-group input-group-sm">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text">Especifique:</div>
+                                        </div>
+                                        <input type="text" class="form-control" id="txtEspecificarDenunciadoA" disabled>
+                                    </div>
+                                </div>
+                                <div class="col-12 mb-3">
+                                    <label for="txtRelacionDenunciadoA">Relación con el denunciante</label>
+                                    <input type="text" class="form-control form-control-sm" id="txtRelacionDenunciadoA" disabled>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="col-12">
+                                    <h6 class="text-justify text-success text-center py-1">INFORMACIÓN DE LA DENUNCIA</h6>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="col-12 text-center">
+                                    <h6 class="font-weight-light text-muted">Ocurrió en:</h6>
+                                </div>
+                                <div class="col-lg-4 col-md-4 mb-3">
+                                    <label for="txtLugarDenunciaA">Lugar</label>
+                                    <input type="text" class="form-control form-control-sm" id="txtLugarDenunciaA" disabled>
+                                </div>
+                                <div class="col-lg-4 col-md-4 mb-3">
+                                    <label for="txtFechaDenunciaA">Fecha</label>
+                                    <input type="date" class="form-control form-control-sm" id="txtFechaDenunciaA" disabled>
+                                </div>
+                                <div class="col-lg-4 col-md-4 mb-3">
+                                    <label for="txtHoraDenunciaA">Hora</label>
+                                    <input type="time" class="form-control form-control-sm" id="txtHoraDenunciaA" disabled>
+                                </div>
+                                <div class="col-12 mb-3">
+                                    <label for="txtNarracionDenunciaA">Breve narración del hecho o conducta</label>
+                                    <textarea class="form-control form-control-sm" id="txtNarracionDenunciaA" rows="3" disabled></textarea>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="col-12">
+                                    <h6 class="text-justify text-success text-center py-1">DATOS DE LA PERSONA QUE HAYA SIDO TESTIGO DE LOS HECHOS</h6>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="col-lg-4 col-md-4 mb-3">
+                                    <label for="txtNombreTestigoA">Nombre</label>
+                                    <input type="text" class="form-control form-control-sm" id="txtNombreTestigoA" disabled>
+                                </div>
+                                <div class="col-lg-4 col-md-5 mb-3">
+                                    <label for="txtDomicilioTestigoA">Domicilio</label>
+                                    <input type="text" class="form-control form-control-sm" id="txtDomicilioTestigoA" disabled>
+                                </div>
+                                <div class="col-lg-4 col-md-3 mb-3">
+                                    <label for="txtTelefonoTestigoA">Teléfono</label>
+                                    <input type="tel" class="form-control form-control-sm" id="txtTelefonoTestigoA" disabled>
+                                </div>
+                                <div class="col-lg-6 col-md-6 mb-3">
+                                    <label for="txtCorreoTestigoA">Correo electrónico</label>
+                                    <input type="email" class="form-control form-control-sm" id="txtCorreoTestigoA" disabled>
+                                </div>
+                                <div class="col-lg-6 col-md-6 mb-3">
+                                    <label for="txtRelacionTestigoA">Relación con el denunciante</label>
+                                    <input type="text" class="form-control form-control-sm" id="txtRelacionTestigoA" disabled>
+                                </div>
+                                <div class="col-lg-4 col-md-6 offset-lg-0 offset-md-3 mb-3">
+                                    <label for="txtTrabajaTestigoA">¿Trabaja en la administración pública estatal?</label>
+                                    <select class="custom-select custom-select-sm" id="txtTrabajaTestigoA" disabled>
+                                        <option selected disabled value="">Elegir...</option>
+                                        <option value="si">SI</option>
+                                        <option value="no">NO</option>
+                                    </select>
+                                </div>
+                                <div class="col-lg-4 col-md-6 mb-3 d-none" id="inputEDA">
+                                    <label for="txtEntidadTestigoA" class="text-white">+</label>
+                                    <div class="input-group input-group-sm">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text">Entidad o dependencia</div>
+                                        </div>
+                                        <input type="text" class="form-control" id="txtEntidadTestigoA" disabled>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 col-md-6 mb-3 d-none" id="inputCargoA">
+                                    <label for="txtCargoTestigoA" class="text-white">+</label>
+                                    <div class="input-group input-group-sm">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text">Cargo</div>
+                                        </div>
+                                        <input type="text" class="form-control" id="txtCargoTestigoA" disabled>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="form-row">
-                            <div class="col-lg-6 col-md-6 mb-3">
-                                <label for="txtGradoEstudiosDenuncianteA">Grado de estudios</label>
-                                <input type="text" class="form-control form-control-sm" id="txtGradoEstudiosDenuncianteA" disabled>
-                            </div>
-                            <div class="col-lg-6 col-md-6 mb-3">
-                                <label for="txtDiscapacidadDenuncianteA">¿Vive con alguna discapacidad?</label>
-                                <input type="text" class="form-control form-control-sm" id="txtDiscapacidadDenuncianteA" disabled>
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="col-12">
-                                <h6 class="text-justify text-success text-center py-1">DATOS DE LA PERSONA CONTRA QUIEN PRESENTA LA DENUNCIA</h6>
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="col-lg-4 col-md-4 mb-3">
-                                <label for="txtNombreDenunciadoA">Nombre</label>
-                                <input type="text" class="form-control form-control-sm" id="txtNombreDenunciadoA" disabled>
-                            </div>
-                            <div class="col-lg-5 col-md-5 mb-3">
-                                <label for="txtEntidadDenunciadoA">Entidad o dependencia en la que se desempeña</label>
-                                <input type="text" class="form-control form-control-sm" id="txtEntidadDenunciadoA" disabled>
-                            </div>
-                            <div class="col-lg-3 col-md-3 mb-3">
-                                <label for="txtTelefonoDenunciadoA">Teléfono</label>
-                                <input type="tel" class="form-control form-control-sm" id="txtTelefonoDenunciadoA" disabled>
-                            </div>
-                            <div class="col-lg-3 col-md-5 mb-3">
-                                <label for="txtCorreoDenunciadoA">Correo electrónico</label>
-                                <input type="email" class="form-control form-control-sm" id="txtCorreoDenunciadoA" disabled>
-                            </div>
-                            <div class="col-lg-2 col-md-4 mb-3">
-                                <label for="txtSexoDenunciadoA">Sexo</label>
-                                <select class="custom-select custom-select-sm" id="txtSexoDenunciadoA" disabled>
-                                    <option selected disabled value="">Elegir...</option>
-                                    <option value="masculino">Masculino</option>
-                                    <option value="femenino">Femenino</option>
-                                </select>
-                            </div>
-                            <div class="col-lg-1 col-md-3 mb-3">
-                                <label for="txtEdadDenunciadoA">Edad</label>
-                                <input type="number" class="form-control form-control-sm" id="txtEdadDenunciadoA" disabled>
-                            </div>
-                            <div class="col-lg-3 col-md-6 mb-3">
-                                <label for="txtSPDenunciadoA">¿Es una persona servidora pública?</label>
-                                <select class="custom-select custom-select-sm" id="txtSPDenunciadoA" disabled>
-                                    <option selected disabled value="">Elegir...</option>
-                                    <option value="si">SI</option>
-                                    <option value="no">NO</option>
-                                </select>
-                            </div>
-                            <div class="col-lg-3 col-md-6 mb-3">
-                                <label for="txtEspecificarDenunciadoA" class="text-white">L</label>
-                                <div class="input-group input-group-sm">
-                                    <div class="input-group-prepend">
-                                        <div class="input-group-text">Especifique:</div>
-                                    </div>
-                                    <input type="text" class="form-control" id="txtEspecificarDenunciadoA" disabled>
-                                </div>
-                            </div>
-                            <div class="col-12 mb-3">
-                                <label for="txtRelacionDenunciadoA">Relación con el denunciante</label>
-                                <input type="text" class="form-control form-control-sm" id="txtRelacionDenunciadoA" disabled>
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="col-12">
-                                <h6 class="text-justify text-success text-center py-1">INFORMACIÓN DE LA DENUNCIA</h6>
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="col-12 text-center">
-                                <h6 class="font-weight-light text-muted">Ocurrió en:</h6>
-                            </div>
-                            <div class="col-lg-4 col-md-4 mb-3">
-                                <label for="txtLugarDenunciaA">Lugar</label>
-                                <input type="text" class="form-control form-control-sm" id="txtLugarDenunciaA" disabled>
-                            </div>
-                            <div class="col-lg-4 col-md-4 mb-3">
-                                <label for="txtFechaDenunciaA">Fecha</label>
-                                <input type="date" class="form-control form-control-sm" id="txtFechaDenunciaA" disabled>
-                            </div>
-                            <div class="col-lg-4 col-md-4 mb-3">
-                                <label for="txtHoraDenunciaA">Hora</label>
-                                <input type="time" class="form-control form-control-sm" id="txtHoraDenunciaA" disabled>
-                            </div>
-                            <div class="col-12 mb-3">
-                                <label for="txtNarracionDenunciaA">Breve narración del hecho o conducta</label>
-                                <textarea class="form-control form-control-sm" id="txtNarracionDenunciaA" rows="3" disabled></textarea>
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="col-12">
-                                <h6 class="text-justify text-success text-center py-1">DATOS DE LA PERSONA QUE HAYA SIDO TESTIGO DE LOS HECHOS</h6>
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="col-lg-4 col-md-4 mb-3">
-                                <label for="txtNombreTestigoA">Nombre</label>
-                                <input type="text" class="form-control form-control-sm" id="txtNombreTestigoA" disabled>
-                            </div>
-                            <div class="col-lg-4 col-md-5 mb-3">
-                                <label for="txtDomicilioTestigoA">Domicilio</label>
-                                <input type="text" class="form-control form-control-sm" id="txtDomicilioTestigoA" disabled>
-                            </div>
-                            <div class="col-lg-4 col-md-3 mb-3">
-                                <label for="txtTelefonoTestigoA">Teléfono</label>
-                                <input type="tel" class="form-control form-control-sm" id="txtTelefonoTestigoA" disabled>
-                            </div>
-                            <div class="col-lg-6 col-md-6 mb-3">
-                                <label for="txtCorreoTestigoA">Correo electrónico</label>
-                                <input type="email" class="form-control form-control-sm" id="txtCorreoTestigoA" disabled>
-                            </div>
-                            <div class="col-lg-6 col-md-6 mb-3">
-                                <label for="txtRelacionTestigoA">Relación con el denunciante</label>
-                                <input type="text" class="form-control form-control-sm" id="txtRelacionTestigoA" disabled>
-                            </div>
-                            <div class="col-lg-4 col-md-6 offset-lg-0 offset-md-3 mb-3">
-                                <label for="txtTrabajaTestigoA">¿Trabaja en la administración pública estatal?</label>
-                                <select class="custom-select custom-select-sm" id="txtTrabajaTestigoA" disabled>
-                                    <option selected disabled value="">Elegir...</option>
-                                    <option value="si">SI</option>
-                                    <option value="no">NO</option>
-                                </select>
-                            </div>
-                            <div class="col-lg-4 col-md-6 mb-3 d-none" id="inputEDA">
-                                <label for="txtEntidadTestigoA" class="text-white">+</label>
-                                <div class="input-group input-group-sm">
-                                    <div class="input-group-prepend">
-                                        <div class="input-group-text">Entidad o dependencia</div>
-                                    </div>
-                                    <input type="text" class="form-control" id="txtEntidadTestigoA" disabled>
-                                </div>
-                            </div>
-                            <div class="col-lg-4 col-md-6 mb-3 d-none" id="inputCargoA">
-                                <label for="txtCargoTestigoA" class="text-white">+</label>
-                                <div class="input-group input-group-sm">
-                                    <div class="input-group-prepend">
-                                        <div class="input-group-text">Cargo</div>
-                                    </div>
-                                    <input type="text" class="form-control" id="txtCargoTestigoA" disabled>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div id="contenedorImagenGeneralAcuse">
-                        <div class="form-row">
-                            <div class="col-12 text-center mb-3" id="contenedorImagenFormatoAcuse"></div>
+                        <div id="contenedorImagenGeneralAcuse" class="d-none">
+                            <div class="text-center" id="contenedorImagenFormatoAcuse"></div>
                         </div>
                     </div>
                 </div>
-                <div class="form-row mt-4">
-                    <div class="col-12">
+                <div class="form-row">
+                    <div class="col-12 mb-1">
                         <h6 class="text-justify text-white text-center py-2 bg-success">OBSERVACIONES GENERALES</h6>
                     </div>
                     <div class="col-12 mb-3">
@@ -1396,6 +1227,155 @@ if (isset($_SESSION['user_id'])) {
                     </div>
                 </div>
             </form>
+        </div>
+    </div>
+
+    <!-- Modal Agregar Usuario -->
+    <div class="modal fade" id="newAdmin" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header" style="background: linear-gradient(to right, #243B55,#141E30);">
+                    <h5 class="modal-title text-white" id="exampleModalLongTitle">Agregar Usuario / Administrador</h5>
+                    <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close" id="exit">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form id="newaddadmin">
+                    <div class="modal-body">
+                        <div class="box-body">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="inputForm01">Nombre</label>
+                                        <input type="text" class="form-control" id="nombre" aria-describedby="emailHelp" placeholder="Nombre">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="inputForm01">Apellido Paterno</label>
+                                        <input type="text" class="form-control" id="app" aria-describedby="emailHelp" placeholder="Apellido Paterno">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="inputForm01">Apellido Materno</label>
+                                        <input type="text" class="form-control" id="apm" aria-describedby="emailHelp" placeholder="Apellido Materno">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="inputForm02">Contraseña</label>
+                                        <input type="password" class="form-control" id="pass" placeholder="Contraseña">
+                                        <span style="font-size: 11px;" id="msj"></span>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label for="inputForm01">Correo Electrónico</label>
+                                        <input type="email" class="form-control" id="email" aria-describedby="emailHelp" placeholder="Correo">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="inputForm01">Teléfono</label>
+                                        <input type="text" class="form-control" id="tel" aria-describedby="emailHelp" placeholder="Teléfono">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="inputForm03">Tipo Usuario</label>
+                                        <select class="custom-select" id="tipou" required>
+                                            <option disabled="true" selected="true">Seleccionar...</option>
+                                            <option>Administrador</option>
+                                            <option>Usuario Consulta</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <input type="hidden" id="status" value="1" name="estadoUsuario">
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal" id="exit">Salir</button>
+                                <button type="submit" class="btn btn-primary">Guardar</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Editar Usuario -->
+    <div class="modal fade" id="editAdministrador" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header" style="background: linear-gradient(to right, #243B55,#141E30);">
+                    <h5 class="modal-title text-white" id="exampleModalLongTitle">Editar Usuario / Administrador</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="exit">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form id="editaddadmin">
+                    <div class="modal-body">
+                        <div class="box-body">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="inputForm01">Nombre</label>
+                                        <input type="hidden" id="input1">
+                                        <input type="text" class="form-control" id="enombre" aria-describedby="emailHelp" placeholder="Nombre">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="inputForm01">Apellido Paterno</label>
+                                        <input type="text" class="form-control" id="eapp" aria-describedby="emailHelp" placeholder="Apellido Paterno">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="inputForm01">Apellido Materno</label>
+                                        <input type="text" class="form-control" id="eapm" aria-describedby="emailHelp" placeholder="Apellido Materno">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="inputForm02">Contraseña</label>
+                                        <input type="password" class="form-control" id="epass" placeholder="Contraseña">
+                                        <input type="hidden" id="defi">
+                                        <span style="font-size: 11px;" id="msj2"></span>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label for="inputForm01">Correo Electrónico</label>
+                                        <input type="email" class="form-control" id="eemail" aria-describedby="emailHelp" placeholder="Correo">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="inputForm01">Teléfono</label>
+                                        <input type="text" class="form-control" id="etel" aria-describedby="emailHelp" placeholder="Teléfono">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="inputForm03">Tipo Usuario</label>
+                                        <select class="custom-select" id="etipou" required>
+                                            <option disabled="true" selected="true">Seleccionar...</option>
+                                            <option>Administrador</option>
+                                            <option>Usuario Consulta</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Salir</button>
+                                <button type="submit" class="btn btn-primary">Guardar</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
 
@@ -1414,21 +1394,21 @@ if (isset($_SESSION['user_id'])) {
                         <div class="col-12">
                             <div class="row">
                                 <div class="col-lg-4 col-sm-6 col-12 py-2">
-                                    <div id="presunto1" class="card bg-white border border-info border-top-0 border-bottom-0 border-right-0 shadow-sm bg-white rounded">
+                                    <div id="presunto1" class="card bg-white border border-primary border-top-0 border-bottom-0 border-right-0 shadow-sm rounded">
                                         <div class="card-body text-center">
                                             <span class="font-weight-light">Incumplimiento al código de ética</span>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-lg-4 col-sm-6 col-12 py-2">
-                                    <div id="presunto2" class="card bg-white border border-info border-top-0 border-bottom-0 border-right-0 shadow-sm bg-white rounded">
+                                    <div id="presunto2" class="card bg-white border border-primary border-top-0 border-bottom-0 border-right-0 shadow-sm rounded">
                                         <div class="card-body text-center">
                                             <span class="font-weight-light">Incumplimiento a las reglas de integridad</span>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-lg-4 col-sm-6 col-12 py-2">
-                                    <div id="presunto3" class="card bg-white border border-info border-top-0 border-bottom-0 border-right-0 shadow-sm bg-white rounded">
+                                    <div id="presunto3" class="card bg-white border border-primary border-top-0 border-bottom-0 border-right-0 shadow-sm rounded">
                                         <div class="card-body text-center">
                                             <span class="font-weight-light">Incumplimiento al código de conducta</span>
                                         </div>
@@ -1439,28 +1419,28 @@ if (isset($_SESSION['user_id'])) {
                         <div class="col-12">
                             <div class="row">
                                 <div class="col-lg-3 col-sm-6 col-12 py-2">
-                                    <div id="presunto4" class="card bg-white border border-info border-top-0 border-bottom-0 border-right-0 shadow-sm bg-white rounded">
+                                    <div id="presunto4" class="card bg-white border border-primary border-top-0 border-bottom-0 border-right-0 shadow-sm rounded">
                                         <div class="card-body text-center">
                                             <span class="font-weight-light">Agresión</span>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-lg-3 col-sm-6 col-12 py-2">
-                                    <div id="presunto5" class="card bg-white border border-info border-top-0 border-bottom-0 border-right-0 shadow-sm bg-white rounded">
+                                    <div id="presunto5" class="card bg-white border border-primary border-top-0 border-bottom-0 border-right-0 shadow-sm rounded">
                                         <div class="card-body text-center">
                                             <span class="font-weight-light">Amedrentamiento</span>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-lg-3 col-sm-6 col-12 py-2">
-                                    <div id="presunto6" class="card bg-white border border-info border-top-0 border-bottom-0 border-right-0 shadow-sm bg-white rounded">
+                                    <div id="presunto6" class="card bg-white border border-primary border-top-0 border-bottom-0 border-right-0 shadow-sm rounded">
                                         <div class="card-body text-center">
                                             <span class="font-weight-light">Intimidación</span>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-lg-3 col-sm-6 col-12 py-2">
-                                    <div id="presunto7" class="card bg-white border border-info border-top-0 border-bottom-0 border-right-0 shadow-sm bg-white rounded">
+                                    <div id="presunto7" class="card bg-white border border-primary border-top-0 border-bottom-0 border-right-0 shadow-sm rounded">
                                         <div class="card-body text-center">
                                             <span class="font-weight-light">Amenazas</span>
                                         </div>
@@ -1481,7 +1461,7 @@ if (isset($_SESSION['user_id'])) {
                 <div class="modal-body">
                     <div class="form-row">
                         <div class="col-12">
-                            <p class="card bg-white border border-info border-top-0 border-bottom-0 border-right-0 shadow-sm bg-white rounded text-justify p-2 border text-muted" style="font-size: small;"><b>Nota:</b> Asegurate de que la imagen que intentas subir tenga un peso menor a 2MB y contenga la totalidad de los datos requeridos en el formato para la presentación de una denuncia ante el comité de ética y de prevención de conflictos de interés de la oficicialía mayor. Usar esta opción solo permitirá una imagen por denuncia y se guardará como una denuncia pendiente de evaluación por los miembros del comité.</p>
+                            <p class="card bg-white border border-primary border-top-0 border-bottom-0 border-right-0 shadow-sm rounded text-justify p-2 border text-muted" style="font-size: small;"><b>Nota:</b> Asegurate de que la imagen que intentas subir tenga un peso menor a 2MB y contenga la totalidad de los datos requeridos en el formato para la presentación de una denuncia ante el comité de ética y de prevención de conflictos de interés de la oficicialía mayor. Usar esta opción solo permitirá una imagen por denuncia y se guardará como una denuncia pendiente de evaluación por los miembros del comité.</p>
                         </div>
                     </div>
                     <div class="form-row justify-content-end pr-1">

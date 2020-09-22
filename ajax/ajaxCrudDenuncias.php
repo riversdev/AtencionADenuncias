@@ -111,14 +111,29 @@ switch ($accion) {
         $denunciasInconclusas = CrudDenuncias::obtenerDenuncias("inconclusa");
         $denunciasPendientes = CrudDenuncias::obtenerDenuncias("pendiente");
         $denunciasConcluidas = CrudDenuncias::obtenerDenuncias("concluida");
-        echo '
-            <div class="row align-items-center justify-content-center mx-5">
-                <div class="col-12 p-3">
-                    <div class="card bg-white border border-info border-top-0 border-bottom-0 border-right-0 shadow-sm bg-white rounded">
+        if (count($denunciasInconclusas) == 0 && count($denunciasPendientes) == 0 && count($denunciasConcluidas) == 0) {
+            echo '
+                <div class="row d-flex justify-content-center align-items-center mx-1" style="height: 85vh;">
+                    <div class="card bg-primary shadow-sm" style="max-width: 25rem;">
+                        <div class="card-body text-white">
+                            <h5 class="card-title text-center">Bienvenido</h5>
+                            <p class="card-text text-justify">
+                                <b>No existen denuncias,</b> puede comenzar a agregar nuevas eligiendo la opción en la navegación superior.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            ';
+        } else {
+            echo '<div class="row align-items-center justify-content-center mx-5"><span class="py-3 text-light">.</span>';
+            if (count($denunciasInconclusas) != 0) {
+                echo '
+                <div class="col-12">
+                    <div class="card bg-white border border-primary border-top-0 border-bottom-0 border-right-0 shadow-sm rounded">
                         <div class="card-body">
-                            <h6 class="card-title text-info">INCONCLUSAS</h6>
-                            <table id="tablaInconclusas" class="order-column hover nowrap compact" style="width: 100%;">
-                                <thead>
+                            <h6 class="card-title text-primary font-weight-bold">INCONCLUSAS</h6>
+                            <table id="tablaInconclusas" class="table table-sm table-hover" style="width: 100%;">
+                                <thead class="text-white" style="background: linear-gradient(to right, #243B55,#141E30);">
                                     <tr>
                                         <th scope="col">idDenuncia</th>
                                         <th scope="col">tipoDenuncia</th>
@@ -162,8 +177,8 @@ switch ($accion) {
                                     </tr>
                                 </thead>
                                 <tbody>';
-        foreach ($denunciasInconclusas as $row) {
-            echo '                  <tr style="font-size:small;">
+                foreach ($denunciasInconclusas as $row) {
+                    echo '                  <tr style="font-size:small;">
                                         <td>' . $row['idDenuncia'] . '</td>
                                         <td>' . $row['tipoDenuncia'] . '</td>
                                         <th scope="row" class="text-center">' . $row['numExpediente'] . '</th>
@@ -180,12 +195,12 @@ switch ($accion) {
                                         <td>' . $row['especificarDenunciante'] . '</td>
                                         <td>' . $row['gradoEstudiosDenunciante'] . '</td>
                                         <td>' . $row['discapacidadDenunciante'] . '</td>';
-            if ($row['nombreDenunciado'] != "") {
-                echo '                  <td>' . $row['nombreDenunciado'] . '</td>';
-            } else {
-                echo '                  <td class="text-success" style="font-size:x-small;"> - - - - - - - </td>';
-            }
-            echo '                      <td>' . $row['entidadDenunciado'] . '</td>
+                    if ($row['nombreDenunciado'] != "") {
+                        echo '                  <td>' . $row['nombreDenunciado'] . '</td>';
+                    } else {
+                        echo '                  <td class="text-success" style="font-size:x-small;"> - - - - - - - </td>';
+                    }
+                    echo '                      <td>' . $row['entidadDenunciado'] . '</td>
                                         <td>' . $row['telefonoDenunciado'] . '</td>
                                         <td>' . $row['correoDenunciado'] . '</td>
                                         <td>' . $row['sexoDenunciado'] . '</td>
@@ -290,18 +305,22 @@ switch ($accion) {
                                             " . ');"></i>
                                         </td>
                                     </tr>';
-        }
-        echo '                  </tbody>
+                }
+                echo '          </tbody>
                             </table>
                         </div>
                     </div>
-                </div>
-                <div class="col-12 p-3">
-                    <div class="card bg-white border border-info border-top-0 border-bottom-0 border-right-0 shadow-sm bg-white rounded">
+                </div>';
+            }
+            if (count($denunciasPendientes) != 0) {
+                echo '
+                <span class="py-3 text-light">.</span>
+                <div class="col-12">
+                    <div class="card bg-white border border-primary border-top-0 border-bottom-0 border-right-0 shadow-sm bg-white rounded">
                         <div class="card-body">
-                            <h6 class="card-title text-info">PENDIENTES</h6>
-                            <table id="tablaPendientes" class="order-column hover nowrap compact" style="width: 100%;">
-                                <thead>
+                            <h6 class="card-title text-primary font-weight-bold">PENDIENTES</h6>
+                            <table id="tablaPendientes" class="table table-sm table-hover" style="width: 100%;">
+                                <thead class="text-white" style="background: linear-gradient(to right, #243B55,#141E30);">
                                     <tr>
                                         <th scope="col">idDenuncia</th>
                                         <th scope="col">tipoDenuncia</th>
@@ -345,23 +364,23 @@ switch ($accion) {
                                     </tr>
                                 </thead>
                                 <tbody>';
-        foreach ($denunciasPendientes as $row) {
-            echo '                  <tr style="font-size:small;">
+                foreach ($denunciasPendientes as $row) {
+                    echo '          <tr style="font-size:small;">
                                         <td>' . $row['idDenuncia'] . '</td>
                                         <td>' . $row['tipoDenuncia'] . '</td>
                                         <th scope="row" class="text-center">' . $row['numExpediente'] . '</th>
                                         <td class="text-center">' . date("d-m-Y", strtotime($row['fechaPresentacion'])) . '</td>
                                         <td>' . $row['anonimatoDenunciante'] . '</td>';
-            if ($row['nombreDenunciante'] != "") {
-                echo '                  <td>' . $row['nombreDenunciante'] . '</td>';
-            } else {
-                if (base64_encode($row['imagenDenuncia']) != "") {
-                    echo '              <td class="text-success" style="font-size:x-small;"> contiene imagen </td>';
-                } else {
-                    echo '              <td class="text-success" style="font-size:x-small;"> denunciante desconocido </td>';
-                }
-            }
-            echo '                      <td>' . $row['domicilioDenunciante'] . '</td>
+                    if ($row['nombreDenunciante'] != "") {
+                        echo '                  <td>' . $row['nombreDenunciante'] . '</td>';
+                    } else {
+                        if (base64_encode($row['imagenDenuncia']) != "") {
+                            echo '              <td class="text-success" style="font-size:x-small;"> contiene imagen </td>';
+                        } else {
+                            echo '              <td class="text-success" style="font-size:x-small;"> denunciante desconocido </td>';
+                        }
+                    }
+                    echo '                      <td>' . $row['domicilioDenunciante'] . '</td>
                                         <td>' . $row['telefonoDenunciante'] . '</td>
                                         <td>' . $row['correoDenunciante'] . '</td>
                                         <td>' . $row['sexoDenunciante'] . '</td>
@@ -371,12 +390,12 @@ switch ($accion) {
                                         <td>' . $row['especificarDenunciante'] . '</td>
                                         <td>' . $row['gradoEstudiosDenunciante'] . '</td>
                                         <td>' . $row['discapacidadDenunciante'] . '</td>';
-            if ($row['nombreDenunciado'] != "") {
-                echo '                  <td>' . $row['nombreDenunciado'] . '</td>';
-            } else {
-                echo '                  <td class="text-success" style="font-size:x-small;"> contiene imagen </td>';
-            }
-            echo '                      <td>' . $row['entidadDenunciado'] . '</td>
+                    if ($row['nombreDenunciado'] != "") {
+                        echo '                  <td>' . $row['nombreDenunciado'] . '</td>';
+                    } else {
+                        echo '                  <td class="text-success" style="font-size:x-small;"> contiene imagen </td>';
+                    }
+                    echo '                      <td>' . $row['entidadDenunciado'] . '</td>
                                         <td>' . $row['telefonoDenunciado'] . '</td>
                                         <td>' . $row['correoDenunciado'] . '</td>
                                         <td>' . $row['sexoDenunciado'] . '</td>
@@ -397,7 +416,7 @@ switch ($accion) {
                                         <td>' . $row['entidadTestigo'] . '</td>
                                         <td>' . $row['cargoTestigo'] . '</td>
                                         <td>' . $row['statusDenuncia'] . '</td>
-                                        <td class="d-flex justify-content-around">
+                                        <td class="d-flex justify-content-between">
                                             <i class="far fa-edit" onclick="prepararParaEditar(' . "
                                                 '" . $row['idDenuncia'] . "',
                                                 '" . $row['tipoDenuncia'] . "',
@@ -478,69 +497,73 @@ switch ($accion) {
                                                 '" . $row['entidadTestigo'] . "',
                                                 '" . $row['cargoTestigo'] . "',
                                                 '" . $row['statusDenuncia'] . "'
-                                            " . ');"></i>
+                                            " . ');"></i></button>
                                             <i class="far fa-check-square" onclick="prepararParaConcluir(' . "
                                                 '" . $row['idDenuncia'] . "',
                                                 '" . $row['numExpediente'] . "'
                                             " . ')"></i>';
-            if ($row['imagenDenuncia'] != "" || $row['nombreDenunciante'] != "") {
-                echo '                      <i class="far fa-plus-square" onclick="prepararParaGenerarAcuse(' . "
-                                                '" . $row['tipoDenuncia'] . "',
-                                                '" . $row['numExpediente'] . "',
-                                                '" . date("Y-m-d", strtotime($row['fechaPresentacion'])) . "',
-                                                '" . date("H:i:s", strtotime($row['fechaPresentacion'])) . "',
-                                                '" . base64_encode($row['imagenDenuncia']) . "',
-                                                '" . $row['anonimatoDenunciante'] . "',
-                                                '" . $row['nombreDenunciante'] . "',
-                                                '" . $row['domicilioDenunciante'] . "',
-                                                '" . $row['telefonoDenunciante'] . "',
-                                                '" . $row['correoDenunciante'] . "',
-                                                '" . $row['sexoDenunciante'] . "',
-                                                '" . $row['edadDenunciante'] . "',
-                                                '" . $row['servidorPublicoDenunciante'] . "',
-                                                '" . $row['puestoDenunciante'] . "',
-                                                '" . $row['especificarDenunciante'] . "',
-                                                '" . $row['gradoEstudiosDenunciante'] . "',
-                                                '" . $row['discapacidadDenunciante'] . "',
-                                                '" . $row['nombreDenunciado'] . "',
-                                                '" . $row['entidadDenunciado'] . "',
-                                                '" . $row['telefonoDenunciado'] . "',
-                                                '" . $row['correoDenunciado'] . "',
-                                                '" . $row['sexoDenunciado'] . "',
-                                                '" . $row['edadDenunciado'] . "',
-                                                '" . $row['servidorPublicoDenunciado'] . "',
-                                                '" . $row['especificarDenunciado'] . "',
-                                                '" . $row['relacionDenunciado'] . "',
-                                                '" . $row['lugarDenuncia'] . "',
-                                                '" . $row['fechaDenuncia'] . "',
-                                                '" . $row['horaDenuncia'] . "',
-                                                '" . preg_replace("/[\r\n|\n|\r]+/", " ", $row['narracionDenuncia']) . "',
-                                                '" . $row['nombreTestigo'] . "',
-                                                '" . $row['domicilioTestigo'] . "',
-                                                '" . $row['telefonoTestigo'] . "',
-                                                '" . $row['correoTestigo'] . "',
-                                                '" . $row['relacionTestigo'] . "',
-                                                '" . $row['trabajaTestigo'] . "',
-                                                '" . $row['entidadTestigo'] . "',
-                                                '" . $row['cargoTestigo'] . "'
-                                            " . ');"></i>';
-            } else {
-                echo '                      <i class="far fa-minus-square text-white"></i>';
-            }
-            echo '                      </td>
+                    if ($row['imagenDenuncia'] != "" || $row['nombreDenunciante'] != "") {
+                        echo '              <i class="far fa-plus-square" onclick="prepararParaGenerarAcuse(' . "
+                                                    '" . $row['tipoDenuncia'] . "',
+                                                    '" . $row['numExpediente'] . "',
+                                                    '" . date("Y-m-d", strtotime($row['fechaPresentacion'])) . "',
+                                                    '" . date("H:i", strtotime($row['fechaPresentacion'])) . "',
+                                                    '" . base64_encode($row['imagenDenuncia']) . "',
+                                                    '" . $row['anonimatoDenunciante'] . "',
+                                                    '" . $row['nombreDenunciante'] . "',
+                                                    '" . $row['domicilioDenunciante'] . "',
+                                                    '" . $row['telefonoDenunciante'] . "',
+                                                    '" . $row['correoDenunciante'] . "',
+                                                    '" . $row['sexoDenunciante'] . "',
+                                                    '" . $row['edadDenunciante'] . "',
+                                                    '" . $row['servidorPublicoDenunciante'] . "',
+                                                    '" . $row['puestoDenunciante'] . "',
+                                                    '" . $row['especificarDenunciante'] . "',
+                                                    '" . $row['gradoEstudiosDenunciante'] . "',
+                                                    '" . $row['discapacidadDenunciante'] . "',
+                                                    '" . $row['nombreDenunciado'] . "',
+                                                    '" . $row['entidadDenunciado'] . "',
+                                                    '" . $row['telefonoDenunciado'] . "',
+                                                    '" . $row['correoDenunciado'] . "',
+                                                    '" . $row['sexoDenunciado'] . "',
+                                                    '" . $row['edadDenunciado'] . "',
+                                                    '" . $row['servidorPublicoDenunciado'] . "',
+                                                    '" . $row['especificarDenunciado'] . "',
+                                                    '" . $row['relacionDenunciado'] . "',
+                                                    '" . $row['lugarDenuncia'] . "',
+                                                    '" . $row['fechaDenuncia'] . "',
+                                                    '" . $row['horaDenuncia'] . "',
+                                                    '" . preg_replace("/[\r\n|\n|\r]+/", " ", $row['narracionDenuncia']) . "',
+                                                    '" . $row['nombreTestigo'] . "',
+                                                    '" . $row['domicilioTestigo'] . "',
+                                                    '" . $row['telefonoTestigo'] . "',
+                                                    '" . $row['correoTestigo'] . "',
+                                                    '" . $row['relacionTestigo'] . "',
+                                                    '" . $row['trabajaTestigo'] . "',
+                                                    '" . $row['entidadTestigo'] . "',
+                                                    '" . $row['cargoTestigo'] . "'
+                                                " . ');"></i>';
+                    } else {
+                        echo '              <i class="far fa-minus-square text-white"></i>';
+                    }
+                    echo '              </td>
                                     </tr>';
-        }
-        echo '                  </tbody>
+                }
+                echo '          </tbody>
                             </table>
                         </div>
                     </div>
-                </div>
-                <div class="col-12 p-3">
-                    <div class="card bg-white border border-info border-top-0 border-bottom-0 border-right-0 shadow-sm bg-white rounded">
+                </div>';
+            }
+            if (count($denunciasConcluidas) != 0) {
+                echo '
+                <span class="py-3 text-light">.</span>
+                <div class="col-12">
+                    <div class="card bg-white border border-primary border-top-0 border-bottom-0 border-right-0 shadow-sm bg-white rounded">
                         <div class="card-body">
-                            <h6 class="card-title text-info">CONCLUIDAS</h6>
-                            <table id="tablaConcluidas" class="order-column hover nowrap compact" style="width: 100%;">
-                                <thead>
+                            <h6 class="card-title text-primary font-weight-bold">CONCLUIDAS</h6>
+                            <table id="tablaConcluidas" class="table table-sm table-hover" style="width: 100%;">
+                                <thead class="text-white" style="background: linear-gradient(to right, #243B55,#141E30);">
                                     <tr>
                                         <th scope="col">idDenuncia</th>
                                         <th scope="col">tipoDenuncia</th>
@@ -584,23 +607,23 @@ switch ($accion) {
                                     </tr>
                                 </thead>
                                 <tbody>';
-        foreach ($denunciasConcluidas as $row) {
-            echo '                  <tr style="font-size:small;">
+                foreach ($denunciasConcluidas as $row) {
+                    echo '                  <tr style="font-size:small;">
                                         <td>' . $row['idDenuncia'] . '</td>
                                         <td>' . $row['tipoDenuncia'] . '</td>
                                         <th scope="row" class="text-center">' . $row['numExpediente'] . '</th>
                                         <td class="text-center">' . date("d-m-Y", strtotime($row['fechaPresentacion'])) . '</td>
                                         <td>' . $row['anonimatoDenunciante'] . '</td>';
-            if ($row['nombreDenunciante'] != "") {
-                echo '                  <td>' . $row['nombreDenunciante'] . '</td>';
-            } else {
-                if (base64_encode($row['imagenDenuncia']) != "") {
-                    echo '              <td class="text-success" style="font-size:x-small;"> contiene imagen </td>';
-                } else {
-                    echo '              <td class="text-success" style="font-size:x-small;"> denunciante desconocido </td>';
-                }
-            }
-            echo '                      <td>' . $row['domicilioDenunciante'] . '</td>
+                    if ($row['nombreDenunciante'] != "") {
+                        echo '                  <td>' . $row['nombreDenunciante'] . '</td>';
+                    } else {
+                        if (base64_encode($row['imagenDenuncia']) != "") {
+                            echo '              <td class="text-success" style="font-size:x-small;"> contiene imagen </td>';
+                        } else {
+                            echo '              <td class="text-success" style="font-size:x-small;"> denunciante desconocido </td>';
+                        }
+                    }
+                    echo '                      <td>' . $row['domicilioDenunciante'] . '</td>
                                         <td>' . $row['telefonoDenunciante'] . '</td>
                                         <td>' . $row['correoDenunciante'] . '</td>
                                         <td>' . $row['sexoDenunciante'] . '</td>
@@ -610,16 +633,16 @@ switch ($accion) {
                                         <td>' . $row['especificarDenunciante'] . '</td>
                                         <td>' . $row['gradoEstudiosDenunciante'] . '</td>
                                         <td>' . $row['discapacidadDenunciante'] . '</td>';
-            if ($row['nombreDenunciado'] != "") {
-                echo '                  <td>' . $row['nombreDenunciado'] . '</td>';
-            } else {
-                if (base64_encode($row['imagenDenuncia']) != "") {
-                    echo '              <td class="text-success" style="font-size:x-small;"> contiene imagen </td>';
-                } else {
-                    echo '              <td class="text-success" style="font-size:x-small;"> - - - - - - - </td>';
-                }
-            }
-            echo '                      <td>' . $row['entidadDenunciado'] . '</td>
+                    if ($row['nombreDenunciado'] != "") {
+                        echo '                  <td>' . $row['nombreDenunciado'] . '</td>';
+                    } else {
+                        if (base64_encode($row['imagenDenuncia']) != "") {
+                            echo '              <td class="text-success" style="font-size:x-small;"> contiene imagen </td>';
+                        } else {
+                            echo '              <td class="text-success" style="font-size:x-small;"> - - - - - - - </td>';
+                        }
+                    }
+                    echo '                      <td>' . $row['entidadDenunciado'] . '</td>
                                         <td>' . $row['telefonoDenunciado'] . '</td>
                                         <td>' . $row['correoDenunciado'] . '</td>
                                         <td>' . $row['sexoDenunciado'] . '</td>
@@ -683,13 +706,14 @@ switch ($accion) {
                                             " . ');"></i>
                                         </td>
                                     </tr>';
-        }
-        echo '                  </tbody>
+                }
+                echo '              </tbody>
                             </table>
                         </div>
                     </div>
-                </div>
-            </div>
-        ';
+                </div>';
+            }
+            echo '<span class="py-3 text-light">.</span></div>';
+        }
         break;
 }

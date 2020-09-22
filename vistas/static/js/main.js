@@ -12,6 +12,7 @@ let cadFechaActual = anio + '-' + mes + '-' + dia;
 
 $(document).ready(function () {
     // VALIDACIONES Y PREPARACIONES INICIALES
+    $('[data-toggle="tooltip"]').tooltip();
     $('#txtFechaDenuncia').attr("max", cadFechaActual);
     prepararValidacionDeFormularios();
     // Diseño de alertas
@@ -68,14 +69,6 @@ $(document).ready(function () {
             }
         });
     });
-
-        //Administrar Usuarios//
-  $('#usuario').on('click', function () {
-        tipoNuevaDenuncia = "usuario";
-      
-        $('#nav-adminuser-tab').tab('show');
-    });
-        //Administrar Usuarios//
 
     // PRESUNTO DE NUEVA DENUNCIA
     $('#llenarFormulario').on('click', function () {
@@ -191,14 +184,62 @@ $(document).ready(function () {
         document.body.style.backgroundColor = "#F0F4F7";
     });
 
+    // MOSTRANDO Y OCULTANDO BOTON DE AGREGAR USUARIO
+    $('#nav-adminuser-tab').on('shown.bs.tab', function (e) {
+        $('#btnAgregarUsuario').removeClass('d-none');
+    });
+    $('#nav-adminuser-tab').on('hidden.bs.tab', function (e) {
+        $('#btnAgregarUsuario').addClass('d-none');
+    });
+
     // ACTIVE MANUAL NAVBAR
     $('#nav-denuncias-tab').on('shown.bs.tab', function (e) {
         $('#nav-denuncias-tab').addClass('text-white');
         $('#nav-denuncias-tab').removeClass('text-secondary');
+        $('#nav-adminuser-tab').addClass('text-secondary');
+        $('#nav-adminuser-tab').removeClass('text-white');
+        $('#opcionDenuncia').addClass('text-secondary');
+        $('#opcionDenuncia').removeClass('text-white');
     });
-    $('#nav-denuncias-tab').on('hidden.bs.tab', function (e) {
+    $('#nav-adminuser-tab').on('shown.bs.tab', function (e) {
         $('#nav-denuncias-tab').addClass('text-secondary');
         $('#nav-denuncias-tab').removeClass('text-white');
+        $('#nav-adminuser-tab').addClass('text-white');
+        $('#nav-adminuser-tab').removeClass('text-secondary');
+        $('#opcionDenuncia').addClass('text-secondary');
+        $('#opcionDenuncia').removeClass('text-white');
+    });
+    $('#nav-nuevaDenunciaForm-tab').on('shown.bs.tab', function (e) {
+        $('#nav-denuncias-tab').addClass('text-secondary');
+        $('#nav-denuncias-tab').removeClass('text-white');
+        $('#nav-adminuser-tab').addClass('text-secondary');
+        $('#nav-adminuser-tab').removeClass('text-white');
+        $('#opcionDenuncia').addClass('text-white');
+        $('#opcionDenuncia').removeClass('text-secondary');
+    });
+    $('#nav-nuevaDenunciaImg-tab').on('shown.bs.tab', function (e) {
+        $('#nav-denuncias-tab').addClass('text-secondary');
+        $('#nav-denuncias-tab').removeClass('text-white');
+        $('#nav-adminuser-tab').addClass('text-secondary');
+        $('#nav-adminuser-tab').removeClass('text-white');
+        $('#opcionDenuncia').addClass('text-white');
+        $('#opcionDenuncia').removeClass('text-secondary');
+    });
+    $('#nav-vizualizador-tab').on('shown.bs.tab', function (e) {
+        $('#nav-denuncias-tab').addClass('text-secondary');
+        $('#nav-denuncias-tab').removeClass('text-white');
+        $('#nav-adminuser-tab').addClass('text-secondary');
+        $('#nav-adminuser-tab').removeClass('text-white');
+        $('#opcionDenuncia').addClass('text-secondary');
+        $('#opcionDenuncia').removeClass('text-white');
+    });
+    $('#nav-acuse-tab').on('shown.bs.tab', function (e) {
+        $('#nav-denuncias-tab').addClass('text-secondary');
+        $('#nav-denuncias-tab').removeClass('text-white');
+        $('#nav-adminuser-tab').addClass('text-secondary');
+        $('#nav-adminuser-tab').removeClass('text-white');
+        $('#opcionDenuncia').addClass('text-secondary');
+        $('#opcionDenuncia').removeClass('text-white');
     });
 });
 
@@ -610,6 +651,17 @@ function enviarImagenDenuncia(form, accion) {
 function tabularDenuncias() {
     let tablaInconclusas = $("#tablaInconclusas").DataTable({
         //scrollX: true,
+        "order": [[2, "asc"]],
+        responsive: "true",
+        "sDom": "<'row'<'col-lg-3 col-md-4 col-9'l><'col-lg-5 col-md-3 col-3'B><'col-lg-4 col-md-5 col-12'f>r>t<'row'<'col-md-7 col-12'i><'col-md-5 col-12'p>>",
+        buttons: [
+            {
+                extend: 'excelHtml5',
+                text: '<i class="fas fa-file-excel"></i>',
+                titleAttr: 'Exportar a excel',
+                className: 'btn btn-sm btn-warning'
+            }
+        ],
         columnDefs: [
             { targets: [0], visible: false, searchable: true },
             { targets: [1], visible: false, searchable: true },
@@ -680,6 +732,17 @@ function tabularDenuncias() {
     });
     let tablaPendientes = $("#tablaPendientes").DataTable({
         //scrollX: true,
+        "order": [[2, "asc"]],
+        responsive: "true",
+        "sDom": "<'row'<'col-lg-3 col-md-4 col-9'l><'col-lg-5 col-md-3 col-3'B><'col-lg-4 col-md-5 col-12'f>r>t<'row'<'col-md-7 col-12'i><'col-md-5 col-12'p>>",
+        buttons: [
+            {
+                extend: 'excelHtml5',
+                text: '<i class="fas fa-file-excel"></i>',
+                titleAttr: 'Exportar a excel',
+                className: 'btn btn-sm btn-warning'
+            }
+        ],
         columnDefs: [
             { targets: [0], visible: false, searchable: true },
             { targets: [1], visible: false, searchable: true },
@@ -750,6 +813,17 @@ function tabularDenuncias() {
     });
     let tablaConcluidas = $("#tablaConcluidas").DataTable({
         //scrollX: true,
+        "order": [[2, "asc"]],
+        responsive: "true",
+        "sDom": "<'row'<'col-lg-3 col-md-4 col-9'l><'col-lg-5 col-md-3 col-3'B><'col-lg-4 col-md-5 col-12'f>r>t<'row'<'col-md-7 col-12'i><'col-md-5 col-12'p>>",
+        buttons: [
+            {
+                extend: 'excelHtml5',
+                text: '<i class="fas fa-file-excel"></i>',
+                titleAttr: 'Exportar a excel',
+                className: 'btn btn-sm btn-warning'
+            }
+        ],
         columnDefs: [
             { targets: [0], visible: false, searchable: true },
             { targets: [1], visible: false, searchable: true },
@@ -818,9 +892,6 @@ function tabularDenuncias() {
             }
         }
     });
-    // tablaInconclusas.columns.adjust();
-    // tablaPendientes.columns.adjust().draw();
-    // tablaConcluidas.columns.adjust().draw();
 }
 
 function prepararParaEditar(idDenuncia, tipoDenuncia, numExpediente, fechaPresentacion, imagenDenuncia, anonimatoDenunciante, nombreDenunciante, domicilioDenunciante, telefonoDenunciante, correoDenunciante, sexoDenunciante, edadDenunciante, servidorPublicoDenunciante, puestoDenunciante, especificarDenunciante, gradoEstudiosDenunciante, discapacidadDenunciante, nombreDenunciado, entidadDenunciado, telefonoDenunciado, correoDenunciado, sexoDenunciado, edadDenunciado, servidorPublicoDenunciado, especificarDenunciado, relacionDenunciado, lugarDenuncia, fechaDenuncia, horaDenuncia, narracionDenuncia, nombreTestigo, domicilioTestigo, telefonoTestigo, correoTestigo, relacionTestigo, trabajaTestigo, entidadTestigo, cargoTestigo, statusDenuncia) {
@@ -1019,5 +1090,82 @@ function prepararParaConcluir(idDenuncia, numExpediente) {
 }
 
 function prepararParaGenerarAcuse(tipoDenuncia, numExpediente, fechaPresentacion, horaPresentacion, imagenDenuncia, anonimatoDenunciante, nombreDenunciante, domicilioDenunciante, telefonoDenunciante, correoDenunciante, sexoDenunciante, edadDenunciante, servidorPublicoDenunciante, puestoDenunciante, especificarDenunciante, gradoEstudiosDenunciante, discapacidadDenunciante, nombreDenunciado, entidadDenunciado, telefonoDenunciado, correoDenunciado, sexoDenunciado, edadDenunciado, servidorPublicoDenunciado, especificarDenunciado, relacionDenunciado, lugarDenuncia, fechaDenuncia, horaDenuncia, narracionDenuncia, nombreTestigo, domicilioTestigo, telefonoTestigo, correoTestigo, relacionTestigo, trabajaTestigo, entidadTestigo, cargoTestigo) {
-    alertify.success("All is well");
+    if (imagenDenuncia != "") {
+        $("#contenedorImagenGeneralAcuse").removeClass("d-none");
+        $("#contenedorDatosGeneralesAcuse").addClass("d-none");
+        let contenedorImagenFormatoAcuse = document.getElementById('contenedorImagenFormatoAcuse');
+        let image = document.createElement('img');
+        image.src = "data:image/jpeg;base64," + imagenDenuncia;
+        image.style = "width: 100vh";
+        image.class = "border";
+        contenedorImagenFormatoAcuse.innerHTML = '';
+        contenedorImagenFormatoAcuse.append(image);
+    } else {
+        $("#contenedorDatosGeneralesAcuse").removeClass("d-none");
+        $("#contenedorImagenGeneralAcuse").addClass("d-none");
+    }
+    let presuntoDenuncia = tipoDenuncia.split("-");
+    $("#txtPresuntoDenunciaV").html(presuntoDenuncia[0]);
+    if (presuntoDenuncia[1]) {
+        $("#txtPresuntoDenunciaV2").html(presuntoDenuncia[1]);
+    } else {
+        $("#txtPresuntoDenunciaV2").html("");
+    }
+    $("#txtNumExpedienteAcuse").val(numExpediente);
+    $("#txtFechaRecepcionAcuse").val(fechaPresentacion);
+    $("#txtHoraRecepcionAcuse").val(horaPresentacion);
+    $("#txtAnonimatoDenuncianteA").val(anonimatoDenunciante);
+    $("#txtNombreDenuncianteA").val(nombreDenunciante);
+    $("#txtDomicilioDenuncianteA").val(domicilioDenunciante);
+    $("#txtTelefonoDenuncianteA").val(telefonoDenunciante);
+    $("#txtCorreoDenuncianteA").val(correoDenunciante);
+    $("#txtSexoDenuncianteA").val(sexoDenunciante);
+    $("#txtEdadDenuncianteA").val(edadDenunciante);
+    $("#txtSPDenuncianteA").val(servidorPublicoDenunciante);
+    if (servidorPublicoDenunciante == "si") {
+        $("#inputPuestoA").removeClass("d-none");
+        $("#inputEspecificarA").addClass("d-none");
+    } else if (servidorPublicoDenunciante == "no") {
+        $("#inputPuestoA").addClass("d-none");
+        $("#inputEspecificarA").removeClass("d-none");
+    } else {
+        $("#inputPuestoA").addClass("d-none");
+        $("#inputEspecificarA").addClass("d-none");
+    }
+    $("#txtPuestoDenuncianteA").val(puestoDenunciante);
+    $("#txtEspecificarDenuncianteA").val(especificarDenunciante);
+    $("#txtGradoEstudiosDenuncianteA").val(gradoEstudiosDenunciante);
+    $("#txtDiscapacidadDenuncianteA").val(discapacidadDenunciante);
+    $("#txtNombreDenunciadoA").val(nombreDenunciado);
+    $("#txtEntidadDenunciadoA").val(entidadDenunciado);
+    $("#txtTelefonoDenunciadoA").val(telefonoDenunciado);
+    $("#txtCorreoDenunciadoA").val(correoDenunciado);
+    $("#txtSexoDenunciadoA").val(sexoDenunciado);
+    $("#txtEdadDenunciadoA").val(edadDenunciado);
+    $("#txtSPDenunciadoA").val(servidorPublicoDenunciado);
+    $("#txtEspecificarDenunciadoA").val(especificarDenunciado);
+    $("#txtRelacionDenunciadoA").val(relacionDenunciado);
+    $("#txtLugarDenunciaA").val(lugarDenuncia);
+    $("#txtFechaDenunciaA").val(fechaDenuncia);
+    $("#txtHoraDenunciaA").val(horaDenuncia);
+    $("#txtNarracionDenunciaA").val(narracionDenuncia);
+    $("#txtNombreTestigoA").val(nombreTestigo);
+    $("#txtDomicilioTestigoA").val(domicilioTestigo);
+    $("#txtTelefonoTestigoA").val(telefonoTestigo);
+    $("#txtCorreoTestigoA").val(correoTestigo);
+    $("#txtRelacionTestigoA").val(relacionTestigo);
+    $("#txtTrabajaTestigoA").val(trabajaTestigo);
+    if (trabajaTestigo == "si") {
+        $("#inputEDA").removeClass("d-none");
+        $("#inputCargoA").removeClass("d-none");
+    } else if (trabajaTestigo == "no") {
+        $("#inputEDA").addClass("d-none");
+        $("#inputCargoA").addClass("d-none");
+    } else {
+        $("#inputEDA").addClass("d-none");
+        $("#inputCargoA").addClass("d-none");
+    }
+    $("#txtEntidadTestigoA").val(entidadTestigo);
+    $("#txtCargoTestigoA").val(cargoTestigo);
+    $('#nav-acuse-tab').tab('show');
 }
