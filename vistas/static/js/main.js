@@ -16,7 +16,7 @@ $(document).ready(function () {
     $('#txtFechaDenuncia').attr("max", cadFechaActual);
     prepararValidacionDeFormularios();
     // Diseño de alertas
-    alertify.defaults.transition = "zoom";
+    alertify.defaults.transition = "flipy";
     alertify.defaults.theme.ok = "btn btn-transparent";
     alertify.defaults.theme.cancel = "btn btn-transparent";
     alertify.defaults.theme.input = "form-control";
@@ -1078,7 +1078,7 @@ function prepararParaVizualizar(tipoDenuncia, numExpediente, fechaPresentacion, 
 }
 
 function prepararParaConcluir(idDenuncia, numExpediente) {
-    alertify.confirm('Concluyendo denuncia...', '¿Está seguro de que querer concluir con la denuncia? <br><br>Número de expediente: ' + numExpediente,
+    alertify.confirm('<b>¿Está seguro de que querer concluir con la denuncia?</b>', 'Número de expediente: ' + numExpediente + '<br><br>Al concluir con la misma no podrá volver a editarla, unicamente podrá vizualizarla !',
         function () {
             $("#txtIdDenuncia").val(idDenuncia);
             enviarDenuncia(recolectarDatosDenuncia(), "concluirDenuncia");
