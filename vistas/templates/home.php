@@ -47,6 +47,9 @@ if (isset($_SESSION['user_id'])) {
                     <a class="nav-item nav-link d-none" id="nav-nuevaDenunciaImg-tab" data-toggle="tab" href="#nav-nuevaDenunciaImg" role="tab" aria-controls="nav-nuevaDenunciaImg" aria-selected="false">
                         Nueva denuncia - Subir imagen - Invisible
                     </a>
+                    <a class="nav-item nav-link d-none" id="nav-nuevaDenunciaPDF-tab" data-toggle="tab" href="#nav-nuevaDenunciaPDF" role="tab" aria-controls="nav-nuevaDenunciaPDF" aria-selected="false">
+                        Nueva denuncia - Subir PDF - Invisible
+                    </a>
                     <a class="nav-item nav-link d-none" id="nav-vizualizador-tab" data-toggle="tab" href="#nav-vizualizador" role="tab" aria-controls="nav-vizualizador" aria-selected="false">
                         vizualizador - Invisible
                     </a>
@@ -61,6 +64,7 @@ if (isset($_SESSION['user_id'])) {
                     <div class="dropdown-menu" aria-labelledby="opcionDenuncia">
                         <a class="dropdown-item" id="llenarFormulario">Llenar formulario</a>
                         <a class="dropdown-item" id="subirImagen">Subir imagen</a>
+                        <a class="dropdown-item" id="subirPDF">Subir PDF</a>
                     </div>
                 </li>
             </ul>
@@ -672,6 +676,62 @@ if (isset($_SESSION['user_id'])) {
                             <div class="form-row mb-3">
                                 <div class="col-12 d-flex justify-content-center">
                                     <div id="contenedorImagen" class="px-1 text-center"></div>
+                                </div>
+                            </div>
+                            <div class="form-row justify-content-between px-1">
+                                <button class="btn btn-transparent text-info" type="button" data-toggle="modal" data-target="#modalAyuda">
+                                    <i class="far fa-question-circle"></i>
+                                </button>
+                                <button class="btn btn-outline-primary" type="submit">
+                                    Guardar denuncia
+                                    <i class="fas fa-arrow-circle-right"></i>
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="tab-pane fade" id="nav-nuevaDenunciaPDF" role="tabpanel" aria-labelledby="nav-nuevaDenunciaPDF-tab">
+            <div class="row align-items-center justify-content-center mx-1" style="min-height: 85vh;">
+                <div class="card bg-white border border-primary border-top-0 border-bottom-0 border-right-0 shadow-sm rounded my-3" style="width: 100vh;">
+                    <div class="card-body">
+                        <form id="formPdfFormatoPresentacionDenuncia" class="needs-validation" novalidate>
+                            <input type="hidden" id="txtIdDenunciaPDF" name="txtIdDenunciaPDF" required>
+                            <input type="hidden" id="txtPresuntoPDF" name="txtPresuntoPDF" required>
+                            <input type="hidden" id="txtNumExpedientePDF" name="txtNumExpedientePDF" required>
+                            <input type="hidden" id="txtFechaPresentacionPDF" name="txtFechaPresentacionPDF" required>
+                            <div class="form-row">
+                                <div class="col-12 mb-3 d-flex align-items-center">
+                                    <h6 class="font-weight-light text-primary pt-1 text-uppercase" id="txtPresuntoDenunciaPDF"></h6>
+                                    <button type="button" class="btn btn-transparent ml-3 text-info" data-toggle="modal" data-target="#modalPresuntoDenuncia">
+                                        <i class="far fa-edit"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="col-md-6 col-12 mb-3 d-none" id="contenedorNumExpedientePDF">
+                                    <label for="txtNumExpedientePDFV">Número de expediente</label>
+                                    <input type="text" class="form-control" id="txtNumExpedientePDFV" required disabled>
+                                </div>
+                                <div class="col-md-6 col-12 mb-3">
+                                    <label for="txtFechaPresentacionPDFV">Fecha de presentación</label>
+                                    <input type="date" class="form-control" id="txtFechaPresentacionPDFV" required disabled>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="col-12">
+                                    <div class="custom-file mb-3">
+                                        <input type="file" class="custom-file-input" id="txtDenunciaPDF" name="txtDenunciaPDF" accept=".pdf, .docx" lang="es" required>
+                                        <label class="custom-file-label text-truncate" for="txtDenunciaPDF" id="labelDenunciaPDF">Elegir documento...</label>
+                                        <div class="valid-feedback">Correcto!</div>
+                                        <div class="invalid-feedback">Elija un documento</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-row mb-3">
+                                <div class="col-12 d-flex justify-content-center">
+                                    <div id="contenedorPDF" class="px-1 text-center"></div>
                                 </div>
                             </div>
                             <div class="form-row justify-content-between px-1">

@@ -55,6 +55,22 @@ class CrudDenuncias
         }
         $stmt = null;
     }
+    public static function guardarPdf($tipoDenuncia, $numExpediente, $pdfDenuncia)
+    {
+        $marcaDeTiempo = date("Y-m-d H:i:s", strtotime(date("Y-m-d H:i:s") . "- 7 hours"));
+        $SQL = "INSERT INTO denuncias (tipoDenuncia,numExpediente,fechaPresentacion,pdfDenuncia,statusDenuncia) VALUES ('$tipoDenuncia','$numExpediente','$marcaDeTiempo','$pdfDenuncia','pendiente');";
+        $stmt = Conexion::conectar()->prepare($SQL);
+        try {
+            if ($stmt->execute()) {
+                echo "success|Denuncia pendiente guardada !";
+            } else {
+                echo "error|Imposible guardar denuncia pendiente !";
+            }
+        } catch (Exception $e) {
+            echo "error|Documento demasiado grande !|" . $e;
+        }
+        $stmt = null;
+    }
     public static function editarInfo($idDenuncia, $statusInformacion, $tipoDenuncia, $numExpediente, $fechaPresentacion, $anonimatoDenunciante, $nombreDenunciante, $domicilioDenunciante, $telefonoDenunciante, $correoDenunciante, $sexoDenunciante, $edadDenunciante, $servidorPublicoDenunciante, $puestoDenunciante, $especificarDenunciante, $gradoEstudiosDenunciante, $discapacidadDenunciante, $nombreDenunciado, $entidadDenunciado, $telefonoDenunciado, $correoDenunciado, $sexoDenunciado, $edadDenunciado, $servidorPublicoDenunciado, $especificarDenunciado, $relacionDenunciado, $lugarDenuncia, $fechaDenuncia, $horaDenuncia, $narracionDenuncia, $nombreTestigo, $domicilioTestigo, $telefonoTestigo, $correoTestigo, $relacionTestigo, $trabajaTestigo, $entidadTestigo, $cargoTestigo)
     {
         $SQL = "UPDATE denuncias
@@ -126,6 +142,25 @@ class CrudDenuncias
         }
         $stmt = null;
     }
+    public static function editarPdf($idDenuncia, $tipoDenuncia, $numExpediente, $pdfDenuncia)
+    {
+        $SQL = "UPDATE denuncias
+                SET tipoDenuncia='$tipoDenuncia',
+                    numExpediente='$numExpediente',
+                    pdfDenuncia='$pdfDenuncia'
+                WHERE idDenuncia='$idDenuncia';";
+        $stmt = Conexion::conectar()->prepare($SQL);
+        try {
+            if ($stmt->execute()) {
+                echo "success|Denuncia pendiente editada !";
+            } else {
+                echo "error|Imposible editar denuncia pendiente !";
+            }
+        } catch (Exception $e) {
+            echo "error|Documento demasiado grande !|" . $e;
+        }
+        $stmt = null;
+    }
     public static function editarImgSinImg($idDenuncia, $tipoDenuncia, $numExpediente, $fechaPresentacion)
     {
         $SQL = "UPDATE denuncias
@@ -141,6 +176,24 @@ class CrudDenuncias
             }
         } catch (Exception $e) {
             echo "error|Imposible editar denuncia !|" . $e;
+        }
+        $stmt = null;
+    }
+    public static function editarPdfSinPdf($idDenuncia, $tipoDenuncia, $numExpediente)
+    {
+        $SQL = "UPDATE denuncias
+                SET tipoDenuncia='$tipoDenuncia',
+                    numExpediente='$numExpediente'
+                WHERE idDenuncia='$idDenuncia';";
+        $stmt = Conexion::conectar()->prepare($SQL);
+        try {
+            if ($stmt->execute()) {
+                echo "success|Denuncia pendiente editada !";
+            } else {
+                echo "error|Imposible editar denuncia pendiente !";
+            }
+        } catch (Exception $e) {
+            echo "error|Documento demasiado grande !|" . $e;
         }
         $stmt = null;
     }

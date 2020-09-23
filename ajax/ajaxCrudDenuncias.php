@@ -61,6 +61,32 @@ switch ($accion) {
         }
         break;
 
+    case 'guardarPDF':
+        $nuevoExpediente = nuevoExpediente();
+        if (strlen($nuevoExpediente) > 8) {
+            break;
+        }
+        if ($_FILES['txtDenunciaPDF']['error'] === 4) {
+            die("error|No se cargó un documento");
+        } elseif ($_FILES['txtDenunciaPDF']['error'] === 1) {
+            die("error|El documento sobrepasa el limite de tamaño (2MB)");
+        } elseif ($_FILES['txtDenunciaPDF']['error'] === 0) {
+            $documentoBinario = addslashes(file_get_contents($_FILES['txtDenunciaPDF']['tmp_name']));
+            $nombreArchivo = $_FILES['txtDenunciaPDF']['name'];
+            $extensiones = array('pdf', 'doc', 'docx');
+            $extension = explode('.', $nombreArchivo);
+            $extension = end($extension);
+            $extension = strtolower($extension);
+            if (!in_array($extension, $extensiones)) {
+                die('error|Sólo elija imagenes con extensiones: ' . implode(', ', $extensiones));
+            } else {
+                CrudDenuncias::guardarPdf($_POST['txtPresuntoPDF'], $nuevoExpediente, $documentoBinario);
+            }
+        } else {
+            die("error|Verifique sus datos");
+        }
+        break;
+
     case 'editarInfo':
         CrudDenuncias::editarInfo($_POST['txtIdDenuncia'], $_POST['txtStatusFormulario'], $_POST['txtTipoDenuncia'], $_POST['txtNumExpediente'], $_POST['txtFechaPresentacion'], $_POST['txtAnonimatoDenunciante'], $_POST['txtNombreDenunciante'], $_POST['txtDomicilioDenunciante'], $_POST['txtTelefonoDenunciante'], $_POST['txtCorreoDenunciante'], $_POST['txtSexoDenunciante'], $_POST['txtEdadDenunciante'], $_POST['txtSPDenunciante'], $_POST['txtPuestoDenunciante'], $_POST['txtEspecificarDenunciante'], $_POST['txtGradoEstudiosDenunciante'], $_POST['txtDiscapacidadDenunciante'], $_POST['txtNombreDenunciado'], $_POST['txtEntidadDenunciado'], $_POST['txtTelefonoDenunciado'], $_POST['txtCorreoDenunciado'], $_POST['txtSexoDenunciado'], $_POST['txtEdadDenunciado'], $_POST['txtSPDenunciado'], $_POST['txtEspecificarDenunciado'], $_POST['txtRelacionDenunciado'], $_POST['txtLugarDenuncia'], $_POST['txtFechaDenuncia'], $_POST['txtHoraDenuncia'], $_POST['txtNarracionDenuncia'], $_POST['txtNombreTestigo'], $_POST['txtDomicilioTestigo'], $_POST['txtTelefonoTestigo'], $_POST['txtCorreoTestigo'], $_POST['txtRelacionTestigo'], $_POST['txtTrabajaTestigo'], $_POST['txtEntidadTestigo'], $_POST['txtCargoTestigo']);
         break;
@@ -81,6 +107,28 @@ switch ($accion) {
                 die('error|Sólo elija imagenes con extensiones: ' . implode(', ', $extensiones));
             } else {
                 CrudDenuncias::editarImg($_POST['txtImagenIdDenuncia'], $_POST['txtImagenPresunto'], $_POST['txtImagenNumExpediente'], $_POST['txtImagenFechaPresentacion'], $imagenBinaria);
+            }
+        } else {
+            die("error|Verifique sus datos");
+        }
+        break;
+
+    case 'editarPDF':
+        if ($_FILES['txtDenunciaPDF']['error'] === 4) {
+            CrudDenuncias::editarPdfSinPdf($_POST['txtIdDenunciaPDF'], $_POST['txtPresuntoPDF'], $_POST['txtNumExpedientePDF']);
+        } elseif ($_FILES['txtDenunciaPDF']['error'] === 1) {
+            die("error|El documento sobrepasa el limite de tamaño (2MB)");
+        } elseif ($_FILES['txtDenunciaPDF']['error'] === 0) {
+            $documentoBinario = addslashes(file_get_contents($_FILES['txtDenunciaPDF']['tmp_name']));
+            $nombreArchivo = $_FILES['txtDenunciaPDF']['name'];
+            $extensiones = array('pdf', 'doc', 'docx');
+            $extension = explode('.', $nombreArchivo);
+            $extension = end($extension);
+            $extension = strtolower($extension);
+            if (!in_array($extension, $extensiones)) {
+                die('error|Sólo elija documentos con extensiones: ' . implode(', ', $extensiones));
+            } else {
+                CrudDenuncias::editarPdf($_POST['txtIdDenunciaPDF'], $_POST['txtPresuntoPDF'], $_POST['txtNumExpedientePDF'], $documentoBinario);
             }
         } else {
             die("error|Verifique sus datos");
@@ -423,6 +471,7 @@ switch ($accion) {
                                                 '" . $row['numExpediente'] . "',
                                                 '" . date("Y-m-d", strtotime($row['fechaPresentacion'])) . "',
                                                 '" . base64_encode($row['imagenDenuncia']) . "',
+                                                '" . base64_encode($row['pdfDenuncia']) . "',
                                                 '" . $row['anonimatoDenunciante'] . "',
                                                 '" . $row['nombreDenunciante'] . "',
                                                 '" . $row['domicilioDenunciante'] . "',

@@ -33,7 +33,8 @@ $(document).ready(function () {
                 .html("Elegir imagen...");
         }
     });
-    // Previzualizar imagen
+
+    // PREVIZUALIZAR IMAGEN
     if ($("#txtImagenDenuncia").val() != undefined) {
         document.getElementById("txtImagenDenuncia").onchange = function (e) {
             if (e.target.files[0] != undefined) {
@@ -49,6 +50,27 @@ $(document).ready(function () {
                 };
             } else {
                 $("#contenedorImagen").empty();
+            }
+        }
+    }
+
+    // PREVIZUALIZAR PDF
+    if ($("#txtDenunciaPDF").val() != undefined) {
+        document.getElementById("txtDenunciaPDF").onchange = function (e) {
+            if (e.target.files[0] != undefined) {
+                let reader = new FileReader();
+                reader.readAsDataURL(e.target.files[0]);
+                reader.onload = function () {
+                    let contenedorPDF = document.getElementById('contenedorPDF');
+                    let pdf = document.createElement('object');
+                    pdf.data = reader.result;
+                    pdf.type = "application/pdf";
+                    pdf.style = "height: 40vh; width: 80vh;";
+                    contenedorPDF.innerHTML = '';
+                    contenedorPDF.append(pdf);
+                };
+            } else {
+                $("#contenedorPDF").empty();
             }
         }
     }
@@ -77,6 +99,10 @@ $(document).ready(function () {
     });
     $('#subirImagen').on('click', function () {
         tipoNuevaDenuncia = "subirImagen";
+        $("#modalPresuntoDenuncia").modal("show");
+    });
+    $('#subirPDF').on('click', function () {
+        tipoNuevaDenuncia = "subirPDF";
         $("#modalPresuntoDenuncia").modal("show");
     });
     $('#presunto1').on('click', function () {
@@ -374,6 +400,12 @@ function prepararValidacionDeFormularios() {
                     } else {
                         enviarImagenDenuncia(form.id, "editarImg");
                     }
+                } else if (form.id == "formPdfFormatoPresentacionDenuncia") {
+                    if ($("#txtIdDenunciaPDF").val() == "") {
+                        enviarPdfDenuncia(form.id, "guardarPDF");
+                    } else {
+                        enviarPdfDenuncia(form.id, "editarPDF");
+                    }
                 }
             }
             form.classList.add('was-validated');
@@ -411,6 +443,19 @@ function prepararFormato(presunto) {
         $("#contenedorImagen").empty();
         $("#modalPresuntoDenuncia").modal("hide");
         $('#nav-nuevaDenunciaImg-tab').tab('show');
+    } else if (tipoNuevaDenuncia == "subirPDF") {
+        document.getElementById("formPdfFormatoPresentacionDenuncia").reset();
+        $("#txtIdDenunciaPDF").val("");
+        $("#contenedorNumExpedientePDF").addClass("d-none");
+        $("#txtDenunciaPDF").prop("required", true);
+        cadPresuntoDenuncia = "Denuncia por " + presuntoDenuncia[presunto];
+        $("#txtPresuntoDenunciaPDF").html(cadPresuntoDenuncia);
+        $("#txtFechaPresentacionPDF").val(cadFechaActual);
+        $("#txtFechaPresentacionPDFV").val(cadFechaActual);
+        $("#labelDenunciaPDF").html("Elegir documento...");
+        $("#contenedorPDF").empty();
+        $("#modalPresuntoDenuncia").modal("hide");
+        $('#nav-nuevaDenunciaPDF-tab').tab('show');
     } else if (tipoNuevaDenuncia == "editarInfo") {
         cadPresuntoDenuncia = "Denuncia por " + presuntoDenuncia[presunto];
         $("#txtPresuntoDenuncia").html(cadPresuntoDenuncia);
@@ -418,6 +463,10 @@ function prepararFormato(presunto) {
     } else if (tipoNuevaDenuncia == "editarImg") {
         cadPresuntoDenuncia = "Denuncia por " + presuntoDenuncia[presunto];
         $("#txtImagenPresuntoDenuncia").html(cadPresuntoDenuncia);
+        $("#modalPresuntoDenuncia").modal("hide");
+    } else if (tipoNuevaDenuncia == "editarPDF") {
+        cadPresuntoDenuncia = "Denuncia por " + presuntoDenuncia[presunto];
+        $("#txtPresuntoDenunciaPDF").html(cadPresuntoDenuncia);
         $("#modalPresuntoDenuncia").modal("hide");
     }
 }
@@ -634,6 +683,38 @@ function enviarImagenDenuncia(form, accion) {
         let mensaje = data.split('|');
         if (mensaje[0] == 'success') {
             document.getElementById("formImgFormatoPresentacionDenuncia").reset();
+            enviarDenuncia(recolectarDatosDenuncia(), "leer");
+            $('#nav-denuncias-tab').tab('show');
+            alertify.success(mensaje[1]);
+        } else if (mensaje[0] == 'error') {
+            alertify.error(mensaje[1]);
+            if (mensaje[2]) {
+                console.log(mensaje[2]);
+            }
+        } else {
+            console.log("Tipo de respuesta no definido. " + data);
+        }
+    });
+}
+
+function enviarPdfDenuncia(form, accion) {
+    if (accion == "guardarPDF") {
+        $("#txtPresuntoPDF").val(cadPresuntoDenuncia);
+    } else {
+        $("#txtPresuntoPDF").val($("#txtPresuntoDenunciaPDF").html());
+    }
+    var formData = new FormData(document.getElementById(form));
+    $.ajax({
+        type: "POST",
+        url: "ajax/ajaxCrudDenuncias.php?accion=" + accion,
+        data: formData,
+        cache: false,
+        contentType: false,
+        processData: false
+    }).done(function (data) {
+        let mensaje = data.split('|');
+        if (mensaje[0] == 'success') {
+            document.getElementById(form).reset();
             enviarDenuncia(recolectarDatosDenuncia(), "leer");
             $('#nav-denuncias-tab').tab('show');
             alertify.success(mensaje[1]);
@@ -894,7 +975,7 @@ function tabularDenuncias() {
     });
 }
 
-function prepararParaEditar(idDenuncia, tipoDenuncia, numExpediente, fechaPresentacion, imagenDenuncia, anonimatoDenunciante, nombreDenunciante, domicilioDenunciante, telefonoDenunciante, correoDenunciante, sexoDenunciante, edadDenunciante, servidorPublicoDenunciante, puestoDenunciante, especificarDenunciante, gradoEstudiosDenunciante, discapacidadDenunciante, nombreDenunciado, entidadDenunciado, telefonoDenunciado, correoDenunciado, sexoDenunciado, edadDenunciado, servidorPublicoDenunciado, especificarDenunciado, relacionDenunciado, lugarDenuncia, fechaDenuncia, horaDenuncia, narracionDenuncia, nombreTestigo, domicilioTestigo, telefonoTestigo, correoTestigo, relacionTestigo, trabajaTestigo, entidadTestigo, cargoTestigo, statusDenuncia) {
+function prepararParaEditar(idDenuncia, tipoDenuncia, numExpediente, fechaPresentacion, imagenDenuncia, pdfDenuncia, anonimatoDenunciante, nombreDenunciante, domicilioDenunciante, telefonoDenunciante, correoDenunciante, sexoDenunciante, edadDenunciante, servidorPublicoDenunciante, puestoDenunciante, especificarDenunciante, gradoEstudiosDenunciante, discapacidadDenunciante, nombreDenunciado, entidadDenunciado, telefonoDenunciado, correoDenunciado, sexoDenunciado, edadDenunciado, servidorPublicoDenunciado, especificarDenunciado, relacionDenunciado, lugarDenuncia, fechaDenuncia, horaDenuncia, narracionDenuncia, nombreTestigo, domicilioTestigo, telefonoTestigo, correoTestigo, relacionTestigo, trabajaTestigo, entidadTestigo, cargoTestigo, statusDenuncia) {
     if (imagenDenuncia != "") {
         tipoNuevaDenuncia = "editarImg";
         $("#txtImagenDenuncia").prop("required", false);
@@ -914,6 +995,25 @@ function prepararParaEditar(idDenuncia, tipoDenuncia, numExpediente, fechaPresen
         contenedorImagen.innerHTML = '';
         contenedorImagen.append(image);
         $('#nav-nuevaDenunciaImg-tab').tab('show');
+    } else if (pdfDenuncia != "") {
+        tipoNuevaDenuncia = "editarPDF";
+        $("#txtDenunciaPDF").prop("required", false);
+        $("#contenedorNumExpedientePDF").removeClass("d-none");
+        $("#txtIdDenunciaPDF").val(idDenuncia);
+        $("#txtPresuntoPDF").val(tipoDenuncia);
+        $("#txtPresuntoDenunciaPDF").html(tipoDenuncia);
+        $("#txtNumExpedientePDF").val(numExpediente);
+        $("#txtNumExpedientePDFV").val(numExpediente);
+        $("#txtFechaPresentacionPDF").val(fechaPresentacion);
+        $("#txtFechaPresentacionPDFV").val(fechaPresentacion);
+        $("#labelDenunciaPDF").html("Elegir documento...");
+        let contenedorPDF = document.getElementById('contenedorPDF');
+        let pdf = document.createElement('object');
+        pdf.data = "data:application/pdf;base64," + pdfDenuncia;
+        pdf.style = "height: 40vh; width: 80vh;";
+        contenedorPDF.innerHTML = '';
+        contenedorPDF.append(pdf);
+        $('#nav-nuevaDenunciaPDF-tab').tab('show');
     } else {
         document.getElementById("contenedorSwitchCamposDenunciante").classList.add("d-none");
         if (nombreDenunciante == "") {
