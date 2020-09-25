@@ -184,6 +184,7 @@ $(document).ready(function () {
         //var restorePage = document.body.innerHTML;
         //var printContent = document.getElementById("formatoDenuncia").innerHTML;
         //document.body.innerHTML = printContent;
+        console.log("Imprimiendo...");
         window.print();
         //document.body.innerHTML = restorePage;
     });
@@ -236,20 +237,55 @@ $(document).ready(function () {
         $('#opcionDenuncia').removeClass('text-white');
     });
     $('#nav-nuevaDenunciaForm-tab').on('shown.bs.tab', function (e) {
-        $('#nav-denuncias-tab').addClass('text-secondary');
-        $('#nav-denuncias-tab').removeClass('text-white');
-        $('#nav-adminuser-tab').addClass('text-secondary');
-        $('#nav-adminuser-tab').removeClass('text-white');
-        $('#opcionDenuncia').addClass('text-white');
-        $('#opcionDenuncia').removeClass('text-secondary');
+        if (tipoNuevaDenuncia != "editarInfo") {
+            $('#nav-denuncias-tab').addClass('text-secondary');
+            $('#nav-denuncias-tab').removeClass('text-white');
+            $('#nav-adminuser-tab').addClass('text-secondary');
+            $('#nav-adminuser-tab').removeClass('text-white');
+            $('#opcionDenuncia').addClass('text-white');
+            $('#opcionDenuncia').removeClass('text-secondary');
+        } else {
+            $('#nav-denuncias-tab').addClass('text-secondary');
+            $('#nav-denuncias-tab').removeClass('text-white');
+            $('#nav-adminuser-tab').addClass('text-secondary');
+            $('#nav-adminuser-tab').removeClass('text-white');
+            $('#opcionDenuncia').addClass('text-secondary');
+            $('#opcionDenuncia').removeClass('text-white');
+        }
     });
     $('#nav-nuevaDenunciaImg-tab').on('shown.bs.tab', function (e) {
-        $('#nav-denuncias-tab').addClass('text-secondary');
-        $('#nav-denuncias-tab').removeClass('text-white');
-        $('#nav-adminuser-tab').addClass('text-secondary');
-        $('#nav-adminuser-tab').removeClass('text-white');
-        $('#opcionDenuncia').addClass('text-white');
-        $('#opcionDenuncia').removeClass('text-secondary');
+        if (tipoNuevaDenuncia != "editarImg") {
+            $('#nav-denuncias-tab').addClass('text-secondary');
+            $('#nav-denuncias-tab').removeClass('text-white');
+            $('#nav-adminuser-tab').addClass('text-secondary');
+            $('#nav-adminuser-tab').removeClass('text-white');
+            $('#opcionDenuncia').addClass('text-white');
+            $('#opcionDenuncia').removeClass('text-secondary');
+        } else {
+            $('#nav-denuncias-tab').addClass('text-secondary');
+            $('#nav-denuncias-tab').removeClass('text-white');
+            $('#nav-adminuser-tab').addClass('text-secondary');
+            $('#nav-adminuser-tab').removeClass('text-white');
+            $('#opcionDenuncia').addClass('text-secondary');
+            $('#opcionDenuncia').removeClass('text-white');
+        }
+    });
+    $('#nav-nuevaDenunciaPDF-tab').on('shown.bs.tab', function (e) {
+        if (tipoNuevaDenuncia != "editarPDF") {
+            $('#nav-denuncias-tab').addClass('text-secondary');
+            $('#nav-denuncias-tab').removeClass('text-white');
+            $('#nav-adminuser-tab').addClass('text-secondary');
+            $('#nav-adminuser-tab').removeClass('text-white');
+            $('#opcionDenuncia').addClass('text-white');
+            $('#opcionDenuncia').removeClass('text-secondary');
+        } else {
+            $('#nav-denuncias-tab').addClass('text-secondary');
+            $('#nav-denuncias-tab').removeClass('text-white');
+            $('#nav-adminuser-tab').addClass('text-secondary');
+            $('#nav-adminuser-tab').removeClass('text-white');
+            $('#opcionDenuncia').addClass('text-secondary');
+            $('#opcionDenuncia').removeClass('text-white');
+        }
     });
     $('#nav-vizualizador-tab').on('shown.bs.tab', function (e) {
         $('#nav-denuncias-tab').addClass('text-secondary');
@@ -1097,7 +1133,7 @@ function prepararParaEditar(idDenuncia, tipoDenuncia, numExpediente, fechaPresen
     }
 }
 
-function prepararParaVizualizar(tipoDenuncia, numExpediente, fechaPresentacion, imagenDenuncia, anonimatoDenunciante, nombreDenunciante, domicilioDenunciante, telefonoDenunciante, correoDenunciante, sexoDenunciante, edadDenunciante, servidorPublicoDenunciante, puestoDenunciante, especificarDenunciante, gradoEstudiosDenunciante, discapacidadDenunciante, nombreDenunciado, entidadDenunciado, telefonoDenunciado, correoDenunciado, sexoDenunciado, edadDenunciado, servidorPublicoDenunciado, especificarDenunciado, relacionDenunciado, lugarDenuncia, fechaDenuncia, horaDenuncia, narracionDenuncia, nombreTestigo, domicilioTestigo, telefonoTestigo, correoTestigo, relacionTestigo, trabajaTestigo, entidadTestigo, cargoTestigo, statusDenuncia) {
+function prepararParaVizualizar(tipoDenuncia, numExpediente, fechaPresentacion, imagenDenuncia, pdfDenuncia, anonimatoDenunciante, nombreDenunciante, domicilioDenunciante, telefonoDenunciante, correoDenunciante, sexoDenunciante, edadDenunciante, servidorPublicoDenunciante, puestoDenunciante, especificarDenunciante, gradoEstudiosDenunciante, discapacidadDenunciante, nombreDenunciado, entidadDenunciado, telefonoDenunciado, correoDenunciado, sexoDenunciado, edadDenunciado, servidorPublicoDenunciado, especificarDenunciado, relacionDenunciado, lugarDenuncia, fechaDenuncia, horaDenuncia, narracionDenuncia, nombreTestigo, domicilioTestigo, telefonoTestigo, correoTestigo, relacionTestigo, trabajaTestigo, entidadTestigo, cargoTestigo, statusDenuncia) {
     if (imagenDenuncia != "") {
         $("#contenedorImagenGeneral").removeClass("d-none");
         $("#contenedorDatosGenerales").addClass("d-none");
@@ -1108,6 +1144,15 @@ function prepararParaVizualizar(tipoDenuncia, numExpediente, fechaPresentacion, 
         image.class = "border";
         contenedorImagenFormato.innerHTML = '';
         contenedorImagenFormato.append(image);
+    } else if (pdfDenuncia != "") {
+        $("#contenedorImagenGeneral").removeClass("d-none");
+        $("#contenedorDatosGenerales").addClass("d-none");
+        let contenedorImagenFormato = document.getElementById('contenedorImagenFormato');
+        let pdf = document.createElement('object');
+        pdf.data = "data:application/pdf;base64," + pdfDenuncia;
+        pdf.style = "height: 150vh; width: 150vh;";
+        contenedorImagenFormato.innerHTML = '';
+        contenedorImagenFormato.append(pdf);
     } else {
         $("#contenedorDatosGenerales").removeClass("d-none");
         $("#contenedorImagenGeneral").addClass("d-none");
@@ -1189,7 +1234,7 @@ function prepararParaConcluir(idDenuncia, numExpediente) {
     ).set('labels', { cancel: 'Cancelar' });
 }
 
-function prepararParaGenerarAcuse(tipoDenuncia, numExpediente, fechaPresentacion, horaPresentacion, imagenDenuncia, anonimatoDenunciante, nombreDenunciante, domicilioDenunciante, telefonoDenunciante, correoDenunciante, sexoDenunciante, edadDenunciante, servidorPublicoDenunciante, puestoDenunciante, especificarDenunciante, gradoEstudiosDenunciante, discapacidadDenunciante, nombreDenunciado, entidadDenunciado, telefonoDenunciado, correoDenunciado, sexoDenunciado, edadDenunciado, servidorPublicoDenunciado, especificarDenunciado, relacionDenunciado, lugarDenuncia, fechaDenuncia, horaDenuncia, narracionDenuncia, nombreTestigo, domicilioTestigo, telefonoTestigo, correoTestigo, relacionTestigo, trabajaTestigo, entidadTestigo, cargoTestigo) {
+function prepararParaGenerarAcuse(tipoDenuncia, numExpediente, fechaPresentacion, horaPresentacion, imagenDenuncia, pdfDenuncia, anonimatoDenunciante, nombreDenunciante, domicilioDenunciante, telefonoDenunciante, correoDenunciante, sexoDenunciante, edadDenunciante, servidorPublicoDenunciante, puestoDenunciante, especificarDenunciante, gradoEstudiosDenunciante, discapacidadDenunciante, nombreDenunciado, entidadDenunciado, telefonoDenunciado, correoDenunciado, sexoDenunciado, edadDenunciado, servidorPublicoDenunciado, especificarDenunciado, relacionDenunciado, lugarDenuncia, fechaDenuncia, horaDenuncia, narracionDenuncia, nombreTestigo, domicilioTestigo, telefonoTestigo, correoTestigo, relacionTestigo, trabajaTestigo, entidadTestigo, cargoTestigo) {
     if (imagenDenuncia != "") {
         $("#contenedorImagenGeneralAcuse").removeClass("d-none");
         $("#contenedorDatosGeneralesAcuse").addClass("d-none");
@@ -1200,6 +1245,15 @@ function prepararParaGenerarAcuse(tipoDenuncia, numExpediente, fechaPresentacion
         image.class = "border";
         contenedorImagenFormatoAcuse.innerHTML = '';
         contenedorImagenFormatoAcuse.append(image);
+    } else if (pdfDenuncia != "") {
+        $("#contenedorImagenGeneralAcuse").removeClass("d-none");
+        $("#contenedorDatosGeneralesAcuse").addClass("d-none");
+        let contenedorImagenFormatoAcuse = document.getElementById('contenedorImagenFormatoAcuse');
+        let pdf = document.createElement('object');
+        pdf.data = "data:application/pdf;base64," + pdfDenuncia;
+        pdf.style = "height: 150vh; width: 150vh;";
+        contenedorImagenFormatoAcuse.innerHTML = '';
+        contenedorImagenFormatoAcuse.append(pdf);
     } else {
         $("#contenedorDatosGeneralesAcuse").removeClass("d-none");
         $("#contenedorImagenGeneralAcuse").addClass("d-none");

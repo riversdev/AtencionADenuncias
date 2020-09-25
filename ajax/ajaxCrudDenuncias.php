@@ -276,6 +276,7 @@ switch ($accion) {
                                                 '" . $row['numExpediente'] . "',
                                                 '" . date("Y-m-d", strtotime($row['fechaPresentacion'])) . "',
                                                 '" . base64_encode($row['imagenDenuncia']) . "',
+                                                '" . base64_encode($row['pdfDenuncia']) . "',
                                                 '" . $row['anonimatoDenunciante'] . "',
                                                 '" . $row['nombreDenunciante'] . "',
                                                 '" . $row['domicilioDenunciante'] . "',
@@ -316,6 +317,7 @@ switch ($accion) {
                                                 '" . $row['numExpediente'] . "',
                                                 '" . date("Y-m-d", strtotime($row['fechaPresentacion'])) . "',
                                                 '" . base64_encode($row['imagenDenuncia']) . "',
+                                                '" . base64_encode($row['pdfDenuncia']) . "',
                                                 '" . $row['anonimatoDenunciante'] . "',
                                                 '" . $row['nombreDenunciante'] . "',
                                                 '" . $row['domicilioDenunciante'] . "',
@@ -420,13 +422,13 @@ switch ($accion) {
                                         <td class="text-center">' . date("d-m-Y", strtotime($row['fechaPresentacion'])) . '</td>
                                         <td>' . $row['anonimatoDenunciante'] . '</td>';
                     if ($row['nombreDenunciante'] != "") {
-                        echo '                  <td>' . $row['nombreDenunciante'] . '</td>';
+                        echo '          <td>' . $row['nombreDenunciante'] . '</td>';
+                    } elseif (base64_encode($row['imagenDenuncia']) != "") {
+                        echo '          <td class="text-success" style="font-size:x-small;"> contiene imagen </td>';
+                    } elseif (base64_encode($row['pdfDenuncia']) != "") {
+                        echo '          <td class="text-success" style="font-size:x-small;"> contiene pdf </td>';
                     } else {
-                        if (base64_encode($row['imagenDenuncia']) != "") {
-                            echo '              <td class="text-success" style="font-size:x-small;"> contiene imagen </td>';
-                        } else {
-                            echo '              <td class="text-success" style="font-size:x-small;"> denunciante desconocido </td>';
-                        }
+                        echo '          <td class="text-success" style="font-size:x-small;"> denunciante desconocido </td>';
                     }
                     echo '                      <td>' . $row['domicilioDenunciante'] . '</td>
                                         <td>' . $row['telefonoDenunciante'] . '</td>
@@ -439,9 +441,13 @@ switch ($accion) {
                                         <td>' . $row['gradoEstudiosDenunciante'] . '</td>
                                         <td>' . $row['discapacidadDenunciante'] . '</td>';
                     if ($row['nombreDenunciado'] != "") {
-                        echo '                  <td>' . $row['nombreDenunciado'] . '</td>';
+                        echo '          <td>' . $row['nombreDenunciado'] . '</td>';
+                    } elseif (base64_encode($row['imagenDenuncia']) != "") {
+                        echo '          <td class="text-success" style="font-size:x-small;"> contiene imagen </td>';
+                    } elseif (base64_encode($row['pdfDenuncia']) != "") {
+                        echo '          <td class="text-success" style="font-size:x-small;"> contiene pdf </td>';
                     } else {
-                        echo '                  <td class="text-success" style="font-size:x-small;"> contiene imagen </td>';
+                        echo '          <td class="text-success" style="font-size:x-small;"> denunciado desconocido </td>';
                     }
                     echo '                      <td>' . $row['entidadDenunciado'] . '</td>
                                         <td>' . $row['telefonoDenunciado'] . '</td>
@@ -512,6 +518,7 @@ switch ($accion) {
                                                 '" . $row['numExpediente'] . "',
                                                 '" . date("Y-m-d", strtotime($row['fechaPresentacion'])) . "',
                                                 '" . base64_encode($row['imagenDenuncia']) . "',
+                                                '" . base64_encode($row['pdfDenuncia']) . "',
                                                 '" . $row['anonimatoDenunciante'] . "',
                                                 '" . $row['nombreDenunciante'] . "',
                                                 '" . $row['domicilioDenunciante'] . "',
@@ -551,13 +558,14 @@ switch ($accion) {
                                                 '" . $row['idDenuncia'] . "',
                                                 '" . $row['numExpediente'] . "'
                                             " . ')"></i>';
-                    if ($row['imagenDenuncia'] != "" || $row['nombreDenunciante'] != "") {
+                    if ($row['imagenDenuncia'] != "" || $row['nombreDenunciante'] != "" || base64_encode($row['pdfDenuncia']) != "") {
                         echo '              <i class="far fa-plus-square" onclick="prepararParaGenerarAcuse(' . "
                                                     '" . $row['tipoDenuncia'] . "',
                                                     '" . $row['numExpediente'] . "',
                                                     '" . date("Y-m-d", strtotime($row['fechaPresentacion'])) . "',
                                                     '" . date("H:i", strtotime($row['fechaPresentacion'])) . "',
                                                     '" . base64_encode($row['imagenDenuncia']) . "',
+                                                    '" . base64_encode($row['pdfDenuncia']) . "',
                                                     '" . $row['anonimatoDenunciante'] . "',
                                                     '" . $row['nombreDenunciante'] . "',
                                                     '" . $row['domicilioDenunciante'] . "',
@@ -664,13 +672,13 @@ switch ($accion) {
                                         <td class="text-center">' . date("d-m-Y", strtotime($row['fechaPresentacion'])) . '</td>
                                         <td>' . $row['anonimatoDenunciante'] . '</td>';
                     if ($row['nombreDenunciante'] != "") {
-                        echo '                  <td>' . $row['nombreDenunciante'] . '</td>';
+                        echo '          <td>' . $row['nombreDenunciante'] . '</td>';
+                    } elseif (base64_encode($row['imagenDenuncia']) != "") {
+                        echo '          <td class="text-success" style="font-size:x-small;"> contiene imagen </td>';
+                    } elseif (base64_encode($row['pdfDenuncia']) != "") {
+                        echo '          <td class="text-success" style="font-size:x-small;"> contiene pdf </td>';
                     } else {
-                        if (base64_encode($row['imagenDenuncia']) != "") {
-                            echo '              <td class="text-success" style="font-size:x-small;"> contiene imagen </td>';
-                        } else {
-                            echo '              <td class="text-success" style="font-size:x-small;"> denunciante desconocido </td>';
-                        }
+                        echo '          <td class="text-success" style="font-size:x-small;"> denunciante desconocido </td>';
                     }
                     echo '                      <td>' . $row['domicilioDenunciante'] . '</td>
                                         <td>' . $row['telefonoDenunciante'] . '</td>
@@ -683,13 +691,13 @@ switch ($accion) {
                                         <td>' . $row['gradoEstudiosDenunciante'] . '</td>
                                         <td>' . $row['discapacidadDenunciante'] . '</td>';
                     if ($row['nombreDenunciado'] != "") {
-                        echo '                  <td>' . $row['nombreDenunciado'] . '</td>';
+                        echo '          <td>' . $row['nombreDenunciado'] . '</td>';
+                    } elseif (base64_encode($row['imagenDenuncia']) != "") {
+                        echo '          <td class="text-success" style="font-size:x-small;"> contiene imagen </td>';
+                    } elseif (base64_encode($row['pdfDenuncia']) != "") {
+                        echo '          <td class="text-success" style="font-size:x-small;"> contiene pdf </td>';
                     } else {
-                        if (base64_encode($row['imagenDenuncia']) != "") {
-                            echo '              <td class="text-success" style="font-size:x-small;"> contiene imagen </td>';
-                        } else {
-                            echo '              <td class="text-success" style="font-size:x-small;"> - - - - - - - </td>';
-                        }
+                        echo '          <td class="text-success" style="font-size:x-small;"> denunciado desconocido </td>';
                     }
                     echo '                      <td>' . $row['entidadDenunciado'] . '</td>
                                         <td>' . $row['telefonoDenunciado'] . '</td>
@@ -718,6 +726,7 @@ switch ($accion) {
                                                 '" . $row['numExpediente'] . "',
                                                 '" . date("Y-m-d", strtotime($row['fechaPresentacion'])) . "',
                                                 '" . base64_encode($row['imagenDenuncia']) . "',
+                                                '" . base64_encode($row['pdfDenuncia']) . "',
                                                 '" . $row['anonimatoDenunciante'] . "',
                                                 '" . $row['nombreDenunciante'] . "',
                                                 '" . $row['domicilioDenunciante'] . "',

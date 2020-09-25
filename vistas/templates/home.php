@@ -992,7 +992,7 @@ if (isset($_SESSION['user_id'])) {
                             <h6 class="text-justify text-white text-center py-1" style="background-color: #39511D;">DATOS GENERALES DE LA DENUNCIA</h6>
                         </div>
                     </div>
-                    <div class="form-row">
+                    <div class="row">
                         <div class="col-12 text-center mb-3" id="contenedorImagenFormato"></div>
                     </div>
                 </div>
@@ -1515,13 +1515,13 @@ if (isset($_SESSION['user_id'])) {
     </div>
 
     <!-- Modal Ayuda -->
-    <div class="modal fade" id="modalAyuda" tabindex="-1" aria-labelledby="modalAyudaLabel" aria-hidden="true">
+    <div class="modal fade" id="modalAyuda" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="modalAyudaLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-body">
                     <div class="form-row">
                         <div class="col-12">
-                            <p class="card bg-white border border-primary border-top-0 border-bottom-0 border-right-0 shadow-sm rounded text-justify p-2 border text-muted" style="font-size: small;"><b>Nota:</b> Asegurate de que la imagen que intentas subir tenga un peso menor a 2MB y contenga la totalidad de los datos requeridos en el formato para la presentación de una denuncia ante el comité de ética y de prevención de conflictos de interés de la oficicialía mayor. Usar esta opción solo permitirá una imagen por denuncia y se guardará como una denuncia pendiente de evaluación por los miembros del comité.</p>
+                            <p class="card bg-white border border-primary border-top-0 border-bottom-0 border-right-0 shadow-sm rounded text-justify p-2 border text-muted" style="font-size: small;"><b>Nota:</b> Asegurate de que el elemento que intentas subir tenga un peso menor a 2MB y contenga la totalidad de los datos requeridos en el formato para la presentación de una denuncia ante el comité de ética y de prevención de conflictos de interés de la oficicialía mayor. Usar esta opción solo permitirá un elemento por denuncia y se guardará como una denuncia pendiente de evaluación por los miembros del comité.</p>
                         </div>
                     </div>
                     <div class="form-row justify-content-end pr-1">
