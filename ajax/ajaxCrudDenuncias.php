@@ -181,7 +181,7 @@ switch ($accion) {
                         <div class="card-body">
                             <h6 class="card-title text-primary font-weight-bold">INCONCLUSAS</h6>
                             <table id="tablaInconclusas" class="table table-sm table-hover" style="width: 100%;">
-                                <thead class="text-white" style="background: linear-gradient(to right, #243B55,#141E30);">
+                                <thead class="text-white" style="background: linear-gradient(to right, #6fb430,green);">
                                     <tr>
                                         <th scope="col">idDenuncia</th>
                                         <th scope="col">tipoDenuncia</th>
@@ -270,6 +270,7 @@ switch ($accion) {
                                         <td>' . $row['cargoTestigo'] . '</td>
                                         <td>' . $row['statusDenuncia'] . '</td>
                                         <td class="d-flex justify-content-around">
+                                         <button type="button" class="btn btn-sm" style="background:#D2D518; color: white">
                                             <i class="far fa-edit" onclick="prepararParaEditar(' . "
                                                 '" . $row['idDenuncia'] . "',
                                                 '" . $row['tipoDenuncia'] . "',
@@ -311,7 +312,8 @@ switch ($accion) {
                                                 '" . $row['entidadTestigo'] . "',
                                                 '" . $row['cargoTestigo'] . "',
                                                 '" . $row['statusDenuncia'] . "'
-                                            " . ');"></i>
+                                            " . ');"></i></button>
+                                            <button type="button" class="btn btn-sm" style="background:blue; color: white">
                                             <i class="far fa-eye" onclick="prepararParaVizualizar(' . "
                                                 '" . $row['tipoDenuncia'] . "',
                                                 '" . $row['numExpediente'] . "',
@@ -352,7 +354,7 @@ switch ($accion) {
                                                 '" . $row['entidadTestigo'] . "',
                                                 '" . $row['cargoTestigo'] . "',
                                                 '" . $row['statusDenuncia'] . "'
-                                            " . ');"></i>
+                                            " . ');"></i></button>
                                         </td>
                                     </tr>';
                 }
@@ -370,7 +372,7 @@ switch ($accion) {
                         <div class="card-body">
                             <h6 class="card-title text-primary font-weight-bold">PENDIENTES</h6>
                             <table id="tablaPendientes" class="table table-sm table-hover" style="width: 100%;">
-                                <thead class="text-white" style="background: linear-gradient(to right, #243B55,#141E30);">
+                                <thead class="text-white" style="background: linear-gradient(to right, #6fb430,green);">
                                     <tr>
                                         <th scope="col">idDenuncia</th>
                                         <th scope="col">tipoDenuncia</th>
@@ -471,6 +473,7 @@ switch ($accion) {
                                         <td>' . $row['cargoTestigo'] . '</td>
                                         <td>' . $row['statusDenuncia'] . '</td>
                                         <td class="d-flex justify-content-between">
+                                        <button type="button" class="btn btn-sm" style="background:#D2D518; color: white">
                                             <i class="far fa-edit" onclick="prepararParaEditar(' . "
                                                 '" . $row['idDenuncia'] . "',
                                                 '" . $row['tipoDenuncia'] . "',
@@ -512,7 +515,8 @@ switch ($accion) {
                                                 '" . $row['entidadTestigo'] . "',
                                                 '" . $row['cargoTestigo'] . "',
                                                 '" . $row['statusDenuncia'] . "'
-                                            " . ');"></i>
+                                            " . ');"></i></button>
+                                            <button type="button" class="btn btn-sm" style="background:blue; color: white">
                                             <i class="far fa-eye" onclick="prepararParaVizualizar(' . "
                                                 '" . $row['tipoDenuncia'] . "',
                                                 '" . $row['numExpediente'] . "',
@@ -554,12 +558,13 @@ switch ($accion) {
                                                 '" . $row['cargoTestigo'] . "',
                                                 '" . $row['statusDenuncia'] . "'
                                             " . ');"></i></button>
+                                            <button type="button" class="btn btn-sm" style="background:#6fb430; color: white">
                                             <i class="far fa-check-square" onclick="prepararParaConcluir(' . "
                                                 '" . $row['idDenuncia'] . "',
                                                 '" . $row['numExpediente'] . "'
-                                            " . ')"></i>';
+                                            " . ')"></i></button>';
                     if ($row['imagenDenuncia'] != "" || $row['nombreDenunciante'] != "" || base64_encode($row['pdfDenuncia']) != "") {
-                        echo '              <i class="far fa-plus-square" onclick="prepararParaGenerarAcuse(' . "
+                        echo '              <button type="button" class="btn btn-sm" style="background:#082432; color: white"><i class="far fa-plus-square" onclick="prepararParaGenerarAcuse(' . "
                                                     '" . $row['tipoDenuncia'] . "',
                                                     '" . $row['numExpediente'] . "',
                                                     '" . date("Y-m-d", strtotime($row['fechaPresentacion'])) . "',
@@ -599,9 +604,9 @@ switch ($accion) {
                                                     '" . $row['trabajaTestigo'] . "',
                                                     '" . $row['entidadTestigo'] . "',
                                                     '" . $row['cargoTestigo'] . "'
-                                                " . ');"></i>';
+                                                " . ');"></i></button>';
                     } else {
-                        echo '              <i class="far fa-minus-square text-white"></i>';
+                        echo '              <button type="button" class="btn btn-sm" style="background:red; color: white"><i class="far fa-minus-square text-white"></i></button>';
                     }
                     echo '              </td>
                                     </tr>';
@@ -620,7 +625,7 @@ switch ($accion) {
                         <div class="card-body">
                             <h6 class="card-title text-primary font-weight-bold">CONCLUIDAS</h6>
                             <table id="tablaConcluidas" class="table table-sm table-hover" style="width: 100%;">
-                                <thead class="text-white" style="background: linear-gradient(to right, #243B55,#141E30);">
+                                <thead class="text-white" style="background: linear-gradient(to right, #6fb430,green);">
                                     <tr>
                                         <th scope="col">idDenuncia</th>
                                         <th scope="col">tipoDenuncia</th>
@@ -721,6 +726,7 @@ switch ($accion) {
                                         <td>' . $row['cargoTestigo'] . '</td>
                                         <td>' . $row['statusDenuncia'] . '</td>
                                         <td class="d-flex justify-content-around">
+                                        <button type="button" class="btn btn-sm" style="background:blue; color: white">
                                             <i class="far fa-eye" onclick="prepararParaVizualizar(' . "
                                                 '" . $row['tipoDenuncia'] . "',
                                                 '" . $row['numExpediente'] . "',
@@ -761,7 +767,7 @@ switch ($accion) {
                                                 '" . $row['entidadTestigo'] . "',
                                                 '" . $row['cargoTestigo'] . "',
                                                 '" . $row['statusDenuncia'] . "'
-                                            " . ');"></i>
+                                            " . ');"></i></button>
                                         </td>
                                     </tr>';
                 }

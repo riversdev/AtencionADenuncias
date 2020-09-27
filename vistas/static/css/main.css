@@ -9,8 +9,9 @@
 }
 
 .page-item.active .page-link {
-  background-color: #082432 !important;
+  background-color: green !important;
   color: white !important;
+  border-radius: 2px;
 }
 .page-link {
   color: #082432 !important;

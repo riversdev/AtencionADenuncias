@@ -1294,7 +1294,7 @@ if (isset($_SESSION['user_id'])) {
     <div class="modal fade" id="newAdmin" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
-                <div class="modal-header" style="background: linear-gradient(to right, #243B55,#141E30);">
+                <div class="modal-header" style="background: linear-gradient(to right, #6fb430,green);">
                     <h5 class="modal-title text-white" id="exampleModalLongTitle">Agregar Usuario / Administrador</h5>
                     <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close" id="exit">
                         <span aria-hidden="true">&times;</span>
@@ -1368,7 +1368,7 @@ if (isset($_SESSION['user_id'])) {
     <div class="modal fade" id="editAdministrador" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
-                <div class="modal-header" style="background: linear-gradient(to right, #243B55,#141E30);">
+                <div class="modal-header" style="background: linear-gradient(to right, #6fb430,green);">
                     <h5 class="modal-title text-white" id="exampleModalLongTitle">Editar Usuario / Administrador</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="exit">
                         <span aria-hidden="true">&times;</span>
