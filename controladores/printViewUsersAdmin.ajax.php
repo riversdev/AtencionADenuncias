@@ -51,7 +51,7 @@ if ($contar != 0) {
     $json = array();
     echo '
       <table id="tableAdmins" class="table table-hover" style="width: 100%;">
-        <thead class="text-white" style="background: linear-gradient(to right, #243B55,#141E30);">
+        <thead class="text-white" style="background: linear-gradient(to right,#6fb430,green);">
           <tr style="font-weight:bolder;font-size:small;">
             <th scope="col">Nombre</th>
             <th scope="col">Correo Electrónico</th>
