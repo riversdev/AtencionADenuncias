@@ -31,6 +31,8 @@
     <!-- fontawesome-free-5.14.0-web -->
     <link rel="stylesheet" href="vistas\static\fontawesome\css\all.css">
     <script src="vistas\static\fontawesome\js\all.js"></script>
+    <!-- jsPDF-1.3.2 
+    <script src="vistas\static\jspdf\dist\jspdf.min.js"></script>-->
     <!-- Custom JS -->
     <script src="vistas\static\js\main.js"></script>
     <!-- Custom CSS -->
