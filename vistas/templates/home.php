@@ -1453,24 +1453,17 @@ if (isset($_SESSION['user_id'])) {
                     <div class="row">
                         <div class="col-12">
                             <div class="row">
-                                <div class="col-lg-4 col-sm-6 col-12 py-2">
+                                <div class="col-lg-6 col-sm-6 col-12 py-2">
                                     <div id="presunto1" class="card bg-white border border-primary border-top-0 border-bottom-0 border-right-0 shadow-sm rounded">
                                         <div class="card-body text-center">
-                                            <span class="font-weight-light">Incumplimiento al código de ética</span>
+                                            <span class="font-weight-light">Incumplimiento al código de ética y de conducta</span>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-lg-4 col-sm-6 col-12 py-2">
+                                <div class="col-lg-6 col-sm-6 col-12 py-2">
                                     <div id="presunto2" class="card bg-white border border-primary border-top-0 border-bottom-0 border-right-0 shadow-sm rounded">
                                         <div class="card-body text-center">
                                             <span class="font-weight-light">Incumplimiento a las reglas de integridad</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-4 col-sm-6 col-12 py-2">
-                                    <div id="presunto3" class="card bg-white border border-primary border-top-0 border-bottom-0 border-right-0 shadow-sm rounded">
-                                        <div class="card-body text-center">
-                                            <span class="font-weight-light">Incumplimiento al código de conducta</span>
                                         </div>
                                     </div>
                                 </div>
@@ -1479,28 +1472,28 @@ if (isset($_SESSION['user_id'])) {
                         <div class="col-12">
                             <div class="row">
                                 <div class="col-lg-3 col-sm-6 col-12 py-2">
-                                    <div id="presunto4" class="card bg-white border border-primary border-top-0 border-bottom-0 border-right-0 shadow-sm rounded">
+                                    <div id="presunto3" class="card bg-white border border-primary border-top-0 border-bottom-0 border-right-0 shadow-sm rounded">
                                         <div class="card-body text-center">
                                             <span class="font-weight-light">Agresión</span>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-lg-3 col-sm-6 col-12 py-2">
-                                    <div id="presunto5" class="card bg-white border border-primary border-top-0 border-bottom-0 border-right-0 shadow-sm rounded">
+                                    <div id="presunto4" class="card bg-white border border-primary border-top-0 border-bottom-0 border-right-0 shadow-sm rounded">
                                         <div class="card-body text-center">
                                             <span class="font-weight-light">Amedrentamiento</span>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-lg-3 col-sm-6 col-12 py-2">
-                                    <div id="presunto6" class="card bg-white border border-primary border-top-0 border-bottom-0 border-right-0 shadow-sm rounded">
+                                    <div id="presunto5" class="card bg-white border border-primary border-top-0 border-bottom-0 border-right-0 shadow-sm rounded">
                                         <div class="card-body text-center">
                                             <span class="font-weight-light">Intimidación</span>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-lg-3 col-sm-6 col-12 py-2">
-                                    <div id="presunto7" class="card bg-white border border-primary border-top-0 border-bottom-0 border-right-0 shadow-sm rounded">
+                                    <div id="presunto6" class="card bg-white border border-primary border-top-0 border-bottom-0 border-right-0 shadow-sm rounded">
                                         <div class="card-body text-center">
                                             <span class="font-weight-light">Amenazas</span>
                                         </div>

@@ -1,5 +1,5 @@
 let tipoNuevaDenuncia = "";
-let presuntoDenuncia = ["presunto incumplimiento al código de ética.", "presunto incumplimiento a las reglas de integridad.", "presunto incumplimiento al código de conducta.", "presunta agresión.", "presunto amedrentamiento.", "presunta intimidación.", "presuntas amenazas."];
+let presuntoDenuncia = ["presunto incumplimiento al código de ética y de conducta.", "presunto incumplimiento a las reglas de integridad.", "presunta agresión.", "presunto amedrentamiento.", "presunta intimidación.", "presuntas amenazas."];
 let cadPresuntoDenuncia = "";
 // FECHA ACTUAL RECUPERADA CON JS
 let fechaActual = new Date();
@@ -181,12 +181,9 @@ $(document).ready(function () {
 
     // IMPRIMIR
     $('#btnImprimir').on('click', function () {
-        //var restorePage = document.body.innerHTML;
-        //var printContent = document.getElementById("formatoDenuncia").innerHTML;
-        //document.body.innerHTML = printContent;
-        console.log("Imprimiendo...");
-        window.print();
-        //document.body.innerHTML = restorePage;
+        if (!window.print()) {
+            alertify.warning('Oprima "control + p" en su teclado')
+        }
     });
 
     // MOSTRANDO Y OCULTANDO BOTON DE IMPRIMIR
