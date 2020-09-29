@@ -257,4 +257,21 @@ class CrudDenuncias
         $stmt = null;
         return $resultado;
     }
+    public static function guardarActaPDF($idDenuncia, $pdfActaDenuncia)
+    {
+        $SQL = "UPDATE denuncias
+                SET pdfActaDenuncia='$pdfActaDenuncia'
+                WHERE idDenuncia='$idDenuncia';";
+        $stmt = Conexion::conectar()->prepare($SQL);
+        try {
+            if ($stmt->execute()) {
+                return 1;
+            } else {
+                return 0;
+            }
+        } catch (Exception $e) {
+            return "error|Documento demasiado grande !|" . $e;
+        }
+        $stmt = null;
+    }
 }

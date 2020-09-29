@@ -1443,7 +1443,7 @@ if (isset($_SESSION['user_id'])) {
     <div class="modal fade" id="modalPresuntoDenuncia" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="modalPresuntoDenunciaLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-lg">
             <div class="modal-content">
-                <div class="modal-header bg-primary text-white">
+                <div class="modal-header bg-primary text-white" style="background: linear-gradient(to right, #243B55,#141E30);">
                     <h5 class="modal-title" id="modalPresuntoDenunciaLabel">La denuncia es por un presunto...</h5>
                     <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
@@ -1501,6 +1501,91 @@ if (isset($_SESSION['user_id'])) {
                                 </div>
                             </div>
                         </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Concluir Denuncia -->
+    <div class="modal fade" id="modalConcluirDenuncia" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="modalConcluirDenunciaLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header bg-primary text-white" style="background: linear-gradient(to right, #243B55,#141E30);">
+                    <h5 class="modal-title" id="modalConcluirDenunciaLabel">Concluyendo denuncia</h5>
+                    <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body bg-white">
+                    <form id="formActaDenuncia" class="needs-validation" novalidate>
+                        <input type="hidden" id="txtIdDenunciaActa" name="txtIdDenunciaActa" required>
+                        <div class="form-row">
+                            <div class="col-12 mb-3 d-flex align-items-center">
+                                <h6 class="font-weight-light text-primary pt-1 text-uppercase" id="txtPresuntoDenunciaActa"></h6>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="col-md-6 col-12 mb-3">
+                                <label for="fechaPresentacion">Número de expediente</label>
+                                <input type="text" class="form-control form-control-sm" id="txtNumExpedienteActa" required disabled>
+                            </div>
+                            <div class="col-md-6 col-12 mb-3">
+                                <label for="fechaPresentacion">Fecha de presentación</label>
+                                <input type="date" class="form-control form-control-sm" id="txtFechaPresentacionActa" required disabled>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label for="">Acta de la sesión</label>
+                                    <div class="custom-file custom-file-sm mb-3">
+                                        <input type="file" class="custom-file-input" id="txtActaDenunciaPDF" name="txtActaDenunciaPDF" accept=".pdf, .docx" lang="es" required>
+                                        <label class="custom-file-label text-truncate" for="txtActaDenunciaPDF" id="labelActaDenunciaPDF">Elegir documento...</label>
+                                        <div class="valid-feedback">Correcto!</div>
+                                        <div class="invalid-feedback">Elija un documento</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-row mb-3">
+                            <div class="col-12 d-flex justify-content-center">
+                                <div id="contenedorActaPDF" class="px-1 text-center"></div>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="col-12">
+                                <p class="card bg-white border border-primary border-top-0 border-bottom-0 border-right-0 shadow-sm rounded text-justify p-2 border text-muted" style="font-size: small;"><b>Nota:</b> Al concluir con la denuncia no podrá volver a editarla, unicamente podrá vizualizarla y descargar el acta de la sesión !</p>
+                            </div>
+                        </div>
+                        <div class="form-row justify-content-between px-1">
+                            <button class="btn btn-transparent text-info" type="button" data-toggle="popover" data-placement="right" tabindex="0" data-trigger="focus" data-content="Asegurate de que el elemento que intentas subir tenga un peso menor a 2MB y contenga la totalidad de los datos requeridos en el formato para la presentación de una denuncia ante el comité de ética y de prevención de conflictos de interés de la oficicialía mayor. Usar esta opción solo permitirá un elemento por denuncia.">
+                                <i class="far fa-question-circle"></i>
+                            </button>
+                            <button class="btn btn-outline-primary" type="submit">
+                                Guardar acta y concluir
+                                <i class="fas fa-arrow-circle-right"></i>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Acta Denuncia -->
+    <div class="modal fade" id="modalActaDenuncia" tabindex="-1" role="dialog" aria-labelledby="modalActaDenunciaLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header bg-primary text-white" style="background: linear-gradient(to right, #243B55,#141E30);">
+                    <h5 class="modal-title" id="modalActaDenunciaLabel">Acta de la sesión</h5>
+                    <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body bg-white">
+                    <div class="row d-flex justify-content-center">
+                        <div id="contenedorVizualizarActaPDF" class="px-1 text-center"></div>
                     </div>
                 </div>
             </div>

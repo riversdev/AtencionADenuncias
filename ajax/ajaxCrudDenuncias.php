@@ -155,6 +155,35 @@ switch ($accion) {
         }
         break;
 
+    case 'guardarActa':
+        if ($_FILES['txtActaDenunciaPDF']['error'] === 4) {
+            echo "error|Elija un documento";
+        } elseif ($_FILES['txtActaDenunciaPDF']['error'] === 1) {
+            die("error|El documento sobrepasa el limite de tamaño (2MB)");
+        } elseif ($_FILES['txtActaDenunciaPDF']['error'] === 0) {
+            $documentoBinario = addslashes(file_get_contents($_FILES['txtActaDenunciaPDF']['tmp_name']));
+            $nombreArchivo = $_FILES['txtActaDenunciaPDF']['name'];
+            $extensiones = array('pdf', 'doc', 'docx');
+            $extension = explode('.', $nombreArchivo);
+            $extension = end($extension);
+            $extension = strtolower($extension);
+            if (!in_array($extension, $extensiones)) {
+                die('error|Sólo elija documentos con extensiones: ' . implode(', ', $extensiones));
+            } else {
+                $resultado = CrudDenuncias::guardarActaPDF($_POST['txtIdDenunciaActa'], $documentoBinario);
+                if ($resultado == 1) {
+                    CrudDenuncias::concluirDenuncia($_POST['txtIdDenunciaActa']);
+                } else if ($resultado == 0) {
+                    echo "error|Imposible guardar acta !";
+                } else {
+                    echo $resultado;
+                }
+            }
+        } else {
+            die("error|Verifique sus datos");
+        }
+        break;
+
     default:
         $denunciasInconclusas = CrudDenuncias::obtenerDenuncias("inconclusa");
         $denunciasPendientes = CrudDenuncias::obtenerDenuncias("pendiente");
@@ -183,44 +212,44 @@ switch ($accion) {
                             <table id="tablaInconclusas" class="table table-sm table-hover" style="width: 100%;">
                                 <thead class="text-white" style="background: linear-gradient(to right, #6fb430,green);">
                                     <tr>
-                                        <th scope="col">idDenuncia</th>
-                                        <th scope="col">tipoDenuncia</th>
+                                        <th scope="col">ID</th>
+                                        <th scope="col">Tipo de denuncia</th>
                                         <th scope="col" class="text-center"># Expediente</th>
                                         <th scope="col" class="text-center">Fecha de presentación</th>
-                                        <th scope="col">anonimatoDenunciante</th>
+                                        <th scope="col">¿El denunciante desea el anonimato?</th>
                                         <th scope="col">Denunciante</th>
-                                        <th scope="col">domicilioDenunciante</th>
-                                        <th scope="col">telefonoDenunciante</th>
-                                        <th scope="col">correoDenunciante</th>
-                                        <th scope="col">sexoDenunciante</th>
-                                        <th scope="col">edadDenunciante</th>
-                                        <th scope="col">servidorPublicoDenunciante</th>
-                                        <th scope="col">puestoDenunciante</th>
-                                        <th scope="col">especificarDenunciante</th>
-                                        <th scope="col">gradoEstudiosDenunciante</th>
-                                        <th scope="col">discapacidadDenunciante</th>
+                                        <th scope="col">Domicilio del denunciante</th>
+                                        <th scope="col">Teléfono del denunciante</th>
+                                        <th scope="col">Correo del denunciante</th>
+                                        <th scope="col">Sexo del denunciante</th>
+                                        <th scope="col">Edad del denunciante</th>
+                                        <th scope="col">¿El denunciante es un servidor público?</th>
+                                        <th scope="col">Puesto del denunciante</th>
+                                        <th scope="col">Especificar</th>
+                                        <th scope="col">Grado de estudios del denunciante</th>
+                                        <th scope="col">Discapacidad del denunciante</th>
                                         <th scope="col">Denunciado</th>
-                                        <th scope="col">entidadDenunciado</th>
-                                        <th scope="col">telefonoDenunciado</th>
-                                        <th scope="col">correoDenunciado</th>
-                                        <th scope="col">sexoDenunciado</th>
-                                        <th scope="col">edadDenunciado</th>
-                                        <th scope="col">servidorPublicoDenunciado</th>
-                                        <th scope="col">especificarDenunciado</th>
-                                        <th scope="col">relacionDenunciado</th>
-                                        <th scope="col">lugarDenuncia</th>
-                                        <th scope="col">fechaDenuncia</th>
-                                        <th scope="col">horaDenuncia</th>
-                                        <th scope="col">narracionDenuncia</th>
-                                        <th scope="col">Testigo</th>
-                                        <th scope="col">domicilioTestigo</th>
-                                        <th scope="col">telefonoTestigo</th>
-                                        <th scope="col">correoTestigo</th>
-                                        <th scope="col">relacionTestigo</th>
-                                        <th scope="col">trabajaTestigo</th>
-                                        <th scope="col">entidadTestigo</th>
-                                        <th scope="col">cargoTestigo</th>
-                                        <th scope="col">statusDenuncia</th>
+                                        <th scope="col">Entidad del denunciado</th>
+                                        <th scope="col">Teléfono del denunciado</th>
+                                        <th scope="col">Correo del denunciado</th>
+                                        <th scope="col">Sexo del denunciado</th>
+                                        <th scope="col">Edad del denunciado</th>
+                                        <th scope="col">¿El denunciado es un servidor público?</th>
+                                        <th scope="col">Especificar</th>
+                                        <th scope="col">Relación con el denunciante</th>
+                                        <th scope="col">Lugar de la denuncia</th>
+                                        <th scope="col">Fecha de la denuncia</th>
+                                        <th scope="col">Hora de la denuncia</th>
+                                        <th scope="col">Breve narración de la denuncia</th>
+                                        <th scope="col">Nombre del testigo</th>
+                                        <th scope="col">Domicilio del testigo</th>
+                                        <th scope="col">Teléfono del testigo</th>
+                                        <th scope="col">Correo electrónico del testigo</th>
+                                        <th scope="col">Relación con el denunciante</th>
+                                        <th scope="col">¿Trabaja en la Administración Pública Estatal?</th>
+                                        <th scope="col">Entidad o dependencia</th>
+                                        <th scope="col">Cargo</th>
+                                        <th scope="col">Estatus de la denuncia</th>
                                         <th scope="col" class="text-center">Acciones</th>
                                     </tr>
                                 </thead>
@@ -374,44 +403,44 @@ switch ($accion) {
                             <table id="tablaPendientes" class="table table-sm table-hover" style="width: 100%;">
                                 <thead class="text-white" style="background: linear-gradient(to right, #6fb430,green);">
                                     <tr>
-                                        <th scope="col">idDenuncia</th>
-                                        <th scope="col">tipoDenuncia</th>
+                                        <th scope="col">ID</th>
+                                        <th scope="col">Tipo de denuncia</th>
                                         <th scope="col" class="text-center"># Expediente</th>
                                         <th scope="col" class="text-center">Fecha de presentación</th>
-                                        <th scope="col">anonimatoDenunciante</th>
+                                        <th scope="col">¿El denunciante desea el anonimato?</th>
                                         <th scope="col">Denunciante</th>
-                                        <th scope="col">domicilioDenunciante</th>
-                                        <th scope="col">telefonoDenunciante</th>
-                                        <th scope="col">correoDenunciante</th>
-                                        <th scope="col">sexoDenunciante</th>
-                                        <th scope="col">edadDenunciante</th>
-                                        <th scope="col">servidorPublicoDenunciante</th>
-                                        <th scope="col">puestoDenunciante</th>
-                                        <th scope="col">especificarDenunciante</th>
-                                        <th scope="col">gradoEstudiosDenunciante</th>
-                                        <th scope="col">discapacidadDenunciante</th>
+                                        <th scope="col">Domicilio del denunciante</th>
+                                        <th scope="col">Teléfono del denunciante</th>
+                                        <th scope="col">Correo del denunciante</th>
+                                        <th scope="col">Sexo del denunciante</th>
+                                        <th scope="col">Edad del denunciante</th>
+                                        <th scope="col">¿El denunciante es un servidor público?</th>
+                                        <th scope="col">Puesto del denunciante</th>
+                                        <th scope="col">Especificar</th>
+                                        <th scope="col">Grado de estudios del denunciante</th>
+                                        <th scope="col">Discapacidad del denunciante</th>
                                         <th scope="col">Denunciado</th>
-                                        <th scope="col">entidadDenunciado</th>
-                                        <th scope="col">telefonoDenunciado</th>
-                                        <th scope="col">correoDenunciado</th>
-                                        <th scope="col">sexoDenunciado</th>
-                                        <th scope="col">edadDenunciado</th>
-                                        <th scope="col">servidorPublicoDenunciado</th>
-                                        <th scope="col">especificarDenunciado</th>
-                                        <th scope="col">relacionDenunciado</th>
-                                        <th scope="col">lugarDenuncia</th>
-                                        <th scope="col">fechaDenuncia</th>
-                                        <th scope="col">horaDenuncia</th>
-                                        <th scope="col">narracionDenuncia</th>
-                                        <th scope="col">Testigo</th>
-                                        <th scope="col">domicilioTestigo</th>
-                                        <th scope="col">telefonoTestigo</th>
-                                        <th scope="col">correoTestigo</th>
-                                        <th scope="col">relacionTestigo</th>
-                                        <th scope="col">trabajaTestigo</th>
-                                        <th scope="col">entidadTestigo</th>
-                                        <th scope="col">cargoTestigo</th>
-                                        <th scope="col">statusDenuncia</th>
+                                        <th scope="col">Entidad del denunciado</th>
+                                        <th scope="col">Teléfono del denunciado</th>
+                                        <th scope="col">Correo del denunciado</th>
+                                        <th scope="col">Sexo del denunciado</th>
+                                        <th scope="col">Edad del denunciado</th>
+                                        <th scope="col">¿El denunciado es un servidor público?</th>
+                                        <th scope="col">Especificar</th>
+                                        <th scope="col">Relación con el denunciante</th>
+                                        <th scope="col">Lugar de la denuncia</th>
+                                        <th scope="col">Fecha de la denuncia</th>
+                                        <th scope="col">Hora de la denuncia</th>
+                                        <th scope="col">Breve narración de la denuncia</th>
+                                        <th scope="col">Nombre del testigo</th>
+                                        <th scope="col">Domicilio del testigo</th>
+                                        <th scope="col">Teléfono del testigo</th>
+                                        <th scope="col">Correo electrónico del testigo</th>
+                                        <th scope="col">Relación con el denunciante</th>
+                                        <th scope="col">¿Trabaja en la Administración Pública Estatal?</th>
+                                        <th scope="col">Entidad o dependencia</th>
+                                        <th scope="col">Cargo</th>
+                                        <th scope="col">Estatus de la denuncia</th>
                                         <th scope="col" class="text-center">Acciones</th>
                                     </tr>
                                 </thead>
@@ -515,8 +544,9 @@ switch ($accion) {
                                                 '" . $row['entidadTestigo'] . "',
                                                 '" . $row['cargoTestigo'] . "',
                                                 '" . $row['statusDenuncia'] . "'
-                                            " . ');"></i></button>
-                                            <button type="button" class="btn btn-sm" style="background:blue; color: white">
+                                            " . ');"></i>
+                                        </button>
+                                        <button type="button" class="btn btn-sm" style="background:blue; color: white">
                                             <i class="far fa-eye" onclick="prepararParaVizualizar(' . "
                                                 '" . $row['tipoDenuncia'] . "',
                                                 '" . $row['numExpediente'] . "',
@@ -557,14 +587,19 @@ switch ($accion) {
                                                 '" . $row['entidadTestigo'] . "',
                                                 '" . $row['cargoTestigo'] . "',
                                                 '" . $row['statusDenuncia'] . "'
-                                            " . ');"></i></button>
-                                            <button type="button" class="btn btn-sm" style="background:#6fb430; color: white">
+                                            " . ');"></i>
+                                        </button>
+                                        <button type="button" class="btn btn-sm" style="background:#6fb430; color: white">
                                             <i class="far fa-check-square" onclick="prepararParaConcluir(' . "
                                                 '" . $row['idDenuncia'] . "',
-                                                '" . $row['numExpediente'] . "'
-                                            " . ')"></i></button>';
+                                                '" . $row['tipoDenuncia'] . "',
+                                                '" . $row['numExpediente'] . "',
+                                                '" . date("Y-m-d", strtotime($row['fechaPresentacion'])) . "'
+                                            " . ')"></i>
+                                        </button>';
                     if ($row['imagenDenuncia'] != "" || $row['nombreDenunciante'] != "" || base64_encode($row['pdfDenuncia']) != "") {
-                        echo '              <button type="button" class="btn btn-sm" style="background:#082432; color: white"><i class="far fa-plus-square" onclick="prepararParaGenerarAcuse(' . "
+                        echo '          <button type="button" class="btn btn-sm" style="background:#082432; color:white">
+                                            <i class="far fa-plus-square" onclick="prepararParaGenerarAcuse(' . "
                                                     '" . $row['tipoDenuncia'] . "',
                                                     '" . $row['numExpediente'] . "',
                                                     '" . date("Y-m-d", strtotime($row['fechaPresentacion'])) . "',
@@ -604,7 +639,9 @@ switch ($accion) {
                                                     '" . $row['trabajaTestigo'] . "',
                                                     '" . $row['entidadTestigo'] . "',
                                                     '" . $row['cargoTestigo'] . "'
-                                                " . ');"></i></button>';
+                                                " . ');">
+                                            </i>
+                                        </button>';
                     } else {
                         echo '              <button type="button" class="btn btn-sm" style="background:red; color: white"><i class="far fa-minus-square text-white"></i></button>';
                     }
@@ -627,44 +664,44 @@ switch ($accion) {
                             <table id="tablaConcluidas" class="table table-sm table-hover" style="width: 100%;">
                                 <thead class="text-white" style="background: linear-gradient(to right, #6fb430,green);">
                                     <tr>
-                                        <th scope="col">idDenuncia</th>
-                                        <th scope="col">tipoDenuncia</th>
+                                        <th scope="col">ID</th>
+                                        <th scope="col">Tipo de denuncia</th>
                                         <th scope="col" class="text-center"># Expediente</th>
                                         <th scope="col" class="text-center">Fecha de presentación</th>
-                                        <th scope="col">anonimatoDenunciante</th>
+                                        <th scope="col">¿El denunciante desea el anonimato?</th>
                                         <th scope="col">Denunciante</th>
-                                        <th scope="col">domicilioDenunciante</th>
-                                        <th scope="col">telefonoDenunciante</th>
-                                        <th scope="col">correoDenunciante</th>
-                                        <th scope="col">sexoDenunciante</th>
-                                        <th scope="col">edadDenunciante</th>
-                                        <th scope="col">servidorPublicoDenunciante</th>
-                                        <th scope="col">puestoDenunciante</th>
-                                        <th scope="col">especificarDenunciante</th>
-                                        <th scope="col">gradoEstudiosDenunciante</th>
-                                        <th scope="col">discapacidadDenunciante</th>
+                                        <th scope="col">Domicilio del denunciante</th>
+                                        <th scope="col">Teléfono del denunciante</th>
+                                        <th scope="col">Correo del denunciante</th>
+                                        <th scope="col">Sexo del denunciante</th>
+                                        <th scope="col">Edad del denunciante</th>
+                                        <th scope="col">¿El denunciante es un servidor público?</th>
+                                        <th scope="col">Puesto del denunciante</th>
+                                        <th scope="col">Especificar</th>
+                                        <th scope="col">Grado de estudios del denunciante</th>
+                                        <th scope="col">Discapacidad del denunciante</th>
                                         <th scope="col">Denunciado</th>
-                                        <th scope="col">entidadDenunciado</th>
-                                        <th scope="col">telefonoDenunciado</th>
-                                        <th scope="col">correoDenunciado</th>
-                                        <th scope="col">sexoDenunciado</th>
-                                        <th scope="col">edadDenunciado</th>
-                                        <th scope="col">servidorPublicoDenunciado</th>
-                                        <th scope="col">especificarDenunciado</th>
-                                        <th scope="col">relacionDenunciado</th>
-                                        <th scope="col">lugarDenuncia</th>
-                                        <th scope="col">fechaDenuncia</th>
-                                        <th scope="col">horaDenuncia</th>
-                                        <th scope="col">narracionDenuncia</th>
-                                        <th scope="col">Testigo</th>
-                                        <th scope="col">domicilioTestigo</th>
-                                        <th scope="col">telefonoTestigo</th>
-                                        <th scope="col">correoTestigo</th>
-                                        <th scope="col">relacionTestigo</th>
-                                        <th scope="col">trabajaTestigo</th>
-                                        <th scope="col">entidadTestigo</th>
-                                        <th scope="col">cargoTestigo</th>
-                                        <th scope="col">statusDenuncia</th>
+                                        <th scope="col">Entidad del denunciado</th>
+                                        <th scope="col">Teléfono del denunciado</th>
+                                        <th scope="col">Correo del denunciado</th>
+                                        <th scope="col">Sexo del denunciado</th>
+                                        <th scope="col">Edad del denunciado</th>
+                                        <th scope="col">¿El denunciado es un servidor público?</th>
+                                        <th scope="col">Especificar</th>
+                                        <th scope="col">Relación con el denunciante</th>
+                                        <th scope="col">Lugar de la denuncia</th>
+                                        <th scope="col">Fecha de la denuncia</th>
+                                        <th scope="col">Hora de la denuncia</th>
+                                        <th scope="col">Breve narración de la denuncia</th>
+                                        <th scope="col">Nombre del testigo</th>
+                                        <th scope="col">Domicilio del testigo</th>
+                                        <th scope="col">Teléfono del testigo</th>
+                                        <th scope="col">Correo electrónico del testigo</th>
+                                        <th scope="col">Relación con el denunciante</th>
+                                        <th scope="col">¿Trabaja en la Administración Pública Estatal?</th>
+                                        <th scope="col">Entidad o dependencia</th>
+                                        <th scope="col">Cargo</th>
+                                        <th scope="col">Estatus de la denuncia</th>
                                         <th scope="col" class="text-center">Acciones</th>
                                     </tr>
                                 </thead>
@@ -726,48 +763,56 @@ switch ($accion) {
                                         <td>' . $row['cargoTestigo'] . '</td>
                                         <td>' . $row['statusDenuncia'] . '</td>
                                         <td class="d-flex justify-content-around">
-                                        <button type="button" class="btn btn-sm" style="background:blue; color: white">
-                                            <i class="far fa-eye" onclick="prepararParaVizualizar(' . "
-                                                '" . $row['tipoDenuncia'] . "',
-                                                '" . $row['numExpediente'] . "',
-                                                '" . date("Y-m-d", strtotime($row['fechaPresentacion'])) . "',
-                                                '" . base64_encode($row['imagenDenuncia']) . "',
-                                                '" . base64_encode($row['pdfDenuncia']) . "',
-                                                '" . $row['anonimatoDenunciante'] . "',
-                                                '" . $row['nombreDenunciante'] . "',
-                                                '" . $row['domicilioDenunciante'] . "',
-                                                '" . $row['telefonoDenunciante'] . "',
-                                                '" . $row['correoDenunciante'] . "',
-                                                '" . $row['sexoDenunciante'] . "',
-                                                '" . $row['edadDenunciante'] . "',
-                                                '" . $row['servidorPublicoDenunciante'] . "',
-                                                '" . $row['puestoDenunciante'] . "',
-                                                '" . $row['especificarDenunciante'] . "',
-                                                '" . $row['gradoEstudiosDenunciante'] . "',
-                                                '" . $row['discapacidadDenunciante'] . "',
-                                                '" . $row['nombreDenunciado'] . "',
-                                                '" . $row['entidadDenunciado'] . "',
-                                                '" . $row['telefonoDenunciado'] . "',
-                                                '" . $row['correoDenunciado'] . "',
-                                                '" . $row['sexoDenunciado'] . "',
-                                                '" . $row['edadDenunciado'] . "',
-                                                '" . $row['servidorPublicoDenunciado'] . "',
-                                                '" . $row['especificarDenunciado'] . "',
-                                                '" . $row['relacionDenunciado'] . "',
-                                                '" . $row['lugarDenuncia'] . "',
-                                                '" . $row['fechaDenuncia'] . "',
-                                                '" . $row['horaDenuncia'] . "',
-                                                '" . preg_replace("/[\r\n|\n|\r]+/", " ", $row['narracionDenuncia']) . "',
-                                                '" . $row['nombreTestigo'] . "',
-                                                '" . $row['domicilioTestigo'] . "',
-                                                '" . $row['telefonoTestigo'] . "',
-                                                '" . $row['correoTestigo'] . "',
-                                                '" . $row['relacionTestigo'] . "',
-                                                '" . $row['trabajaTestigo'] . "',
-                                                '" . $row['entidadTestigo'] . "',
-                                                '" . $row['cargoTestigo'] . "',
-                                                '" . $row['statusDenuncia'] . "'
-                                            " . ');"></i></button>
+                                            <button type="button" class="btn btn-sm" style="background:blue; color: white">
+                                                <i class="far fa-eye" onclick="prepararParaVizualizar(' . "
+                                                    '" . $row['tipoDenuncia'] . "',
+                                                    '" . $row['numExpediente'] . "',
+                                                    '" . date("Y-m-d", strtotime($row['fechaPresentacion'])) . "',
+                                                    '" . base64_encode($row['imagenDenuncia']) . "',
+                                                    '" . base64_encode($row['pdfDenuncia']) . "',
+                                                    '" . $row['anonimatoDenunciante'] . "',
+                                                    '" . $row['nombreDenunciante'] . "',
+                                                    '" . $row['domicilioDenunciante'] . "',
+                                                    '" . $row['telefonoDenunciante'] . "',
+                                                    '" . $row['correoDenunciante'] . "',
+                                                    '" . $row['sexoDenunciante'] . "',
+                                                    '" . $row['edadDenunciante'] . "',
+                                                    '" . $row['servidorPublicoDenunciante'] . "',
+                                                    '" . $row['puestoDenunciante'] . "',
+                                                    '" . $row['especificarDenunciante'] . "',
+                                                    '" . $row['gradoEstudiosDenunciante'] . "',
+                                                    '" . $row['discapacidadDenunciante'] . "',
+                                                    '" . $row['nombreDenunciado'] . "',
+                                                    '" . $row['entidadDenunciado'] . "',
+                                                    '" . $row['telefonoDenunciado'] . "',
+                                                    '" . $row['correoDenunciado'] . "',
+                                                    '" . $row['sexoDenunciado'] . "',
+                                                    '" . $row['edadDenunciado'] . "',
+                                                    '" . $row['servidorPublicoDenunciado'] . "',
+                                                    '" . $row['especificarDenunciado'] . "',
+                                                    '" . $row['relacionDenunciado'] . "',
+                                                    '" . $row['lugarDenuncia'] . "',
+                                                    '" . $row['fechaDenuncia'] . "',
+                                                    '" . $row['horaDenuncia'] . "',
+                                                    '" . preg_replace("/[\r\n|\n|\r]+/", " ", $row['narracionDenuncia']) . "',
+                                                    '" . $row['nombreTestigo'] . "',
+                                                    '" . $row['domicilioTestigo'] . "',
+                                                    '" . $row['telefonoTestigo'] . "',
+                                                    '" . $row['correoTestigo'] . "',
+                                                    '" . $row['relacionTestigo'] . "',
+                                                    '" . $row['trabajaTestigo'] . "',
+                                                    '" . $row['entidadTestigo'] . "',
+                                                    '" . $row['cargoTestigo'] . "',
+                                                    '" . $row['statusDenuncia'] . "'
+                                                " . ');">
+                                                </i>
+                                            </button>
+                                            <button type="button" class="btn btn-sm" style="background:#082432; color:white">
+                                                <i class="far fa-plus-square" onclick="prepararParaMostrarActa(' . "
+                                                    '" . base64_encode($row['pdfActaDenuncia']) . "'
+                                                " . ');">
+                                                </i>
+                                            </button>
                                         </td>
                                     </tr>';
                 }
