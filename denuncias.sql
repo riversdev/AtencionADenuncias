@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 25-09-2020 a las 05:18:59
+-- Tiempo de generación: 30-09-2020 a las 20:52:19
 -- Versión del servidor: 10.1.38-MariaDB
 -- Versión de PHP: 7.3.2
 
@@ -35,6 +35,7 @@ CREATE TABLE `denuncias` (
   `fechaPresentacion` datetime DEFAULT NULL,
   `imagenDenuncia` longblob,
   `pdfDenuncia` longblob,
+  `pdfActaDenuncia` longblob,
   `anonimatoDenunciante` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `nombreDenunciante` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `domicilioDenunciante` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
@@ -94,10 +95,10 @@ CREATE TABLE `usuarios` (
 --
 
 INSERT INTO `usuarios` (`idUsuario`, `usuario`, `contrasenia`, `app`, `apm`, `email`, `tel`, `tipoUsuario`, `status`) VALUES
-(1, 'J. Alejandro', '$2a$07$asxx54ahjppf45sd87a5auyKfcechGPcpVDKwZ2I/c7mxsts2o7aa', 'Ríos', 'Téllez', 'jesus.alejandro.rios.tellez@gmail.com', '7713523938', 'Administrador', 1),
+(1, 'Rivers', '$2a$07$asxx54ahjppf45sd87a5auyKfcechGPcpVDKwZ2I/c7mxsts2o7aa', '', '', 'jesus.alejandro.rios.tellez@gmail.com', '7713523938', 'Administrador', 1),
 (2, 'Paty', '$2a$07$asxx54ahjppf45sd87a5auqkYjnnv/gp/sHlYLhGcbnfG/CQRAHba', 'Espinoza', 'Espinoza', 'alert@gmail.com', '7712684392', 'Administrador', 1),
-(4, 'Zully', '$2a$07$asxx54ahjppf45sd87a5au80CATPrEHRol1RCvBLq/cV7MQBnf1Ge', 'Ortega', 'Téllez', 'zully@gmail.com', '7712684392', 'Usuario Consulta', 0),
-(8, 'ComitU', '$2a$07$asxx54ahjppf45sd87a5auqkYjnnv/gp/sHlYLhGcbnfG/CQRAHba', 'de', 'Ética', 'pattyespinoza24298@gmail.com', '7712684392', 'Usuario Consulta', 0),
+(4, 'Zully', '$2a$07$asxx54ahjppf45sd87a5au80CATPrEHRol1RCvBLq/cV7MQBnf1Ge', 'Ortega', 'Téllez', 'zully@gmail.com', '7712684392', 'Usuario Consulta', 1),
+(8, 'ComitU', '$2a$07$asxx54ahjppf45sd87a5auyKfcechGPcpVDKwZ2I/c7mxsts2o7aa', 'de', 'Ética', 'pattyespinoza24298@gmail.com', '7712684392', 'Usuario Consulta', 0),
 (10, 'dbgfgdg', '$2a$07$asxx54ahjppf45sd87a5au3MQPZnWd/etyXK.U/NLyLKeZhLTIabu', 'gggsgdg', 'ggsgdgsgg', 'pattyespinoza24298@gmail.com', '7712684392', 'Usuario Consulta', 1);
 
 --
