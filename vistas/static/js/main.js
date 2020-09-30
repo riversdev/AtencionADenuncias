@@ -99,19 +99,7 @@ $(document).ready(function () {
 
     // CERRAR SESION
     $('#salir').on('click', function () {
-        $.ajax({
-            type: "POST",
-            url: "ajax/ajaxLogin.php",
-            data: {
-                tipoPeticion: "salir"
-            },
-            error: function (data) {
-                console.error(data);
-            },
-            success: function (data) {
-                location.href = "/AtencionADenuncias";
-            }
-        });
+        salir();
     });
 
     // PRESUNTO DE NUEVA DENUNCIA
@@ -323,6 +311,69 @@ $(document).ready(function () {
         $('#opcionDenuncia').removeClass('text-white');
     });
 });
+
+validarAccesos = (idUsuario) => {
+    $.ajax({
+        type: "POST",
+        url: "ajax/ajaxLogin.php",
+        data: {
+            tipoPeticion: "validarAccesos",
+            idUsuario
+        },
+        error: function (data) {
+            console.error(data);
+        },
+        success: function (data) {
+            let mensaje = data.split("|");
+            if (mensaje[0] == "success") {
+                // alertify.success(mensaje[1]);
+            } else if (mensaje[0] == "warning") {
+                alertify.error(mensaje[1]);
+                salir();
+            } else if (mensaje[0] == "error") {
+                alertify.error(mensaje[1]);
+            } else {
+                console.log("Tipo de respuesta no definido. " + data);
+            }
+        }
+    });
+}
+
+validarPermisos = (idUsuario) => {
+    $.ajax({
+        type: "POST",
+        url: "ajax/ajaxLogin.php",
+        data: {
+            tipoPeticion: "validarPermisos",
+            idUsuario
+        },
+        error: function (data) {
+            console.error(data);
+        },
+        success: function (data) {
+            let mensaje = data.split("|");
+            if (mensaje[0] == "success") {
+                let usuario = JSON.parse(mensaje[1])[0];
+                let admin = false;
+                usuario['tipoUsuario'] == 'Administrador' ? admin = true : admin = false;
+                let adminElements = document.getElementsByClassName('adminElement');
+                if (!admin) {
+                    for (let i = 0; i < adminElements.length; i++) {
+                        adminElements[i].classList.add('d-none');
+                    }
+                } else {
+                    for (let i = 0; i < adminElements.length; i++) {
+                        adminElements[i].classList.remove('d-none');
+                    }
+                }
+            } else if (mensaje[0] == "error") {
+                alertify.error(mensaje[1]);
+            } else {
+                console.log("Tipo de respuesta no definido. " + data);
+            }
+        }
+    });
+}
 
 function obtenerFechas() {
     // FECHA ACTUAL Y -3 DIAS HABILES
@@ -701,6 +752,7 @@ function enviarDenuncia(objDenuncia, accion) {
             if (accion == "leer") {
                 $('#contenedorTablasDenuncias').empty();
                 $('#contenedorTablasDenuncias').append(data);
+                validarPermisos(sesion); // VALIDAR PERMISOS !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
                 tabularDenuncias();
             } else if (accion == "guardarInfo" || accion == "editarInfo" || accion == "concluirDenuncia") {
                 let mensaje = data.split('|');
@@ -1380,4 +1432,20 @@ function prepararParaMostrarActa(pdfActaDenuncia) {
     contenedorVizualizarActaPDF.innerHTML = '';
     contenedorVizualizarActaPDF.append(pdf);
     $('#modalActaDenuncia').modal('show');
+}
+
+salir = () => {
+    $.ajax({
+        type: "POST",
+        url: "ajax/ajaxLogin.php",
+        data: {
+            tipoPeticion: "salir"
+        },
+        error: function (data) {
+            console.error(data);
+        },
+        success: function (data) {
+            location.href = "/AtencionADenuncias";
+        }
+    });
 }

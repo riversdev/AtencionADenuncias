@@ -33,10 +33,6 @@
     <script src="vistas\static\fontawesome\js\all.js"></script>
     <!-- jsPDF-1.3.2 
     <script src="vistas\static\jspdf\dist\jspdf.min.js"></script>-->
-    <!-- Custom JS -->
-    <script src="vistas\static\js\main.js"></script>
-    <!-- Custom CSS -->
-    <link rel="stylesheet" href="vistas\static\css\main.css">
 </head>
 
 <body style="background-color: #F0F4F7;">

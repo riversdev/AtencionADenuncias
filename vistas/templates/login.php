@@ -98,6 +98,8 @@ if (isset($_SESSION['user_id'])) {
                                     let mensaje = data.split("|");
                                     if (mensaje[0] == "success") {
                                         location.href = "home";
+                                    } else if (mensaje[0] == "warning") {
+                                        alertify.error(mensaje[1]);
                                     } else if (mensaje[0] == "error") {
                                         alertify.error(mensaje[1]);
                                     } else {

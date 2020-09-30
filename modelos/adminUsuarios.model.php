@@ -1,9 +1,11 @@
 <?php
 require_once 'modeloConexion.php';
-class Usuarios{
-    public static function listarAdmins($tabla) {
+class Usuarios
+{
+    public static function listarAdmins($tabla)
+    {
         $stmt = Conexion::conectar()->prepare("SELECT * FROM $tabla");
-        if($stmt->execute()) {
+        if ($stmt->execute()) {
             return $stmt->fetchAll();
         } else {
             return "error";
@@ -15,6 +17,11 @@ class Usuarios{
     //*********ACTIVAR USUARIO ADMINISTRADOR****************//
     static public function ActivarUsersAdmins($tabla, $item1, $valor1, $item2, $valor2)
     {
+        echo '
+            <script>
+                console.log("' . $valor1 . '");
+            </script>
+        ';
         $stmt = Conexion::conectar()->prepare("UPDATE $tabla SET $item1 = :$item1 WHERE $item2 = :$item2");
         $stmt->bindParam(":" . $item1, $valor1, PDO::PARAM_STR);
         $stmt->bindParam(":" . $item2, $valor2, PDO::PARAM_STR);
@@ -26,7 +33,7 @@ class Usuarios{
         $stmt->close();
         $stmt = null;
     }
-//*********INSERTAR USUARIO ADMINISTRADOR****************//
+    //*********INSERTAR USUARIO ADMINISTRADOR****************//
     public static function InsertarAdmin($tabla, $datos)
     {
         $stmt = Conexion::conectar()->prepare("INSERT INTO $tabla (usuario, contrasenia, app, apm, email, tel, tipoUsuario, status)VALUES (:nombre,
@@ -37,7 +44,7 @@ class Usuarios{
                                                         :tel,
                                                         :tipou,
                                                         :status)");
-      
+
         $stmt->bindParam(":nombre", $datos["nombre"], PDO::PARAM_STR);
         $stmt->bindParam(":app", $datos["app"], PDO::PARAM_STR);
         $stmt->bindParam(":apm", $datos["apm"], PDO::PARAM_STR);
@@ -55,17 +62,18 @@ class Usuarios{
         $stmt->close();
         $stmt = null;
     }
- public static function verificarEmail($correo){
-        $stmt=Conexion::conectar()->prepare("SELECT * FROM usuarios WHERE email='$email'");
+    public static function verificarEmail($correo)
+    {
+        $stmt = Conexion::conectar()->prepare("SELECT * FROM usuarios WHERE email='$email'");
         if ($stmt->execute()) {
-            $res=$stmt->fetchAll();
-            $countRes=count($res);
-            if ($countRes>0) {
+            $res = $stmt->fetchAll();
+            $countRes = count($res);
+            if ($countRes > 0) {
                 return true;
-            }else{
+            } else {
                 return false;
             }
-        }else{
+        } else {
             return "Error al realizar la acción";
         }
         $stmt->close();
@@ -126,11 +134,4 @@ class Usuarios{
         $stmt->close();
         $stmt = null;
     }
-
-  
 }
-
-
-
-
-?>

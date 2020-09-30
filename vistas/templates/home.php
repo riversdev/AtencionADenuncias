@@ -13,18 +13,35 @@ if (isset($_SESSION['user_id'])) {
         $stmt = null;
     }
 ?>
-    <!-- Verificaciones -->
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="vistas\static\css\main.css">
+    <!-- Custom JS -->
+    <script src="vistas\static\js\main.js"></script>
+    <!-- Main usuarios -->
+    <script src="vistas/static/js/AdminUser.js"></script>
+
     <script>
+        let sesion = "<?php echo $_SESSION['user_id']; ?>";
+
+        // ACCESOS
+        setInterval(function() {
+            validarAccesos(sesion);
+        }, 10000);
+
+        // PERMISOS
+        setInterval(function() {
+            enviarDenuncia(recolectarDatosDenuncia(), "leer");
+        }, 10000);
+
+        // VERIFICACIONES
         concluirDenunciasSinSeguimiento();
         verificarDenuncias();
         alertify.success("Todo está listo !");
 
         setInterval(function() {
             verificarDenuncias();
-        }, 3600000);
+        }, 3600000); // CADA HORA
     </script>
-    <!-- Main usuarios -->
-    <script src="vistas/static/js/AdminUser.js"></script>
 
     <!-- Navegaciones -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary sticky-top shadow-sm" style="background: linear-gradient(to right, #243B55,#141E30);">
@@ -38,7 +55,7 @@ if (isset($_SESSION['user_id'])) {
                     <a class="nav-item nav-link active" id="nav-denuncias-tab" data-toggle="tab" href="#nav-denuncias" role="tab" aria-controls="nav-denuncias" aria-selected="true">
                         <i class="fa fa-gavel"></i> Denuncias
                     </a>
-                    <a class="nav-item nav-link text-secondary" id="nav-adminuser-tab" data-toggle="tab" href="#nav-adminuser" role="tab" aria-controls="nav-adminuser" aria-selected="false">
+                    <a class="nav-item nav-link text-secondary adminElement" id="nav-adminuser-tab" data-toggle="tab" href="#nav-adminuser" role="tab" aria-controls="nav-adminuser" aria-selected="false">
                         <i class="fa fa-users"></i> Administrar Usuarios
                     </a>
                     <a class="nav-item nav-link d-none" id="nav-nuevaDenunciaForm-tab" data-toggle="tab" href="#nav-nuevaDenunciaForm" role="tab" aria-controls="nav-nuevaDenunciaForm" aria-selected="false">
@@ -57,7 +74,7 @@ if (isset($_SESSION['user_id'])) {
                         Acuse - Invisible
                     </a>
                 </div>
-                <li class="nav-item dropdown">
+                <li class="nav-item dropdown adminElement">
                     <a class="nav-link dropdown-toggle text-secondary" id="opcionDenuncia" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <i class="fa fa-plus"></i> Nueva denuncia
                     </a>
