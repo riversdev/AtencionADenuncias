@@ -100,9 +100,9 @@ $("#tablePrintAdmins").on("click", ".switchActivar2", function () {
     }).then(function (result) {
       if (result.value) {
         $.post("controladores/AdUsuarios.ajax.php", { id }, (response) => {
-          if (response != "ok") {
-            ListarAdmins();
+          if (response == "ok") {
             notificacionEliminar();
+            ListarAdmins();
           } else {
             notificacionErrorEliminar();
           }
