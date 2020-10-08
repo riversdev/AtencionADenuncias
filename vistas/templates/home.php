@@ -26,12 +26,12 @@ if (isset($_SESSION['user_id'])) {
         // ACCESOS
         setInterval(function() {
             validarAccesos(sesion);
-        }, 10000);
+        }, 600000);
 
         // PERMISOS
         setInterval(function() {
             enviarDenuncia(recolectarDatosDenuncia(), "leer");
-        }, 10000);
+        }, 540000);
 
         // VERIFICACIONES
         concluirDenunciasSinSeguimiento();
