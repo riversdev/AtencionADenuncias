@@ -45,8 +45,7 @@ if (isset($_SESSION['user_id'])) {
 
     <!-- Navegaciones -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary sticky-top shadow-sm" style="background: linear-gradient(to right, #243B55,#141E30);">
-        <img src="vistas/static/logo_ofi.png" style="height: 8vh;width: 27vh; padding-right: 1px" >
-        
+        <img src="vistas\static\img\logo_ofi.png" class="pr-3" style="height: 7vh;">
         <a class="navbar-brand" href="/AtencionADenuncias"> Atención a denuncias</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -770,8 +769,8 @@ if (isset($_SESSION['user_id'])) {
         <div class="tab-pane fade" id="nav-vizualizador" role="tabpanel" aria-labelledby="nav-vizualizador-tab">
             <form class="px-5 pb-3">
                 <div class="form-row d-flex justify-content-between px-2">
-                    <img src="" style="height: 8vh;width: 8vh;">
-                    <img src="vistas\static\img\Escudo_de_Armas_Oficial_del_Estado_de_Hidalgo.png" style="height: 8vh;width: 8vh;">
+                    <img src="vistas\static\img\logo_ofi.png" style="height: 5vh;">
+                    <img src="vistas\static\img\Escudo_de_Armas_Oficial_del_Estado_de_Hidalgo.png" style="height: 5vh;width: 5vh;">
                 </div>
                 <div class="form-row">
                     <div class="col-12 py-2" style="color: #537F33;">
@@ -1025,8 +1024,8 @@ if (isset($_SESSION['user_id'])) {
         <div class="tab-pane fade" id="nav-acuse" role="tabpanel" aria-labelledby="nav-acuse-tab">
             <form class="px-5 pb-3">
                 <div class="form-row d-flex justify-content-between px-2">
-                    <img src="" style="height: 8vh;width: 8vh;">
-                    <img src="vistas\static\img\Escudo_de_Armas_Oficial_del_Estado_de_Hidalgo.png" style="height: 8vh;width: 8vh;">
+                    <img src="vistas\static\img\logo_ofi.png" style="height: 5vh;">
+                    <img src="vistas\static\img\Escudo_de_Armas_Oficial_del_Estado_de_Hidalgo.png" style="height: 5vh;width: 5vh;">
                 </div>
                 <div class="form-row mb-3">
                     <div class="col-12 py-2" style="color: #537F33;">
