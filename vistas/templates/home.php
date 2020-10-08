@@ -45,7 +45,9 @@ if (isset($_SESSION['user_id'])) {
 
     <!-- Navegaciones -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary sticky-top shadow-sm" style="background: linear-gradient(to right, #243B55,#141E30);">
-        <a class="navbar-brand" href="/AtencionADenuncias">Atención a denuncias</a>
+        <img src="vistas/static/logo_ofi.png" style="height: 8vh;width: 27vh; padding-right: 1px" >
+        
+        <a class="navbar-brand" href="/AtencionADenuncias"> Atención a denuncias</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
