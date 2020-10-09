@@ -4,7 +4,7 @@ session_start();
 if (isset($_SESSION['user_id'])) {
     require_once "modelos/modeloConexion.php";
     $idUsuario = $_SESSION['user_id'];
-    $stmt = Conexion::conectar()->prepare("SELECT usuario FROM usuarios WHERE idUsuario='$idUsuario';");
+    $stmt = Conexion::conectar()->prepare("SELECT usuario,email FROM usuarios WHERE idUsuario='$idUsuario';");
     $stmt->execute();
     $resultado = $stmt->fetch(PDO::FETCH_ASSOC);
     $usuario = null;
@@ -44,9 +44,9 @@ if (isset($_SESSION['user_id'])) {
     </script>
 
     <!-- Navegaciones -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-primary sticky-top shadow-sm" style="background: linear-gradient(to right, #243B55,#141E30);">
-        <img src="vistas\static\img\logo_ofi2.png" class="pr-3" style="height: 7vh;">
-        <a class="navbar-brand" href="/AtencionADenuncias"> Atención a denuncias</a>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary sticky-top shadow-sm">
+        <img src="vistas\static\img\Oficialiia.png" class="pr-3" style="height: 7vh;">
+        <!--<a class="navbar-brand" href="/AtencionADenuncias"> Atención a denuncias</a>-->
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -98,8 +98,9 @@ if (isset($_SESSION['user_id'])) {
                         <i class="far fa-user"></i>
                     </button>
                     <div class="dropdown-menu dropdown-menu-right">
-                        <div class="dropdown-item text-center bg-white">
-                            <h5 class="text-primary"><?php echo $usuario['usuario']; ?></h5>
+                        <div class="dropdown-item-text text-center">
+                            <h4 class="text-primary"><?php echo $usuario['usuario']; ?></h4>
+                            <label class="text-primary"><?php echo $usuario['email']; ?></label>
                         </div>
                         <div class="dropdown-divider"></div>
                         <div class="dropdown-item text-center bg-white">
