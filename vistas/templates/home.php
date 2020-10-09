@@ -13,8 +13,8 @@ if (isset($_SESSION['user_id'])) {
         $stmt = null;
     }
 ?>
-    <!-- Custom CSS -->
-    <link rel="stylesheet" href="vistas\static\css\main.css">
+    <!-- Custom CSS 
+    <link rel="stylesheet" href="vistas\static\css\main.css">-->
     <!-- Custom JS -->
     <script src="vistas\static\js\main.js"></script>
     <!-- Main usuarios -->
@@ -44,7 +44,7 @@ if (isset($_SESSION['user_id'])) {
     </script>
 
     <!-- Navegaciones -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-primary sticky-top shadow-sm">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top shadow-sm">
         <img src="vistas\static\img\Oficialiia.png" class="pr-3" style="height: 7vh;">
         <!--<a class="navbar-brand" href="/AtencionADenuncias"> Atención a denuncias</a>-->
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -128,79 +128,224 @@ if (isset($_SESSION['user_id'])) {
             <div id="contenedorTablasDenuncias"></div>
         </div>
         <div class="tab-pane fade" id="nav-nuevaDenunciaForm" role="tabpanel" aria-labelledby="nav-nuevaDenunciaForm-tab">
-            <div class="card bg-white border border-primary border-top-0 border-bottom-0 border-right-0 shadow-sm rounded mx-5 my-3">
-                <form id="formFormatoPresentacionDenuncia" class="needs-validation m-3" novalidate>
-                    <input type="hidden" id="txtTareaFormulario">
-                    <input type="hidden" id="txtStatusFormulario">
-                    <input type="hidden" id="txtIdDenuncia">
-                    <div class="form-row">
-                        <div class="col-12 mb-3 d-flex align-items-center">
-                            <h5 class="font-weight-light text-primary pt-1" id="txtPresuntoDenuncia"></h5>
-                            <button type="button" class="btn btn-transparent ml-3 text-info" data-toggle="modal" data-target="#modalPresuntoDenuncia">
-                                <i class="far fa-edit"></i>
-                            </button>
-                        </div>
-                    </div>
-                    <div class="form-row">
-                        <div class="col-lg-4 col-md-6 col-12 offset-lg-4 offset-md-0 mb-3 d-none" id="contenedorNumExpediente">
-                            <label for="fechaPresentacion">Número de expediente</label>
-                            <input type="text" class="form-control" id="txtNumExpediente" required disabled>
-                            <div class="valid-feedback">
-                                Correcto!
-                            </div>
-                            <div class="invalid-feedback">
-                                Verifique el número de expediente
-                            </div>
-                        </div>
-                        <div class="col-lg-4 col-md-6 col-12 mb-3">
-                            <label for="fechaPresentacion">Fecha de presentación de la denuncia</label>
-                            <input type="date" class="form-control" id="txtFechaPresentacion" required disabled>
-                            <div class="valid-feedback">
-                                Correcto!
-                            </div>
-                            <div class="invalid-feedback">
-                                Verifique la fecha
-                            </div>
-                        </div>
-                        <div class="col-12 text-center" id="contenedorSwitchCamposDenunciante">
-                            <div class="form-group">
-                                <div class="custom-control custom-switch text-primary">
-                                    <input type="checkbox" class="custom-control-input" id="mostrarInfoDenunciante" checked>
-                                    <label class="custom-control-label text-primary font-weight-bolder" for="mostrarInfoDenunciante">¿Se conoce la identidad del denunciante?</label>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div id="contenedorInformacionDenunciante">
+            <div class="card bg-white shadow mx-5 my-4" style="border: 0; border-left: 0; border-right: 0; border-bottom: 0;">
+                <div class="card-body rounded" style="border-top: 8px solid #b91926;">
+                    <form id="formFormatoPresentacionDenuncia" class="needs-validation" novalidate>
+                        <input type="hidden" id="txtTareaFormulario">
+                        <input type="hidden" id="txtStatusFormulario">
+                        <input type="hidden" id="txtIdDenuncia">
                         <div class="form-row">
-                            <div class="col-4">
-                                <hr>
-                            </div>
-                            <div class="col-4 text-center">
-                                <h6 class="font-weight-light text-muted pt-2">Datos de la persona que presenta la denuncia</h6>
-                            </div>
-                            <div class="col-4">
-                                <hr>
+                            <div class="col-12 mb-3 d-flex align-items-center">
+                                <h5 class="font-weight-light text-dark" id="txtPresuntoDenuncia"></h5>
+                                <button type="button" class="btn btn-transparent ml-3 text-warning" data-toggle="modal" data-target="#modalPresuntoDenuncia">
+                                    <i class="far fa-edit"></i>
+                                </button>
                             </div>
                         </div>
                         <div class="form-row">
-                            <div class="col-lg-2 col-md-3 mb-3">
-                                <label for="txtAnonimatoDenunciante">¿Desea el anonimato?</label>
-                                <select class="custom-select" id="txtAnonimatoDenunciante" required>
-                                    <option selected disabled value="">Elegir...</option>
-                                    <option value="si">SI</option>
-                                    <option value="no">NO</option>
-                                </select>
+                            <div class="col-lg-4 col-md-6 col-12 offset-lg-4 offset-md-0 mb-3 d-none" id="contenedorNumExpediente">
+                                <label for="fechaPresentacion">Número de expediente</label>
+                                <input type="text" class="form-control" id="txtNumExpediente" required disabled>
                                 <div class="valid-feedback">
                                     Correcto!
                                 </div>
                                 <div class="invalid-feedback">
-                                    Elija una opción
+                                    Verifique el número de expediente
                                 </div>
                             </div>
+                            <div class="col-lg-4 col-md-6 col-12 mb-3">
+                                <label for="fechaPresentacion">Fecha de presentación de la denuncia</label>
+                                <input type="date" class="form-control" id="txtFechaPresentacion" required disabled>
+                                <div class="valid-feedback">
+                                    Correcto!
+                                </div>
+                                <div class="invalid-feedback">
+                                    Verifique la fecha
+                                </div>
+                            </div>
+                            <div class="col-12 text-center" id="contenedorSwitchCamposDenunciante">
+                                <div class="form-group">
+                                    <div class="custom-control custom-switch text-primary">
+                                        <input type="checkbox" class="custom-control-input" id="mostrarInfoDenunciante" checked>
+                                        <label class="custom-control-label text-primary font-weight-bolder" for="mostrarInfoDenunciante">¿Se conoce la identidad del denunciante?</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="contenedorInformacionDenunciante">
+                            <div class="form-row">
+                                <div class="col-4">
+                                    <hr>
+                                </div>
+                                <div class="col-4 text-center">
+                                    <h6 class="font-weight-light text-muted pt-2">Datos de la persona que presenta la denuncia</h6>
+                                </div>
+                                <div class="col-4">
+                                    <hr>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="col-lg-2 col-md-3 mb-3">
+                                    <label for="txtAnonimatoDenunciante">¿Desea el anonimato?</label>
+                                    <select class="custom-select" id="txtAnonimatoDenunciante" required>
+                                        <option selected disabled value="">Elegir...</option>
+                                        <option value="si">SI</option>
+                                        <option value="no">NO</option>
+                                    </select>
+                                    <div class="valid-feedback">
+                                        Correcto!
+                                    </div>
+                                    <div class="invalid-feedback">
+                                        Elija una opción
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 col-md-4 mb-3">
+                                    <label for="txtNombreDenunciante">Nombre</label>
+                                    <input type="text" class="form-control" id="txtNombreDenunciante" required>
+                                    <div class="valid-feedback">
+                                        Correcto!
+                                    </div>
+                                    <div class="invalid-feedback">
+                                        Verifique el nombre
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 col-md-5 mb-3">
+                                    <label for="txtDomicilioDenunciante">Domicilio</label>
+                                    <input type="text" class="form-control" id="txtDomicilioDenunciante" required>
+                                    <div class="valid-feedback">
+                                        Correcto!
+                                    </div>
+                                    <div class="invalid-feedback">
+                                        Verifique el domicilio
+                                    </div>
+                                </div>
+                                <div class="col-lg-2 col-md-3 mb-3">
+                                    <label for="txtTelefonoDenunciante">Teléfono</label>
+                                    <input type="tel" class="form-control" id="txtTelefonoDenunciante" pattern="[0-9]{10,15}" required>
+                                    <div class="valid-feedback">
+                                        Correcto!
+                                    </div>
+                                    <div class="invalid-feedback">
+                                        Verifique el teléfono
+                                    </div>
+                                </div>
+                                <div class="col-lg-3 col-md-4 mb-3">
+                                    <label for="txtCorreoDenunciante">Correo electrónico</label>
+                                    <input type="email" class="form-control" id="txtCorreoDenunciante" required>
+                                    <div class="valid-feedback">
+                                        Correcto!
+                                    </div>
+                                    <div class="invalid-feedback">
+                                        Verifique el correo electrónico
+                                    </div>
+                                </div>
+                                <div class="col-lg-2 col-md-3 mb-3">
+                                    <label for="txtSexoDenunciante">Sexo</label>
+                                    <select class="custom-select" id="txtSexoDenunciante" required>
+                                        <option selected disabled value="">Elegir...</option>
+                                        <option value="masculino">Masculino</option>
+                                        <option value="femenino">Femenino</option>
+                                    </select>
+                                    <div class="valid-feedback">
+                                        Correcto!
+                                    </div>
+                                    <div class="invalid-feedback">
+                                        Elija una opción
+                                    </div>
+                                </div>
+                                <div class="col-lg-1 col-md-2 mb-3">
+                                    <label for="txtEdadDenunciante">Edad</label>
+                                    <input type="number" class="form-control" id="txtEdadDenunciante" min="18" max="120" required>
+                                    <div class="valid-feedback">
+                                        Correcto!
+                                    </div>
+                                    <div class="invalid-feedback">
+                                        Verifique la edad
+                                    </div>
+                                </div>
+                                <div class="col-lg-3 col-md-6 mb-3">
+                                    <label for="txtSPDenunciante">¿Es una persona servidora pública?</label>
+                                    <select class="custom-select" id="txtSPDenunciante" required>
+                                        <option selected disabled value="">Elegir...</option>
+                                        <option value="si">SI</option>
+                                        <option value="no">NO</option>
+                                    </select>
+                                    <div class="valid-feedback">
+                                        Correcto!
+                                    </div>
+                                    <div class="invalid-feedback">
+                                        Elija una opción
+                                    </div>
+                                </div>
+                                <div class="col-lg-3 col-md-6 mb-3 d-none" id="inputPuesto">
+                                    <label for="txtPuestoDenunciante" class="text-white">L</label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text">Puesto</div>
+                                        </div>
+                                        <input type="text" class="form-control" id="txtPuestoDenunciante" required>
+                                        <div class="valid-feedback">
+                                            Correcto!
+                                        </div>
+                                        <div class="invalid-feedback">
+                                            Verifique el puesto
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3 col-md-6 mb-3 d-none" id="inputEspecificar">
+                                    <label for="txtEspecificarDenunciante" class="text-white">L</label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text">Especifique:</div>
+                                        </div>
+                                        <input type="text" class="form-control" id="txtEspecificarDenunciante" required>
+                                        <div class="valid-feedback">
+                                            Correcto!
+                                        </div>
+                                        <div class="invalid-feedback">
+                                            Especifíquese
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="col-lg-6 col-md-6 mb-3">
+                                    <label for="txtGradoEstudiosDenunciante">Grado de estudios</label>
+                                    <input type="text" class="form-control" id="txtGradoEstudiosDenunciante" required>
+                                    <div class="valid-feedback">
+                                        Correcto!
+                                    </div>
+                                    <div class="invalid-feedback">
+                                        Verifique el grado de estudios
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 col-md-6 mb-3">
+                                    <label for="txtDiscapacidadDenunciante">¿Vive con alguna discapacidad?</label>
+                                    <input type="text" class="form-control" id="txtDiscapacidadDenunciante" required>
+                                    <div class="valid-feedback">
+                                        Correcto!
+                                    </div>
+                                    <div class="invalid-feedback">
+                                        Responda la pregunta
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="col-3">
+                                <hr>
+                            </div>
+                            <div class="col-6 text-center">
+                                <h6 class="font-weight-light text-muted pt-2">Datos de la persona contra quien presenta la denuncia</h6>
+                            </div>
+                            <div class="col-3">
+                                <hr>
+                            </div>
+                        </div>
+                        <div class="form-row">
                             <div class="col-lg-4 col-md-4 mb-3">
-                                <label for="txtNombreDenunciante">Nombre</label>
-                                <input type="text" class="form-control" id="txtNombreDenunciante" required>
+                                <label for="txtNombreDenunciado">Nombre</label>
+                                <input type="text" class="form-control" id="txtNombreDenunciado" required>
                                 <div class="valid-feedback">
                                     Correcto!
                                 </div>
@@ -208,19 +353,19 @@ if (isset($_SESSION['user_id'])) {
                                     Verifique el nombre
                                 </div>
                             </div>
-                            <div class="col-lg-4 col-md-5 mb-3">
-                                <label for="txtDomicilioDenunciante">Domicilio</label>
-                                <input type="text" class="form-control" id="txtDomicilioDenunciante" required>
+                            <div class="col-lg-5 col-md-5 mb-3">
+                                <label for="txtEntidadDenunciado">Entidad o dependencia en la que se desempeña</label>
+                                <input type="text" class="form-control" id="txtEntidadDenunciado" required>
                                 <div class="valid-feedback">
                                     Correcto!
                                 </div>
                                 <div class="invalid-feedback">
-                                    Verifique el domicilio
+                                    Verifique el dato
                                 </div>
                             </div>
-                            <div class="col-lg-2 col-md-3 mb-3">
-                                <label for="txtTelefonoDenunciante">Teléfono</label>
-                                <input type="tel" class="form-control" id="txtTelefonoDenunciante" pattern="[0-9]{10,15}" required>
+                            <div class="col-lg-3 col-md-3 mb-3">
+                                <label for="txtTelefonoDenunciado">Teléfono</label>
+                                <input type="tel" class="form-control" id="txtTelefonoDenunciado" pattern="[0-9]{10,15}" required>
                                 <div class="valid-feedback">
                                     Correcto!
                                 </div>
@@ -228,9 +373,9 @@ if (isset($_SESSION['user_id'])) {
                                     Verifique el teléfono
                                 </div>
                             </div>
-                            <div class="col-lg-3 col-md-4 mb-3">
-                                <label for="txtCorreoDenunciante">Correo electrónico</label>
-                                <input type="email" class="form-control" id="txtCorreoDenunciante" required>
+                            <div class="col-lg-3 col-md-5 mb-3">
+                                <label for="txtCorreoDenunciado">Correo electrónico</label>
+                                <input type="email" class="form-control" id="txtCorreoDenunciado" required>
                                 <div class="valid-feedback">
                                     Correcto!
                                 </div>
@@ -238,9 +383,9 @@ if (isset($_SESSION['user_id'])) {
                                     Verifique el correo electrónico
                                 </div>
                             </div>
-                            <div class="col-lg-2 col-md-3 mb-3">
-                                <label for="txtSexoDenunciante">Sexo</label>
-                                <select class="custom-select" id="txtSexoDenunciante" required>
+                            <div class="col-lg-2 col-md-4 mb-3">
+                                <label for="txtSexoDenunciado">Sexo</label>
+                                <select class="custom-select" id="txtSexoDenunciado" required>
                                     <option selected disabled value="">Elegir...</option>
                                     <option value="masculino">Masculino</option>
                                     <option value="femenino">Femenino</option>
@@ -252,9 +397,9 @@ if (isset($_SESSION['user_id'])) {
                                     Elija una opción
                                 </div>
                             </div>
-                            <div class="col-lg-1 col-md-2 mb-3">
-                                <label for="txtEdadDenunciante">Edad</label>
-                                <input type="number" class="form-control" id="txtEdadDenunciante" min="18" max="120" required>
+                            <div class="col-lg-1 col-md-3 mb-3">
+                                <label for="txtEdadDenunciado">Edad</label>
+                                <input type="number" class="form-control" id="txtEdadDenunciado" min="18" max="120" required>
                                 <div class="valid-feedback">
                                     Correcto!
                                 </div>
@@ -263,8 +408,8 @@ if (isset($_SESSION['user_id'])) {
                                 </div>
                             </div>
                             <div class="col-lg-3 col-md-6 mb-3">
-                                <label for="txtSPDenunciante">¿Es una persona servidora pública?</label>
-                                <select class="custom-select" id="txtSPDenunciante" required>
+                                <label for="txtSPDenunciado">¿Es una persona servidora pública?</label>
+                                <select class="custom-select" id="txtSPDenunciado" required>
                                     <option selected disabled value="">Elegir...</option>
                                     <option value="si">SI</option>
                                     <option value="no">NO</option>
@@ -276,28 +421,13 @@ if (isset($_SESSION['user_id'])) {
                                     Elija una opción
                                 </div>
                             </div>
-                            <div class="col-lg-3 col-md-6 mb-3 d-none" id="inputPuesto">
-                                <label for="txtPuestoDenunciante" class="text-white">L</label>
-                                <div class="input-group">
-                                    <div class="input-group-prepend">
-                                        <div class="input-group-text">Puesto</div>
-                                    </div>
-                                    <input type="text" class="form-control" id="txtPuestoDenunciante" required>
-                                    <div class="valid-feedback">
-                                        Correcto!
-                                    </div>
-                                    <div class="invalid-feedback">
-                                        Verifique el puesto
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-3 col-md-6 mb-3 d-none" id="inputEspecificar">
-                                <label for="txtEspecificarDenunciante" class="text-white">L</label>
+                            <div class="col-lg-3 col-md-6 mb-3">
+                                <label for="txtEspecificarDenunciado" class="text-white">L</label>
                                 <div class="input-group">
                                     <div class="input-group-prepend">
                                         <div class="input-group-text">Especifique:</div>
                                     </div>
-                                    <input type="text" class="form-control" id="txtEspecificarDenunciante" required>
+                                    <input type="text" class="form-control" id="txtEspecificarDenunciado" required>
                                     <div class="valid-feedback">
                                         Correcto!
                                     </div>
@@ -306,321 +436,193 @@ if (isset($_SESSION['user_id'])) {
                                     </div>
                                 </div>
                             </div>
+                            <div class="col-12 mb-3">
+                                <label for="txtRelacionDenunciado">Relación con el denunciante</label>
+                                <input type="text" class="form-control" id="txtRelacionDenunciado" required>
+                                <div class="valid-feedback">
+                                    Correcto!
+                                </div>
+                                <div class="invalid-feedback">
+                                    Verifique la relación con el denunciante
+                                </div>
+                            </div>
                         </div>
                         <div class="form-row">
+                            <div class="col-4">
+                                <hr>
+                            </div>
+                            <div class="col-4 text-center">
+                                <h6 class="font-weight-light text-muted pt-2">Información de la denuncia</h6>
+                            </div>
+                            <div class="col-4">
+                                <hr>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="col-12 text-center">
+                                <h6 class="font-weight-light text-muted pt-2">Ocurrió en:</h6>
+                            </div>
+                            <div class="col-lg-4 col-md-4 mb-3">
+                                <label for="txtLugarDenuncia">Lugar</label>
+                                <input type="text" class="form-control" id="txtLugarDenuncia" required>
+                                <div class="valid-feedback">
+                                    Correcto!
+                                </div>
+                                <div class="invalid-feedback">
+                                    Verifique el lugar
+                                </div>
+                            </div>
+                            <div class="col-lg-4 col-md-4 mb-3">
+                                <label for="txtFechaDenuncia">Fecha</label>
+                                <input type="date" class="form-control" id="txtFechaDenuncia" required>
+                                <div class="valid-feedback">
+                                    Correcto!
+                                </div>
+                                <div class="invalid-feedback">
+                                    Verifique la fecha
+                                </div>
+                            </div>
+                            <div class="col-lg-4 col-md-4 mb-3">
+                                <label for="txtHoraDenuncia">Hora</label>
+                                <input type="time" class="form-control" id="txtHoraDenuncia" required>
+                                <div class="valid-feedback">
+                                    Correcto!
+                                </div>
+                                <div class="invalid-feedback">
+                                    Verifique la hora
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <label for="txtNarracionDenuncia">Breve narración del hecho o conducta</label>
+                                <textarea class="form-control" id="txtNarracionDenuncia" rows="3" required></textarea>
+                                <div class="valid-feedback">
+                                    Correcto!
+                                </div>
+                                <div class="invalid-feedback">
+                                    Verifique la hora
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="col-3">
+                                <hr>
+                            </div>
+                            <div class="col-6 text-center">
+                                <h6 class="font-weight-light text-muted pt-2">Datos de la persona que haya sido testigo de los hechos</h6>
+                            </div>
+                            <div class="col-3">
+                                <hr>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="col-lg-4 col-md-4 mb-3">
+                                <label for="txtNombreTestigo">Nombre</label>
+                                <input type="text" class="form-control" id="txtNombreTestigo" required>
+                                <div class="valid-feedback">
+                                    Correcto!
+                                </div>
+                                <div class="invalid-feedback">
+                                    Verifique el nombre
+                                </div>
+                            </div>
+                            <div class="col-lg-4 col-md-5 mb-3">
+                                <label for="txtDomicilioTestigo">Domicilio</label>
+                                <input type="text" class="form-control" id="txtDomicilioTestigo" required>
+                                <div class="valid-feedback">
+                                    Correcto!
+                                </div>
+                                <div class="invalid-feedback">
+                                    Verifique el domicilio
+                                </div>
+                            </div>
+                            <div class="col-lg-4 col-md-3 mb-3">
+                                <label for="txtTelefonoTestigo">Teléfono</label>
+                                <input type="tel" class="form-control" id="txtTelefonoTestigo" pattern="[0-9]{10,15}" required>
+                                <div class="valid-feedback">
+                                    Correcto!
+                                </div>
+                                <div class="invalid-feedback">
+                                    Verifique el teléfono
+                                </div>
+                            </div>
                             <div class="col-lg-6 col-md-6 mb-3">
-                                <label for="txtGradoEstudiosDenunciante">Grado de estudios</label>
-                                <input type="text" class="form-control" id="txtGradoEstudiosDenunciante" required>
+                                <label for="txtCorreoTestigo">Correo electrónico</label>
+                                <input type="email" class="form-control" id="txtCorreoTestigo" required>
                                 <div class="valid-feedback">
                                     Correcto!
                                 </div>
                                 <div class="invalid-feedback">
-                                    Verifique el grado de estudios
+                                    Verifique el correo electrónico
                                 </div>
                             </div>
                             <div class="col-lg-6 col-md-6 mb-3">
-                                <label for="txtDiscapacidadDenunciante">¿Vive con alguna discapacidad?</label>
-                                <input type="text" class="form-control" id="txtDiscapacidadDenunciante" required>
+                                <label for="txtRelacionTestigo">Relación con el denunciante</label>
+                                <input type="text" class="form-control" id="txtRelacionTestigo" required>
                                 <div class="valid-feedback">
                                     Correcto!
                                 </div>
                                 <div class="invalid-feedback">
-                                    Responda la pregunta
+                                    Verifique el dato
                                 </div>
                             </div>
-                        </div>
-                    </div>
-                    <div class="form-row">
-                        <div class="col-3">
-                            <hr>
-                        </div>
-                        <div class="col-6 text-center">
-                            <h6 class="font-weight-light text-muted pt-2">Datos de la persona contra quien presenta la denuncia</h6>
-                        </div>
-                        <div class="col-3">
-                            <hr>
-                        </div>
-                    </div>
-                    <div class="form-row">
-                        <div class="col-lg-4 col-md-4 mb-3">
-                            <label for="txtNombreDenunciado">Nombre</label>
-                            <input type="text" class="form-control" id="txtNombreDenunciado" required>
-                            <div class="valid-feedback">
-                                Correcto!
-                            </div>
-                            <div class="invalid-feedback">
-                                Verifique el nombre
-                            </div>
-                        </div>
-                        <div class="col-lg-5 col-md-5 mb-3">
-                            <label for="txtEntidadDenunciado">Entidad o dependencia en la que se desempeña</label>
-                            <input type="text" class="form-control" id="txtEntidadDenunciado" required>
-                            <div class="valid-feedback">
-                                Correcto!
-                            </div>
-                            <div class="invalid-feedback">
-                                Verifique el dato
-                            </div>
-                        </div>
-                        <div class="col-lg-3 col-md-3 mb-3">
-                            <label for="txtTelefonoDenunciado">Teléfono</label>
-                            <input type="tel" class="form-control" id="txtTelefonoDenunciado" pattern="[0-9]{10,15}" required>
-                            <div class="valid-feedback">
-                                Correcto!
-                            </div>
-                            <div class="invalid-feedback">
-                                Verifique el teléfono
-                            </div>
-                        </div>
-                        <div class="col-lg-3 col-md-5 mb-3">
-                            <label for="txtCorreoDenunciado">Correo electrónico</label>
-                            <input type="email" class="form-control" id="txtCorreoDenunciado" required>
-                            <div class="valid-feedback">
-                                Correcto!
-                            </div>
-                            <div class="invalid-feedback">
-                                Verifique el correo electrónico
-                            </div>
-                        </div>
-                        <div class="col-lg-2 col-md-4 mb-3">
-                            <label for="txtSexoDenunciado">Sexo</label>
-                            <select class="custom-select" id="txtSexoDenunciado" required>
-                                <option selected disabled value="">Elegir...</option>
-                                <option value="masculino">Masculino</option>
-                                <option value="femenino">Femenino</option>
-                            </select>
-                            <div class="valid-feedback">
-                                Correcto!
-                            </div>
-                            <div class="invalid-feedback">
-                                Elija una opción
-                            </div>
-                        </div>
-                        <div class="col-lg-1 col-md-3 mb-3">
-                            <label for="txtEdadDenunciado">Edad</label>
-                            <input type="number" class="form-control" id="txtEdadDenunciado" min="18" max="120" required>
-                            <div class="valid-feedback">
-                                Correcto!
-                            </div>
-                            <div class="invalid-feedback">
-                                Verifique la edad
-                            </div>
-                        </div>
-                        <div class="col-lg-3 col-md-6 mb-3">
-                            <label for="txtSPDenunciado">¿Es una persona servidora pública?</label>
-                            <select class="custom-select" id="txtSPDenunciado" required>
-                                <option selected disabled value="">Elegir...</option>
-                                <option value="si">SI</option>
-                                <option value="no">NO</option>
-                            </select>
-                            <div class="valid-feedback">
-                                Correcto!
-                            </div>
-                            <div class="invalid-feedback">
-                                Elija una opción
-                            </div>
-                        </div>
-                        <div class="col-lg-3 col-md-6 mb-3">
-                            <label for="txtEspecificarDenunciado" class="text-white">L</label>
-                            <div class="input-group">
-                                <div class="input-group-prepend">
-                                    <div class="input-group-text">Especifique:</div>
-                                </div>
-                                <input type="text" class="form-control" id="txtEspecificarDenunciado" required>
+                            <div class="col-lg-4 col-md-6 offset-lg-0 offset-md-3 mb-3">
+                                <label for="txtTrabajaTestigo">¿Trabaja en la administración pública estatal?</label>
+                                <select class="custom-select" id="txtTrabajaTestigo" required>
+                                    <option selected disabled value="">Elegir...</option>
+                                    <option value="si">SI</option>
+                                    <option value="no">NO</option>
+                                </select>
                                 <div class="valid-feedback">
                                     Correcto!
                                 </div>
                                 <div class="invalid-feedback">
-                                    Especifíquese
+                                    Elija una opción
+                                </div>
+                            </div>
+                            <div class="col-lg-4 col-md-6 mb-3 d-none" id="inputED">
+                                <label for="txtEntidadTestigo" class="text-white">+</label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text">Entidad o dependencia</div>
+                                    </div>
+                                    <input type="text" class="form-control" id="txtEntidadTestigo" required>
+                                    <div class="valid-feedback">
+                                        Correcto!
+                                    </div>
+                                    <div class="invalid-feedback">
+                                        Verifique la entidad o dependencia
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-4 col-md-6 mb-3 d-none" id="inputCargo">
+                                <label for="txtCargoTestigo" class="text-white">+</label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text">Cargo</div>
+                                    </div>
+                                    <input type="text" class="form-control" id="txtCargoTestigo" required>
+                                    <div class="valid-feedback">
+                                        Correcto!
+                                    </div>
+                                    <div class="invalid-feedback">
+                                        Verifique el cargo
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-12 mb-3">
-                            <label for="txtRelacionDenunciado">Relación con el denunciante</label>
-                            <input type="text" class="form-control" id="txtRelacionDenunciado" required>
-                            <div class="valid-feedback">
-                                Correcto!
-                            </div>
-                            <div class="invalid-feedback">
-                                Verifique la relación con el denunciante
+                        <div class="form-row">
+                            <div class="col-12">
+                                <hr>
                             </div>
                         </div>
-                    </div>
-                    <div class="form-row">
-                        <div class="col-4">
-                            <hr>
+                        <div class="form-row justify-content-end">
+                            <button class="btn btn-outline-dark" type="submit">
+                                Guardar denuncia
+                                <i class="fas fa-arrow-circle-right"></i>
+                            </button>
                         </div>
-                        <div class="col-4 text-center">
-                            <h6 class="font-weight-light text-muted pt-2">Información de la denuncia</h6>
-                        </div>
-                        <div class="col-4">
-                            <hr>
-                        </div>
-                    </div>
-                    <div class="form-row">
-                        <div class="col-12 text-center">
-                            <h6 class="font-weight-light text-muted pt-2">Ocurrió en:</h6>
-                        </div>
-                        <div class="col-lg-4 col-md-4 mb-3">
-                            <label for="txtLugarDenuncia">Lugar</label>
-                            <input type="text" class="form-control" id="txtLugarDenuncia" required>
-                            <div class="valid-feedback">
-                                Correcto!
-                            </div>
-                            <div class="invalid-feedback">
-                                Verifique el lugar
-                            </div>
-                        </div>
-                        <div class="col-lg-4 col-md-4 mb-3">
-                            <label for="txtFechaDenuncia">Fecha</label>
-                            <input type="date" class="form-control" id="txtFechaDenuncia" required>
-                            <div class="valid-feedback">
-                                Correcto!
-                            </div>
-                            <div class="invalid-feedback">
-                                Verifique la fecha
-                            </div>
-                        </div>
-                        <div class="col-lg-4 col-md-4 mb-3">
-                            <label for="txtHoraDenuncia">Hora</label>
-                            <input type="time" class="form-control" id="txtHoraDenuncia" required>
-                            <div class="valid-feedback">
-                                Correcto!
-                            </div>
-                            <div class="invalid-feedback">
-                                Verifique la hora
-                            </div>
-                        </div>
-                        <div class="col-12">
-                            <label for="txtNarracionDenuncia">Breve narración del hecho o conducta</label>
-                            <textarea class="form-control" id="txtNarracionDenuncia" rows="3" required></textarea>
-                            <div class="valid-feedback">
-                                Correcto!
-                            </div>
-                            <div class="invalid-feedback">
-                                Verifique la hora
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-row">
-                        <div class="col-3">
-                            <hr>
-                        </div>
-                        <div class="col-6 text-center">
-                            <h6 class="font-weight-light text-muted pt-2">Datos de la persona que haya sido testigo de los hechos</h6>
-                        </div>
-                        <div class="col-3">
-                            <hr>
-                        </div>
-                    </div>
-                    <div class="form-row">
-                        <div class="col-lg-4 col-md-4 mb-3">
-                            <label for="txtNombreTestigo">Nombre</label>
-                            <input type="text" class="form-control" id="txtNombreTestigo" required>
-                            <div class="valid-feedback">
-                                Correcto!
-                            </div>
-                            <div class="invalid-feedback">
-                                Verifique el nombre
-                            </div>
-                        </div>
-                        <div class="col-lg-4 col-md-5 mb-3">
-                            <label for="txtDomicilioTestigo">Domicilio</label>
-                            <input type="text" class="form-control" id="txtDomicilioTestigo" required>
-                            <div class="valid-feedback">
-                                Correcto!
-                            </div>
-                            <div class="invalid-feedback">
-                                Verifique el domicilio
-                            </div>
-                        </div>
-                        <div class="col-lg-4 col-md-3 mb-3">
-                            <label for="txtTelefonoTestigo">Teléfono</label>
-                            <input type="tel" class="form-control" id="txtTelefonoTestigo" pattern="[0-9]{10,15}" required>
-                            <div class="valid-feedback">
-                                Correcto!
-                            </div>
-                            <div class="invalid-feedback">
-                                Verifique el teléfono
-                            </div>
-                        </div>
-                        <div class="col-lg-6 col-md-6 mb-3">
-                            <label for="txtCorreoTestigo">Correo electrónico</label>
-                            <input type="email" class="form-control" id="txtCorreoTestigo" required>
-                            <div class="valid-feedback">
-                                Correcto!
-                            </div>
-                            <div class="invalid-feedback">
-                                Verifique el correo electrónico
-                            </div>
-                        </div>
-                        <div class="col-lg-6 col-md-6 mb-3">
-                            <label for="txtRelacionTestigo">Relación con el denunciante</label>
-                            <input type="text" class="form-control" id="txtRelacionTestigo" required>
-                            <div class="valid-feedback">
-                                Correcto!
-                            </div>
-                            <div class="invalid-feedback">
-                                Verifique el dato
-                            </div>
-                        </div>
-                        <div class="col-lg-4 col-md-6 offset-lg-0 offset-md-3 mb-3">
-                            <label for="txtTrabajaTestigo">¿Trabaja en la administración pública estatal?</label>
-                            <select class="custom-select" id="txtTrabajaTestigo" required>
-                                <option selected disabled value="">Elegir...</option>
-                                <option value="si">SI</option>
-                                <option value="no">NO</option>
-                            </select>
-                            <div class="valid-feedback">
-                                Correcto!
-                            </div>
-                            <div class="invalid-feedback">
-                                Elija una opción
-                            </div>
-                        </div>
-                        <div class="col-lg-4 col-md-6 mb-3 d-none" id="inputED">
-                            <label for="txtEntidadTestigo" class="text-white">+</label>
-                            <div class="input-group">
-                                <div class="input-group-prepend">
-                                    <div class="input-group-text">Entidad o dependencia</div>
-                                </div>
-                                <input type="text" class="form-control" id="txtEntidadTestigo" required>
-                                <div class="valid-feedback">
-                                    Correcto!
-                                </div>
-                                <div class="invalid-feedback">
-                                    Verifique la entidad o dependencia
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-4 col-md-6 mb-3 d-none" id="inputCargo">
-                            <label for="txtCargoTestigo" class="text-white">+</label>
-                            <div class="input-group">
-                                <div class="input-group-prepend">
-                                    <div class="input-group-text">Cargo</div>
-                                </div>
-                                <input type="text" class="form-control" id="txtCargoTestigo" required>
-                                <div class="valid-feedback">
-                                    Correcto!
-                                </div>
-                                <div class="invalid-feedback">
-                                    Verifique el cargo
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-row">
-                        <div class="col-12">
-                            <hr>
-                        </div>
-                    </div>
-                    <div class="form-row justify-content-end">
-                        <button class="btn btn-primary" type="submit">
-                            Guardar denuncia
-                            <i class="fas fa-arrow-circle-right"></i>
-                        </button>
-                    </div>
-                </form>
+                    </form>
+                </div>
             </div>
         </div>
         <div class="tab-pane fade" id="nav-adminuser" role="tabpanel" aria-labelledby="nav-adminuser-tab">
@@ -657,8 +659,8 @@ if (isset($_SESSION['user_id'])) {
         </div>
         <div class="tab-pane fade" id="nav-nuevaDenunciaImg" role="tabpanel" aria-labelledby="nav-nuevaDenunciaImg-tab">
             <div class="row align-items-center justify-content-center mx-1" style="min-height: 85vh;">
-                <div class="card bg-white border border-primary border-top-0 border-bottom-0 border-right-0 shadow-sm rounded my-3" style="max-width: 30rem;">
-                    <div class="card-body">
+                <div class="card bg-white shadow my-3" style="width: 100vh; border: 0; border-left: 0; border-right: 0; border-bottom: 0;">
+                    <div class="card-body rounded" style="border-top: 8px solid #b91926;">
                         <form id="formImgFormatoPresentacionDenuncia" class="needs-validation" novalidate>
                             <input type="hidden" id="txtImagenIdDenuncia" name="txtImagenIdDenuncia" required>
                             <input type="hidden" id="txtImagenPresunto" name="txtImagenPresunto" required>
@@ -666,8 +668,8 @@ if (isset($_SESSION['user_id'])) {
                             <input type="hidden" id="txtImagenFechaPresentacion" name="txtImagenFechaPresentacion" required>
                             <div class="form-row">
                                 <div class="col-12 mb-3 d-flex align-items-center">
-                                    <h6 class="font-weight-light text-primary pt-1 text-uppercase" id="txtImagenPresuntoDenuncia"></h6>
-                                    <button type="button" class="btn btn-transparent ml-3 text-info" data-toggle="modal" data-target="#modalPresuntoDenuncia">
+                                    <h6 class="font-weight-light text-dark pt-1 text-uppercase" id="txtImagenPresuntoDenuncia"></h6>
+                                    <button type="button" class="btn btn-transparent ml-3 text-warning" data-toggle="modal" data-target="#modalPresuntoDenuncia">
                                         <i class="far fa-edit"></i>
                                     </button>
                                 </div>
@@ -684,11 +686,14 @@ if (isset($_SESSION['user_id'])) {
                             </div>
                             <div class="form-row">
                                 <div class="col-12">
-                                    <div class="custom-file mb-3">
-                                        <input type="file" class="custom-file-input" id="txtImagenDenuncia" name="txtImagenDenuncia" accept="image/png, .jpeg, .jpg, image/gif" lang="es" required>
-                                        <label class="custom-file-label text-truncate" for="txtImagenDenuncia" id="labelImgDenuncia">Elegir imagen...</label>
-                                        <div class="valid-feedback">Correcto!</div>
-                                        <div class="invalid-feedback">Elija una imagen</div>
+                                    <div class="form-group">
+                                        <label for="">Imagen de la denuncia</label>
+                                        <div class="custom-file mb-3">
+                                            <input type="file" class="custom-file-input" id="txtImagenDenuncia" name="txtImagenDenuncia" accept="image/png, .jpeg, .jpg, image/gif" lang="es" required>
+                                            <label class="custom-file-label text-truncate" for="txtImagenDenuncia" id="labelImgDenuncia">Elegir imagen...</label>
+                                            <div class="valid-feedback">Correcto!</div>
+                                            <div class="invalid-feedback">Elija una imagen</div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -698,10 +703,10 @@ if (isset($_SESSION['user_id'])) {
                                 </div>
                             </div>
                             <div class="form-row justify-content-between px-1">
-                                <button class="btn btn-transparent text-info" type="button" data-toggle="modal" data-target="#modalAyuda">
+                                <button class="btn btn-outline-danger" type="button" data-toggle="popover" data-placement="right" tabindex="0" data-trigger="focus" data-content="Asegurate de que el elemento que intentas subir tenga un peso menor a 2MB y contenga la totalidad de los datos requeridos en el formato para la presentación de una denuncia ante el comité de ética y de prevención de conflictos de interés de la oficicialía mayor. Usar esta opción solo permitirá un elemento por denuncia y se guardará como una denuncia pendiente de evaluación por los miembros del comité.">
                                     <i class="far fa-question-circle"></i>
                                 </button>
-                                <button class="btn btn-outline-primary" type="submit">
+                                <button class="btn btn-outline-dark" type="submit">
                                     Guardar denuncia
                                     <i class="fas fa-arrow-circle-right"></i>
                                 </button>
@@ -713,8 +718,8 @@ if (isset($_SESSION['user_id'])) {
         </div>
         <div class="tab-pane fade" id="nav-nuevaDenunciaPDF" role="tabpanel" aria-labelledby="nav-nuevaDenunciaPDF-tab">
             <div class="row align-items-center justify-content-center mx-1" style="min-height: 85vh;">
-                <div class="card bg-white border border-primary border-top-0 border-bottom-0 border-right-0 shadow-sm rounded my-3" style="width: 100vh;">
-                    <div class="card-body">
+                <div class="card bg-white shadow my-3" style="width: 100vh; border: 0; border-left: 0; border-right: 0; border-bottom: 0;">
+                    <div class="card-body rounded" style="border-top: 8px solid #b91926;">
                         <form id="formPdfFormatoPresentacionDenuncia" class="needs-validation" novalidate>
                             <input type="hidden" id="txtIdDenunciaPDF" name="txtIdDenunciaPDF" required>
                             <input type="hidden" id="txtPresuntoPDF" name="txtPresuntoPDF" required>
@@ -722,8 +727,8 @@ if (isset($_SESSION['user_id'])) {
                             <input type="hidden" id="txtFechaPresentacionPDF" name="txtFechaPresentacionPDF" required>
                             <div class="form-row">
                                 <div class="col-12 mb-3 d-flex align-items-center">
-                                    <h6 class="font-weight-light text-primary pt-1 text-uppercase" id="txtPresuntoDenunciaPDF"></h6>
-                                    <button type="button" class="btn btn-transparent ml-3 text-info" data-toggle="modal" data-target="#modalPresuntoDenuncia">
+                                    <h6 class="font-weight-light text-dark pt-1 text-uppercase" id="txtPresuntoDenunciaPDF"></h6>
+                                    <button type="button" class="btn btn-transparent ml-3 text-warning" data-toggle="modal" data-target="#modalPresuntoDenuncia">
                                         <i class="far fa-edit"></i>
                                     </button>
                                 </div>
@@ -740,11 +745,14 @@ if (isset($_SESSION['user_id'])) {
                             </div>
                             <div class="form-row">
                                 <div class="col-12">
-                                    <div class="custom-file mb-3">
-                                        <input type="file" class="custom-file-input" id="txtDenunciaPDF" name="txtDenunciaPDF" accept=".pdf, .docx" lang="es" required>
-                                        <label class="custom-file-label text-truncate" for="txtDenunciaPDF" id="labelDenunciaPDF">Elegir documento...</label>
-                                        <div class="valid-feedback">Correcto!</div>
-                                        <div class="invalid-feedback">Elija un documento</div>
+                                    <div class="form-group">
+                                        <label for="">PDF de la denuncia</label>
+                                        <div class="custom-file mb-3">
+                                            <input type="file" class="custom-file-input" id="txtDenunciaPDF" name="txtDenunciaPDF" accept=".pdf, .docx" lang="es" required>
+                                            <label class="custom-file-label text-truncate" for="txtDenunciaPDF" id="labelDenunciaPDF">Elegir documento...</label>
+                                            <div class="valid-feedback">Correcto!</div>
+                                            <div class="invalid-feedback">Elija un documento</div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -754,10 +762,10 @@ if (isset($_SESSION['user_id'])) {
                                 </div>
                             </div>
                             <div class="form-row justify-content-between px-1">
-                                <button class="btn btn-transparent text-info" type="button" data-toggle="modal" data-target="#modalAyuda">
+                                <button class="btn btn-outline-danger" type="button" data-toggle="popover" data-placement="right" tabindex="0" data-trigger="focus" data-content="Asegurate de que el elemento que intentas subir tenga un peso menor a 2MB y contenga la totalidad de los datos requeridos en el formato para la presentación de una denuncia ante el comité de ética y de prevención de conflictos de interés de la oficicialía mayor. Usar esta opción solo permitirá un elemento por denuncia y se guardará como una denuncia pendiente de evaluación por los miembros del comité.">
                                     <i class="far fa-question-circle"></i>
                                 </button>
-                                <button class="btn btn-outline-primary" type="submit">
+                                <button class="btn btn-outline-dark" type="submit">
                                     Guardar denuncia
                                     <i class="fas fa-arrow-circle-right"></i>
                                 </button>
@@ -1460,10 +1468,10 @@ if (isset($_SESSION['user_id'])) {
 
     <!-- Modal Tipo Denuncia -->
     <div class="modal fade" id="modalPresuntoDenuncia" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="modalPresuntoDenunciaLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
-                <div class="modal-header bg-primary text-white" style="background: linear-gradient(to right, #243B55,#141E30);">
-                    <h5 class="modal-title" id="modalPresuntoDenunciaLabel">La denuncia es por un presunto...</h5>
+                <div class="modal-header text-white" style="background: linear-gradient(to right, #e63c4d,#b91926);">
+                    <h5 class="modal-title text-white" id="modalPresuntoDenunciaLabel">La denuncia es por un presunto...</h5>
                     <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -1472,15 +1480,15 @@ if (isset($_SESSION['user_id'])) {
                     <div class="row">
                         <div class="col-12">
                             <div class="row">
-                                <div class="col-lg-6 col-sm-6 col-12 py-2">
-                                    <div id="presunto1" class="card bg-white border border-primary border-top-0 border-bottom-0 border-right-0 shadow-sm rounded">
+                                <div class="col-12 py-2">
+                                    <div id="presunto1" class="card bg-white shadow-sm" style="border-left-color: #e63c4d; border-top: 0; border-right: 0; border-bottom: 0;">
                                         <div class="card-body text-center">
                                             <span class="font-weight-light">Incumplimiento al código de ética y de conducta</span>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-lg-6 col-sm-6 col-12 py-2">
-                                    <div id="presunto2" class="card bg-white border border-primary border-top-0 border-bottom-0 border-right-0 shadow-sm rounded">
+                                <div class="col-12 py-2">
+                                    <div id="presunto2" class="card bg-white shadow-sm" style="border-left-color: #e63c4d; border-top: 0; border-right: 0; border-bottom: 0;">
                                         <div class="card-body text-center">
                                             <span class="font-weight-light">Incumplimiento a las reglas de integridad</span>
                                         </div>
@@ -1490,29 +1498,29 @@ if (isset($_SESSION['user_id'])) {
                         </div>
                         <div class="col-12">
                             <div class="row">
-                                <div class="col-lg-3 col-sm-6 col-12 py-2">
-                                    <div id="presunto3" class="card bg-white border border-primary border-top-0 border-bottom-0 border-right-0 shadow-sm rounded">
+                                <div class="col-lg-6 col-sm-6 col-12 py-2">
+                                    <div id="presunto3" class="card bg-white shadow-sm" style="border-left-color: #e63c4d; border-top: 0; border-right: 0; border-bottom: 0;">
                                         <div class="card-body text-center">
                                             <span class="font-weight-light">Agresión</span>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-lg-3 col-sm-6 col-12 py-2">
-                                    <div id="presunto4" class="card bg-white border border-primary border-top-0 border-bottom-0 border-right-0 shadow-sm rounded">
+                                <div class="col-lg-6 col-sm-6 col-12 py-2">
+                                    <div id="presunto4" class="card bg-white shadow-sm" style="border-left-color: #e63c4d; border-top: 0; border-right: 0; border-bottom: 0;">
                                         <div class="card-body text-center">
                                             <span class="font-weight-light">Amedrentamiento</span>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-lg-3 col-sm-6 col-12 py-2">
-                                    <div id="presunto5" class="card bg-white border border-primary border-top-0 border-bottom-0 border-right-0 shadow-sm rounded">
+                                <div class="col-lg-6 col-sm-6 col-12 py-2">
+                                    <div id="presunto5" class="card bg-white shadow-sm" style="border-left-color: #e63c4d; border-top: 0; border-right: 0; border-bottom: 0;">
                                         <div class="card-body text-center">
                                             <span class="font-weight-light">Intimidación</span>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-lg-3 col-sm-6 col-12 py-2">
-                                    <div id="presunto6" class="card bg-white border border-primary border-top-0 border-bottom-0 border-right-0 shadow-sm rounded">
+                                <div class="col-lg-6 col-sm-6 col-12 py-2">
+                                    <div id="presunto6" class="card bg-white shadow-sm" style="border-left-color: #e63c4d; border-top: 0; border-right: 0; border-bottom: 0;">
                                         <div class="card-body text-center">
                                             <span class="font-weight-light">Amenazas</span>
                                         </div>
@@ -1605,24 +1613,6 @@ if (isset($_SESSION['user_id'])) {
                 <div class="modal-body bg-white">
                     <div class="row d-flex justify-content-center">
                         <div id="contenedorVizualizarActaPDF" class="px-1 text-center"></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Modal Ayuda -->
-    <div class="modal fade" id="modalAyuda" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="modalAyudaLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-body">
-                    <div class="form-row">
-                        <div class="col-12">
-                            <p class="card bg-white border border-primary border-top-0 border-bottom-0 border-right-0 shadow-sm rounded text-justify p-2 border text-muted" style="font-size: small;"><b>Nota:</b> Asegurate de que el elemento que intentas subir tenga un peso menor a 2MB y contenga la totalidad de los datos requeridos en el formato para la presentación de una denuncia ante el comité de ética y de prevención de conflictos de interés de la oficicialía mayor. Usar esta opción solo permitirá un elemento por denuncia y se guardará como una denuncia pendiente de evaluación por los miembros del comité.</p>
-                        </div>
-                    </div>
-                    <div class="form-row justify-content-end pr-1">
-                        <button type="button" class="btn btn-sm btn-outline-info" data-dismiss="modal">Entendido</button>
                     </div>
                 </div>
             </div>

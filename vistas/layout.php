@@ -11,8 +11,10 @@
     <link type="text/css" rel="stylesheet" href="vistas\static\bootstrap\css\bootstrap.min.css">
     <script type="text/javascript" src="vistas\static\bootstrap\js\bootstrap.min.js"></script>
     <script src="vistas\static\bootstrap\js\bootstrap.bundle.min.js"></script>
-    <!-- Bootswatch - Flatly -->
-    <link rel="stylesheet" href="vistas\static\bootswatch\bootswatch-flatly.css">
+    <!-- Bootswatch - Flatly 
+    <link rel="stylesheet" href="vistas\static\bootswatch\bootswatch-flatly.css">-->
+    <!-- Bootswatch - Lux -->
+    <link rel="stylesheet" href="vistas\static\bootswatch\bootswatch-lux.css">
     <!-- DataTables-1.10.22 -->
     <link rel="stylesheet" href="vistas\static\datatables\datatables.min.css">
     <link rel="stylesheet" href="vistas\static\datatables\DataTables-1.10.22\css\dataTables.bootstrap4.min.css">

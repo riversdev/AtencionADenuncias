@@ -869,6 +869,7 @@ function concluirDenuncia(form) {
 function tabularDenuncias() {
     let tablaInconclusas = $("#tablaInconclusas").DataTable({
         //scrollX: true,
+        "lengthMenu": [[5, 20, 50, -1], [5, 20, 50, "Todos"]],
         "order": [[2, "asc"]],
         responsive: "true",
         "sDom": "<'row'<'col-lg-3 col-md-4 col-9'l><'col-lg-5 col-md-3 col-3'B><'col-lg-4 col-md-5 col-12'f>r>t<'row'<'col-md-7 col-12'i><'col-md-5 col-12'p>>",
@@ -877,7 +878,7 @@ function tabularDenuncias() {
                 extend: 'excelHtml5',
                 text: '<i class="fas fa-file-excel"></i>',
                 titleAttr: 'Exportar a excel',
-                className: 'btn btn-sm btn-warning'
+                className: 'btn btn-sm btn-success bg-primary text-white'
             }
         ],
         columnDefs: [
@@ -950,6 +951,7 @@ function tabularDenuncias() {
     });
     let tablaPendientes = $("#tablaPendientes").DataTable({
         //scrollX: true,
+        "lengthMenu": [[5, 20, 50, -1], [5, 20, 50, "Todos"]],
         "order": [[2, "asc"]],
         responsive: "true",
         "sDom": "<'row'<'col-lg-3 col-md-4 col-9'l><'col-lg-5 col-md-3 col-3'B><'col-lg-4 col-md-5 col-12'f>r>t<'row'<'col-md-7 col-12'i><'col-md-5 col-12'p>>",
@@ -958,7 +960,7 @@ function tabularDenuncias() {
                 extend: 'excelHtml5',
                 text: '<i class="fas fa-file-excel"></i>',
                 titleAttr: 'Exportar a excel',
-                className: 'btn btn-sm btn-warning'
+                className: 'btn btn-sm btn-success bg-primary text-white'
             }
         ],
         columnDefs: [
@@ -1031,6 +1033,7 @@ function tabularDenuncias() {
     });
     let tablaConcluidas = $("#tablaConcluidas").DataTable({
         //scrollX: true,
+        "lengthMenu": [[5, 20, 50, -1], [5, 20, 50, "Todos"]],
         "order": [[2, "asc"]],
         responsive: "true",
         "sDom": "<'row'<'col-lg-3 col-md-4 col-9'l><'col-lg-5 col-md-3 col-3'B><'col-lg-4 col-md-5 col-12'f>r>t<'row'<'col-md-7 col-12'i><'col-md-5 col-12'p>>",
@@ -1039,7 +1042,7 @@ function tabularDenuncias() {
                 extend: 'excelHtml5',
                 text: '<i class="fas fa-file-excel"></i>',
                 titleAttr: 'Exportar a excel',
-                className: 'btn btn-sm btn-warning'
+                className: 'btn btn-sm btn-success bg-primary text-white'
             }
         ],
         columnDefs: [
