@@ -8,38 +8,24 @@ if (isset($_SESSION['user_id'])) {
 
     <div id="particles-js"></div>
     <div class="container contenedor" style="overflow-y: hidden;">
-        <div class="row align-items-center justify-content-center" style="height: 100vh;">            
-            <!---<div class="col-lg-7 col-sm-6 col-12">
-                <div class="row align-items-center justify-content-start">
-                    <div class="card border border-0 bg-transparent">
-                        <div class="card-body">
-                            <h3 class="card-text text-justify text-white">ATENCIÓN A DENUNCIAS POR LOS INCUMPLIMIENTOS DEL CÓDIGO DE ÉTICA DE LA ADMINISTRACIÓN PÚBLICA DEL ESTADO DE HIDALGO Y CÓDIGO DE CONDUCTA DE OFICIALÍA MAYOR.</h3>
-                        </div>
-                    </div>
-                </div>
-            </div>--->
+        <div class="row align-items-center justify-content-center" style="height: 100vh;">
             <div class="contact100-more flex-col-c-m col-lg-6 col-md-6 col-sm-12" style="color:white; max-width: 50%;max-height: 100%">
                 <div class="flex-w size1 p-b-47">
                     <img src="vistas/static/img/logo_ofi.png" style="height: 14vh; padding-right: 150px">
-
                     <img src="vistas/static/img/Escudo_de_Armas_Oficial_del_Estado_de_Hidalgo.png" style="height: 14vh;">
-                        <div class="card-text text-justify" style="padding-top: 30px; font-size: 20px; color:black"><span><strong> Atención a Denuncias por los Incumplimientos del Código de Ética de la Administración Pública del Estado de Hidalgo y Código de Conducta de Oficialía Mayor</strong></span></div>
-
-                 
+                    <div class="card-text text-justify" style="padding-top: 30px; font-size: 20px; color:black"><span><strong> Atención a Denuncias por los Incumplimientos del Código de Ética de la Administración Pública del Estado de Hidalgo y Código de Conducta de Oficialía Mayor</strong></span></div>
                 </div>
-
             </div>
             <div class="col-lg-5 col-sm-6 col-12">
                 <div class="row align-items-center justify-content-end">
                     <div class="card" style="max-width: 20rem; box-shadow: 5px 5px 10px gray; ">
                         <div class="card-body">
-                            <h5 class="card-title text-primary" style="text-align:center">Identifícate</h5>
-
-                            <div class="dropdown-divider"></div>
+                            <h5 class="card-title text-dark text-center">Identifícate</h5>
+                            <div class="dropdown-divider border border-bottom-0"></div>
                             <form id="formIdentificarUsuario" class="needs-validation" novalidate>
                                 <div class="form-row">
                                     <div class="col-md-12 mb-3">
-                                        <label for="txtUsuario"><i class="fa fa-user-circle "></i>  Usuario</label>
+                                        <label for="txtUsuario"><i class="fa fa-user-circle "></i> Usuario</label>
                                         <input type="text" class="form-control" id="txtUsuario" required>
                                         <div class="valid-feedback">
                                             Correcto!
@@ -59,11 +45,13 @@ if (isset($_SESSION['user_id'])) {
                                         </div>
                                     </div>
                                 </div>
-                                <div class="form-row d-flex justify-content-end">
-                                    <button class="btn btn-outline-primary" type="submit">
-                                        Ingresar
-                                        <i class="fas fa-arrow-circle-right"></i>
-                                    </button>
+                                <div class="form-row">
+                                    <div class="col-md-12 d-flex justify-content-center">
+                                        <button class="btn btn-outline-dark btn-block" type="submit">
+                                            Ingresar
+                                            <i class="fas fa-arrow-circle-right"></i>
+                                        </button>
+                                    </div>
                                 </div>
                             </form>
                         </div>

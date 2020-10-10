@@ -1,6 +1,7 @@
 <script>
   $(document).ready(function() {
     var tableAdmins = $('#tableAdmins').DataTable({
+      "lengthMenu": [[5, 20, 50, -1], [5, 20, 50, "Todos"]],
       "order": [
         [0, "asc"]
       ],
@@ -10,7 +11,7 @@
         extend: 'excelHtml5',
         text: '<i class="fas fa-file-excel"></i>',
         titleAttr: 'Exportar a excel',
-        className: 'btn btn-sm btn-warning bg-warning'
+        className: 'btn btn-sm btn-success bg-primary text-white'
       }],
       language: {
         sProcessing: "Procesando...",
@@ -50,8 +51,8 @@ if ($contar != 0) {
   if ($respuesta) {
     $json = array();
     echo '
-      <table id="tableAdmins" class="table table-hover" style="width: 100%;">
-        <thead class="text-white" style="background: linear-gradient(to right,#6fb430,green);">
+      <table id="tableAdmins" class="table table-sm table-hover" style="width: 100%;">
+        <thead class="text-dark" style="background-color:#F7F7F9;">
           <tr style="font-weight:bolder;font-size:small;">
             <th scope="col">Nombre</th>
             <th scope="col">Correo Electrónico</th>
@@ -81,12 +82,12 @@ if ($contar != 0) {
             </div> 
         </td>                                               <!-- 4 -->
         <td class="d-flex justify-content-around">
-          <button type="button" class="task-edit-admin btn btn-sm" editAd="' . $value['idUsuario'] . '" data-toggle="modal" data-target="#editAdministrador"  style="background:#6fb430; color: white">
+          <button type="button" class="task-edit-admin btn btn-sm btn-warning" editAd="' . $value['idUsuario'] . '" data-toggle="modal" data-target="#editAdministrador">
             <i class="fa fa-edit"></i>
           </button>
-          <button type="button" class="task-delete-admin btn btn-sm" deteleAd="' . $value['idUsuario'] . '"  style="background: #b91926;color: white">
-          <i class="fa fa-trash"></i>
-        </button>
+          <button type="button" class="task-delete-admin btn btn-sm btn-danger" deteleAd="' . $value['idUsuario'] . '">
+            <i class="fa fa-trash"></i>
+          </button>
         </td>
       </tr>
     ';

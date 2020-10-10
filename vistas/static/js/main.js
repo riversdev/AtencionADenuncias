@@ -18,9 +18,8 @@ $(document).ready(function () {
     prepararValidacionDeFormularios();
     // Diseño de alertas
     alertify.defaults.transition = "flipy";
-    alertify.defaults.theme.ok = "btn btn-transparent";
-    alertify.defaults.theme.cancel = "btn btn-transparent";
-    alertify.defaults.theme.input = "form-control";
+    alertify.defaults.theme.ok = "btn btn-sm btn-transparent";
+    alertify.defaults.theme.cancel = "btn btn-sm btn-transparent text-danger";
     // Label de input file
     $('.custom-file-input').on('change', function (event) {
         var inputFile = event.currentTarget;
@@ -461,7 +460,7 @@ function prepararValidacionDeFormularios() {
                 if (form.id == "formFormatoPresentacionDenuncia") {
                     if (document.getElementById("mostrarInfoDenunciante").checked == true && validarCamposDenunciante()) {
                         if ($("#txtIdDenuncia").val() == "") {
-                            alertify.confirm('Guardando denuncia...', 'La información está incompleta, si prosigue se guardará como denuncia inconclusa.<br>Tendrá:<br>3 dias para solicitar al denunciante subsane su información.<br>5 días para completarla.<br>De lo contrario se archivará como concluida 8 días hábiles a partir de hoy.',
+                            alertify.confirm('GUARDANDO DENUNCIA...', 'La información está incompleta, si prosigue se guardará como denuncia inconclusa.<br><br>Tendrá 3 dias para solicitar al denunciante subsane su información y 5 días para completarla. <ins>¡De lo contrario se archivará como concluida 8 días hábiles a partir de hoy!</ins>',
                                 function () {
                                     $("#txtStatusFormulario").val("inconclusa");
                                     enviarDenuncia(recolectarDatosDenuncia(), "guardarInfo");
@@ -472,7 +471,7 @@ function prepararValidacionDeFormularios() {
                             ).set('labels', { cancel: 'Cancelar' });
                         } else {
                             if (!document.getElementById("contenedorInformacionDenunciante").classList.contains("d-none")) {
-                                alertify.confirm('Editando denuncia...', 'La información está incompleta, si prosigue se guardará como denuncia inconclusa.<br>Tendrá:<br>3 dias para solicitar al denunciante subsane su información.<br>5 días para completarla.<br>De lo contrario se archivará como concluida 8 días hábiles a partir de su fecha de presentación.',
+                                alertify.confirm('EDITANDO DENUNCIA...', 'La información está incompleta, si prosigue se guardará como denuncia inconclusa.<br><br>Tendrá 3 dias para solicitar al denunciante subsane su información y 5 días para completarla. <ins>¡De lo contrario se archivará como concluida 8 días hábiles a partir de su fecha de presentación!</ins>',
                                     function () {
                                         $("#txtStatusFormulario").val("inconclusa");
                                         enviarDenuncia(recolectarDatosDenuncia(), "editarInfo");

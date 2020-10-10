@@ -28,13 +28,11 @@
     <script src="vistas\static\sweetalert\sweetalert2.all.js"></script>
     <!-- Alertify JS 1.13.1 -->
     <link rel="stylesheet" href="vistas\static\alertify\css\alertify.css">
-    <link rel="stylesheet" href="vistas\static\alertify\css\themes\bootstrap.css">
+    <link rel="stylesheet" href="vistas\static\alertify\css\themes\default.css">
     <script src="vistas\static\alertify\js\alertify.js"></script>
     <!-- fontawesome-free-5.14.0-web -->
     <link rel="stylesheet" href="vistas\static\fontawesome\css\all.css">
     <script src="vistas\static\fontawesome\js\all.js"></script>
-    <!-- jsPDF-1.3.2 
-    <script src="vistas\static\jspdf\dist\jspdf.min.js"></script>-->
 </head>
 
 <body style="background-color: #F0F4F7;">

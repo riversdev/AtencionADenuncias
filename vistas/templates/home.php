@@ -13,8 +13,8 @@ if (isset($_SESSION['user_id'])) {
         $stmt = null;
     }
 ?>
-    <!-- Custom CSS 
-    <link rel="stylesheet" href="vistas\static\css\main.css">-->
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="vistas\static\css\main.css">
     <!-- Custom JS -->
     <script src="vistas\static\js\main.js"></script>
     <!-- Main usuarios -->
@@ -46,7 +46,6 @@ if (isset($_SESSION['user_id'])) {
     <!-- Navegaciones -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top shadow-sm">
         <img src="vistas\static\img\Oficialiia.png" class="pr-3" style="height: 7vh;">
-        <!--<a class="navbar-brand" href="/AtencionADenuncias"> Atención a denuncias</a>-->
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -79,7 +78,7 @@ if (isset($_SESSION['user_id'])) {
                     <a class="nav-link dropdown-toggle text-secondary" id="opcionDenuncia" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <i class="fa fa-plus"></i> Nueva denuncia
                     </a>
-                    <div class="dropdown-menu" aria-labelledby="opcionDenuncia">
+                    <div class="dropdown-menu shadow" aria-labelledby="opcionDenuncia">
                         <a class="dropdown-item" id="llenarFormulario">Llenar formulario</a>
                         <a class="dropdown-item" id="subirImagen">Subir imagen</a>
                         <a class="dropdown-item" id="subirPDF">Subir PDF</a>
@@ -97,10 +96,10 @@ if (isset($_SESSION['user_id'])) {
                     <button type="button" class="btn btn-outline-light dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <i class="far fa-user"></i>
                     </button>
-                    <div class="dropdown-menu dropdown-menu-right">
+                    <div class="dropdown-menu dropdown-menu-right shadow">
                         <div class="dropdown-item-text text-center">
-                            <h4 class="text-primary"><?php echo $usuario['usuario']; ?></h4>
-                            <label class="text-primary"><?php echo $usuario['email']; ?></label>
+                            <h4 class="text-dark"><?php echo $usuario['usuario']; ?></h4>
+                            <label class="text-dark"><?php echo $usuario['email']; ?></label>
                         </div>
                         <div class="dropdown-divider"></div>
                         <div class="dropdown-item text-center bg-white">
@@ -129,7 +128,7 @@ if (isset($_SESSION['user_id'])) {
         </div>
         <div class="tab-pane fade" id="nav-nuevaDenunciaForm" role="tabpanel" aria-labelledby="nav-nuevaDenunciaForm-tab">
             <div class="card bg-white shadow mx-5 my-4" style="border: 0; border-left: 0; border-right: 0; border-bottom: 0;">
-                <div class="card-body rounded" style="border-top: 8px solid #b91926;">
+                <div class="card-body rounded" style="border-top: 5px solid #b91926;">
                     <form id="formFormatoPresentacionDenuncia" class="needs-validation" novalidate>
                         <input type="hidden" id="txtTareaFormulario">
                         <input type="hidden" id="txtStatusFormulario">
@@ -137,8 +136,8 @@ if (isset($_SESSION['user_id'])) {
                         <div class="form-row">
                             <div class="col-12 mb-3 d-flex align-items-center">
                                 <h5 class="font-weight-light text-dark" id="txtPresuntoDenuncia"></h5>
-                                <button type="button" class="btn btn-transparent ml-3 text-warning" data-toggle="modal" data-target="#modalPresuntoDenuncia">
-                                    <i class="far fa-edit"></i>
+                                <button type="button" class="btn btn-transparent text-warning" data-toggle="modal" data-target="#modalPresuntoDenuncia">
+                                    <i class="far fa-lg fa-edit"></i>
                                 </button>
                             </div>
                         </div>
@@ -253,7 +252,7 @@ if (isset($_SESSION['user_id'])) {
                                         Elija una opción
                                     </div>
                                 </div>
-                                <div class="col-lg-1 col-md-2 mb-3">
+                                <div class="col-lg-2 col-md-2 mb-3">
                                     <label for="txtEdadDenunciante">Edad</label>
                                     <input type="number" class="form-control" id="txtEdadDenunciante" min="18" max="120" required>
                                     <div class="valid-feedback">
@@ -263,7 +262,27 @@ if (isset($_SESSION['user_id'])) {
                                         Verifique la edad
                                     </div>
                                 </div>
+                                <div class="col-lg-5 col-md-6 mb-3">
+                                    <label for="txtGradoEstudiosDenunciante">Grado de estudios</label>
+                                    <input type="text" class="form-control" id="txtGradoEstudiosDenunciante" required>
+                                    <div class="valid-feedback">
+                                        Correcto!
+                                    </div>
+                                    <div class="invalid-feedback">
+                                        Verifique el grado de estudios
+                                    </div>
+                                </div>
                                 <div class="col-lg-3 col-md-6 mb-3">
+                                    <label for="txtDiscapacidadDenunciante">¿Vive con alguna discapacidad?</label>
+                                    <input type="text" class="form-control" id="txtDiscapacidadDenunciante" required>
+                                    <div class="valid-feedback">
+                                        Correcto!
+                                    </div>
+                                    <div class="invalid-feedback">
+                                        Responda la pregunta
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 col-md-6 mb-3">
                                     <label for="txtSPDenunciante">¿Es una persona servidora pública?</label>
                                     <select class="custom-select" id="txtSPDenunciante" required>
                                         <option selected disabled value="">Elegir...</option>
@@ -277,7 +296,7 @@ if (isset($_SESSION['user_id'])) {
                                         Elija una opción
                                     </div>
                                 </div>
-                                <div class="col-lg-3 col-md-6 mb-3 d-none" id="inputPuesto">
+                                <div class="col-lg-5 col-md-6 mb-3 d-none" id="inputPuesto">
                                     <label for="txtPuestoDenunciante" class="text-white">L</label>
                                     <div class="input-group">
                                         <div class="input-group-prepend">
@@ -292,7 +311,7 @@ if (isset($_SESSION['user_id'])) {
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-lg-3 col-md-6 mb-3 d-none" id="inputEspecificar">
+                                <div class="col-lg-5 col-md-6 mb-3 d-none" id="inputEspecificar">
                                     <label for="txtEspecificarDenunciante" class="text-white">L</label>
                                     <div class="input-group">
                                         <div class="input-group-prepend">
@@ -305,28 +324,6 @@ if (isset($_SESSION['user_id'])) {
                                         <div class="invalid-feedback">
                                             Especifíquese
                                         </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="form-row">
-                                <div class="col-lg-6 col-md-6 mb-3">
-                                    <label for="txtGradoEstudiosDenunciante">Grado de estudios</label>
-                                    <input type="text" class="form-control" id="txtGradoEstudiosDenunciante" required>
-                                    <div class="valid-feedback">
-                                        Correcto!
-                                    </div>
-                                    <div class="invalid-feedback">
-                                        Verifique el grado de estudios
-                                    </div>
-                                </div>
-                                <div class="col-lg-6 col-md-6 mb-3">
-                                    <label for="txtDiscapacidadDenunciante">¿Vive con alguna discapacidad?</label>
-                                    <input type="text" class="form-control" id="txtDiscapacidadDenunciante" required>
-                                    <div class="valid-feedback">
-                                        Correcto!
-                                    </div>
-                                    <div class="invalid-feedback">
-                                        Responda la pregunta
                                     </div>
                                 </div>
                             </div>
@@ -373,17 +370,7 @@ if (isset($_SESSION['user_id'])) {
                                     Verifique el teléfono
                                 </div>
                             </div>
-                            <div class="col-lg-3 col-md-5 mb-3">
-                                <label for="txtCorreoDenunciado">Correo electrónico</label>
-                                <input type="email" class="form-control" id="txtCorreoDenunciado" required>
-                                <div class="valid-feedback">
-                                    Correcto!
-                                </div>
-                                <div class="invalid-feedback">
-                                    Verifique el correo electrónico
-                                </div>
-                            </div>
-                            <div class="col-lg-2 col-md-4 mb-3">
+                            <div class="col-lg-3 col-md-3 mb-3">
                                 <label for="txtSexoDenunciado">Sexo</label>
                                 <select class="custom-select" id="txtSexoDenunciado" required>
                                     <option selected disabled value="">Elegir...</option>
@@ -397,7 +384,7 @@ if (isset($_SESSION['user_id'])) {
                                     Elija una opción
                                 </div>
                             </div>
-                            <div class="col-lg-1 col-md-3 mb-3">
+                            <div class="col-lg-3 col-md-3 mb-3">
                                 <label for="txtEdadDenunciado">Edad</label>
                                 <input type="number" class="form-control" id="txtEdadDenunciado" min="18" max="120" required>
                                 <div class="valid-feedback">
@@ -407,7 +394,17 @@ if (isset($_SESSION['user_id'])) {
                                     Verifique la edad
                                 </div>
                             </div>
-                            <div class="col-lg-3 col-md-6 mb-3">
+                            <div class="col-lg-6 col-md-6 mb-3">
+                                <label for="txtCorreoDenunciado">Correo electrónico</label>
+                                <input type="email" class="form-control" id="txtCorreoDenunciado" required>
+                                <div class="valid-feedback">
+                                    Correcto!
+                                </div>
+                                <div class="invalid-feedback">
+                                    Verifique el correo electrónico
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-md-6 mb-3">
                                 <label for="txtSPDenunciado">¿Es una persona servidora pública?</label>
                                 <select class="custom-select" id="txtSPDenunciado" required>
                                     <option selected disabled value="">Elegir...</option>
@@ -421,7 +418,7 @@ if (isset($_SESSION['user_id'])) {
                                     Elija una opción
                                 </div>
                             </div>
-                            <div class="col-lg-3 col-md-6 mb-3">
+                            <div class="col-lg-6 col-md-6 mb-3">
                                 <label for="txtEspecificarDenunciado" class="text-white">L</label>
                                 <div class="input-group">
                                     <div class="input-group-prepend">
@@ -436,7 +433,7 @@ if (isset($_SESSION['user_id'])) {
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-12 mb-3">
+                            <div class="col-lg-12 col-md-12 mb-3">
                                 <label for="txtRelacionDenunciado">Relación con el denunciante</label>
                                 <input type="text" class="form-control" id="txtRelacionDenunciado" required>
                                 <div class="valid-feedback">
@@ -628,8 +625,8 @@ if (isset($_SESSION['user_id'])) {
         <div class="tab-pane fade" id="nav-adminuser" role="tabpanel" aria-labelledby="nav-adminuser-tab">
             <div class="row align-items-center justify-content-center m-5">
                 <div class="col-12">
-                    <div class="card bg-white border border-primary border-top-0 border-bottom-0 border-right-0 shadow-sm rounded">
-                        <div class="card-body">
+                    <div class="card bg-white shadow" style="border: 0;">
+                        <div class="card-body rounded" style="border-left: 5px solid #6fb430;border-top:0;border-right:0;border-bottom: 0;">
                             <form id="formAdministradorUser" class="needs-validation" novalidate>
                                 <div class="row">
                                     <div id="Ad" class="tabcontent col-12" style="display: block;">
@@ -660,7 +657,7 @@ if (isset($_SESSION['user_id'])) {
         <div class="tab-pane fade" id="nav-nuevaDenunciaImg" role="tabpanel" aria-labelledby="nav-nuevaDenunciaImg-tab">
             <div class="row align-items-center justify-content-center mx-1" style="min-height: 85vh;">
                 <div class="card bg-white shadow my-3" style="width: 100vh; border: 0; border-left: 0; border-right: 0; border-bottom: 0;">
-                    <div class="card-body rounded" style="border-top: 8px solid #b91926;">
+                    <div class="card-body rounded" style="border-top: 5px solid #b91926;">
                         <form id="formImgFormatoPresentacionDenuncia" class="needs-validation" novalidate>
                             <input type="hidden" id="txtImagenIdDenuncia" name="txtImagenIdDenuncia" required>
                             <input type="hidden" id="txtImagenPresunto" name="txtImagenPresunto" required>
@@ -719,7 +716,7 @@ if (isset($_SESSION['user_id'])) {
         <div class="tab-pane fade" id="nav-nuevaDenunciaPDF" role="tabpanel" aria-labelledby="nav-nuevaDenunciaPDF-tab">
             <div class="row align-items-center justify-content-center mx-1" style="min-height: 85vh;">
                 <div class="card bg-white shadow my-3" style="width: 100vh; border: 0; border-left: 0; border-right: 0; border-bottom: 0;">
-                    <div class="card-body rounded" style="border-top: 8px solid #b91926;">
+                    <div class="card-body rounded" style="border-top: 5px solid #b91926;">
                         <form id="formPdfFormatoPresentacionDenuncia" class="needs-validation" novalidate>
                             <input type="hidden" id="txtIdDenunciaPDF" name="txtIdDenunciaPDF" required>
                             <input type="hidden" id="txtPresuntoPDF" name="txtPresuntoPDF" required>
@@ -1042,7 +1039,7 @@ if (isset($_SESSION['user_id'])) {
                     </div>
                     <div class="col-12 ml-3 pr-4">
                         <div class="row">
-                            <div class="col-lg-5 col-sm-6 col-12 bg-success">
+                            <div class="col-lg-5 col-sm-6 col-12" style="background-color: #39511D;">
                                 <h5 class="text-white text-center p-4 pt-5 mt-2">DATOS GENERALES DE LA DENUNCIA</h5>
                             </div>
                             <div class="col-lg-7 col-sm-6 col-12 my-3">
@@ -1078,13 +1075,13 @@ if (isset($_SESSION['user_id'])) {
                 </div>
                 <div class="form-row mb-4">
                     <div class="col-12">
-                        <h6 class="text-justify text-white text-center py-2 bg-success">ELEMENTOS APORTADOS POR EL DENUNCIANTE</h6>
+                        <h6 class="text-justify text-white text-center py-2" style="background-color: #39511D;">ELEMENTOS APORTADOS POR EL DENUNCIANTE</h6>
                     </div>
                     <div class="col-12">
                         <div id="contenedorDatosGeneralesAcuse" class="d-none">
                             <div class="form-row">
                                 <div class="col-12">
-                                    <h6 class="text-justify text-success text-center py-1">DATOS DE LA PERSONA QUE PRESENTA LA DENUNCIA</h6>
+                                    <h6 class="text-justify text-dark text-center py-1">DATOS DE LA PERSONA QUE PRESENTA LA DENUNCIA</h6>
                                 </div>
                             </div>
                             <div class="form-row">
@@ -1163,7 +1160,7 @@ if (isset($_SESSION['user_id'])) {
                             </div>
                             <div class="form-row">
                                 <div class="col-12">
-                                    <h6 class="text-justify text-success text-center py-1">DATOS DE LA PERSONA CONTRA QUIEN PRESENTA LA DENUNCIA</h6>
+                                    <h6 class="text-justify text-dark text-center py-1">DATOS DE LA PERSONA CONTRA QUIEN PRESENTA LA DENUNCIA</h6>
                                 </div>
                             </div>
                             <div class="form-row">
@@ -1219,7 +1216,7 @@ if (isset($_SESSION['user_id'])) {
                             </div>
                             <div class="form-row">
                                 <div class="col-12">
-                                    <h6 class="text-justify text-success text-center py-1">INFORMACIÓN DE LA DENUNCIA</h6>
+                                    <h6 class="text-justify text-dark text-center py-1">INFORMACIÓN DE LA DENUNCIA</h6>
                                 </div>
                             </div>
                             <div class="form-row">
@@ -1245,7 +1242,7 @@ if (isset($_SESSION['user_id'])) {
                             </div>
                             <div class="form-row">
                                 <div class="col-12">
-                                    <h6 class="text-justify text-success text-center py-1">DATOS DE LA PERSONA QUE HAYA SIDO TESTIGO DE LOS HECHOS</h6>
+                                    <h6 class="text-justify text-dark text-center py-1">DATOS DE LA PERSONA QUE HAYA SIDO TESTIGO DE LOS HECHOS</h6>
                                 </div>
                             </div>
                             <div class="form-row">
@@ -1304,7 +1301,7 @@ if (isset($_SESSION['user_id'])) {
                 </div>
                 <div class="form-row">
                     <div class="col-12 mb-1">
-                        <h6 class="text-justify text-white text-center py-2 bg-success">OBSERVACIONES GENERALES</h6>
+                        <h6 class="text-justify text-white text-center py-2" style="background-color: #39511D;">OBSERVACIONES GENERALES</h6>
                     </div>
                     <div class="col-12 mb-3">
                         <textarea class="form-control form-control-sm" id="X" rows="5"></textarea>
@@ -1321,7 +1318,7 @@ if (isset($_SESSION['user_id'])) {
     <div class="modal fade" id="newAdmin" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
-                <div class="modal-header" style="background: linear-gradient(to right, #6fb430,green);">
+                <div class="modal-header" style="background: linear-gradient(to right, #e63c4d,#b91926);">
                     <h5 class="modal-title text-white" id="exampleModalLongTitle">Agregar Usuario / Administrador</h5>
                     <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close" id="exit">
                         <span aria-hidden="true">&times;</span>
@@ -1381,8 +1378,8 @@ if (isset($_SESSION['user_id'])) {
                                 <input type="hidden" id="status" value="1" name="estadoUsuario">
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal" id="exit">Salir</button>
-                                <button type="submit" class="btn btn-primary">Guardar</button>
+                                <button type="button" class="btn btn-secondary text-dark" data-dismiss="modal" id="exit">Salir</button>
+                                <button type="submit" class="btn btn-outline-dark">Guardar</button>
                             </div>
                         </div>
                     </div>
@@ -1395,9 +1392,9 @@ if (isset($_SESSION['user_id'])) {
     <div class="modal fade" id="editAdministrador" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
-                <div class="modal-header" style="background: linear-gradient(to right, #6fb430,green);">
+                <div class="modal-header" style="background: linear-gradient(to right, #e63c4d,#b91926);">
                     <h5 class="modal-title text-white" id="exampleModalLongTitle">Editar Usuario / Administrador</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="exit">
+                    <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close" id="exit">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
@@ -1456,8 +1453,8 @@ if (isset($_SESSION['user_id'])) {
                                 </div>
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Salir</button>
-                                <button type="submit" class="btn btn-primary">Guardar</button>
+                                <button type="button" class="btn btn-secondary text-dark" data-dismiss="modal">Salir</button>
+                                <button type="submit" class="btn btn-outline-dark">Guardar</button>
                             </div>
                         </div>
                     </div>
@@ -1470,7 +1467,7 @@ if (isset($_SESSION['user_id'])) {
     <div class="modal fade" id="modalPresuntoDenuncia" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="modalPresuntoDenunciaLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
-                <div class="modal-header text-white" style="background: linear-gradient(to right, #e63c4d,#b91926);">
+                <div class="modal-header" style="background: linear-gradient(to right, #e63c4d,#b91926);">
                     <h5 class="modal-title text-white" id="modalPresuntoDenunciaLabel">La denuncia es por un presunto...</h5>
                     <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
@@ -1538,8 +1535,8 @@ if (isset($_SESSION['user_id'])) {
     <div class="modal fade" id="modalConcluirDenuncia" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="modalConcluirDenunciaLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
             <div class="modal-content">
-                <div class="modal-header bg-primary text-white" style="background: linear-gradient(to right, #243B55,#141E30);">
-                    <h5 class="modal-title" id="modalConcluirDenunciaLabel">Concluyendo denuncia</h5>
+                <div class="modal-header" style="background: linear-gradient(to right, #e63c4d,#b91926);">
+                    <h5 class="modal-title text-white" id="modalConcluirDenunciaLabel">Concluyendo denuncia</h5>
                     <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -1549,7 +1546,9 @@ if (isset($_SESSION['user_id'])) {
                         <input type="hidden" id="txtIdDenunciaActa" name="txtIdDenunciaActa" required>
                         <div class="form-row">
                             <div class="col-12 mb-3 d-flex align-items-center">
-                                <h6 class="font-weight-light text-primary pt-1 text-uppercase" id="txtPresuntoDenunciaActa"></h6>
+                                <ins>
+                                    <h6 class="font-weight-light text-dark pt-1 text-uppercase" id="txtPresuntoDenunciaActa"></h6>
+                                </ins>
                             </div>
                         </div>
                         <div class="form-row">
@@ -1582,14 +1581,14 @@ if (isset($_SESSION['user_id'])) {
                         </div>
                         <div class="form-row">
                             <div class="col-12">
-                                <p class="card bg-white border border-primary border-top-0 border-bottom-0 border-right-0 shadow-sm rounded text-justify p-2 border text-muted" style="font-size: small;"><b>Nota:</b> Al concluir con la denuncia no podrá volver a editarla, unicamente podrá vizualizarla y descargar el acta de la sesión !</p>
+                                <p class="card bg-white shadow-sm text-justify p-2" style="border-left-color: #e63c4d; border-top: 0; border-right: 0; border-bottom: 0; font-size: small;"><b>Nota:</b> Al concluir con la denuncia no podrá volver a editarla, unicamente podrá vizualizarla y descargar el acta de la sesión !</p>
                             </div>
                         </div>
                         <div class="form-row justify-content-between px-1">
-                            <button class="btn btn-transparent text-info" type="button" data-toggle="popover" data-placement="right" tabindex="0" data-trigger="focus" data-content="Asegurate de que el elemento que intentas subir tenga un peso menor a 2MB y contenga la totalidad de los datos requeridos en el formato para la presentación de una denuncia ante el comité de ética y de prevención de conflictos de interés de la oficicialía mayor. Usar esta opción solo permitirá un elemento por denuncia.">
+                            <button class="btn btn-outline-danger" type="button" data-toggle="popover" data-placement="right" tabindex="0" data-trigger="focus" data-content="Asegurate de que el elemento que intentas subir tenga un peso menor a 2MB y contenga la totalidad de los datos requeridos en el formato para la presentación de una denuncia ante el comité de ética y de prevención de conflictos de interés de la oficicialía mayor. Usar esta opción solo permitirá un elemento por denuncia.">
                                 <i class="far fa-question-circle"></i>
                             </button>
-                            <button class="btn btn-outline-primary" type="submit">
+                            <button class="btn btn-outline-dark" type="submit">
                                 Guardar acta y concluir
                                 <i class="fas fa-arrow-circle-right"></i>
                             </button>
@@ -1604,8 +1603,8 @@ if (isset($_SESSION['user_id'])) {
     <div class="modal fade" id="modalActaDenuncia" tabindex="-1" role="dialog" aria-labelledby="modalActaDenunciaLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
             <div class="modal-content">
-                <div class="modal-header bg-primary text-white" style="background: linear-gradient(to right, #243B55,#141E30);">
-                    <h5 class="modal-title" id="modalActaDenunciaLabel">Acta de la sesión</h5>
+                <div class="modal-header" style="background: linear-gradient(to right, #e63c4d,#b91926);">
+                    <h5 class="modal-title text-white" id="modalActaDenunciaLabel">Acta de la sesión</h5>
                     <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>

@@ -1,9 +1,11 @@
-.dataTables_wrapper .dataTables_paginate .paginate_button {
+/*Estilos datatables para la paginacion*/
+/* .dataTables_wrapper .dataTables_paginate .paginate_button {
   padding: 0px;
   margin-left: 0px;
   display: inline;
   border: 1px solid white !important;
 }
+
 .dataTables_wrapper .dataTables_paginate .paginate_button:hover {
   border: 1px solid white !important;
 }
@@ -13,7 +15,27 @@
   color: white !important;
   border-radius: 2px;
 }
+
 .page-link {
   color: #082432 !important;
   background-color: white !important;
+} */
+
+/*Estilos colores de las notificaciones de alertify*/
+.alertify-notifier .ajs-message.ajs-success {
+  color: #fff;
+  background: rgba(111, 180, 48, 0.95);
+  text-shadow: -1px -1px 0 rgba(0, 0, 0, 0.5);
+}
+
+.alertify-notifier .ajs-message.ajs-error {
+  color: #fff;
+  background: rgba(185, 25, 38, 0.95);
+  text-shadow: -1px -1px 0 rgba(0, 0, 0, 0.5);
+}
+
+.alertify-notifier .ajs-message.ajs-warning {
+  color: #fff;
+  background: rgba(8, 36, 50, 0.95);
+  text-shadow: -1px -1px 0 rgba(0, 0, 0, 0.5);
 }

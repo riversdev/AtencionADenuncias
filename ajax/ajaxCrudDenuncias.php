@@ -207,7 +207,7 @@ switch ($accion) {
                 echo '
                 <div class="col-12">
                     <div class="card bg-white shadow" style="border: 0;">
-                        <div class="card-body rounded" style="border-left: 4px solid #6fb430;border-top:0;border-right:0;border-bottom: 0;">
+                        <div class="card-body rounded" style="border-left: 5px solid #6fb430;border-top:0;border-right:0;border-bottom: 0;">
                             <h6 class="card-title text-primary font-weight-bold">INCONCLUSAS</h6>
                             <table id="tablaInconclusas" class="table table-sm table-hover" style="width: 100%;">
                                 <thead class="text-dark" style="background-color:#F7F7F9;">
@@ -299,7 +299,7 @@ switch ($accion) {
                                         <td>' . $row['cargoTestigo'] . '</td>
                                         <td>' . $row['statusDenuncia'] . '</td>
                                         <td class="d-flex justify-content-around">
-                                            <i class="far fa-edit text-warning adminElement" data-toggle="tooltip" data-placement="left" title="Editar" onclick="prepararParaEditar(' . "
+                                            <i class="far fa-lg fa-edit text-warning adminElement" data-toggle="tooltip" data-placement="left" title="Editar" onclick="prepararParaEditar(' . "
                                                 '" . $row['idDenuncia'] . "',
                                                 '" . $row['tipoDenuncia'] . "',
                                                 '" . $row['numExpediente'] . "',
@@ -342,7 +342,7 @@ switch ($accion) {
                                                 '" . $row['statusDenuncia'] . "'
                                                 " . ');">
                                             </i>
-                                            <i class="far fa-eye text-info" data-toggle="tooltip" data-placement="left" title="Vizualizar" onclick="prepararParaVizualizar(' . "
+                                            <i class="far fa-lg fa-eye text-info" data-toggle="tooltip" data-placement="left" title="Vizualizar" onclick="prepararParaVizualizar(' . "
                                                 '" . $row['tipoDenuncia'] . "',
                                                 '" . $row['numExpediente'] . "',
                                                 '" . date("Y-m-d", strtotime($row['fechaPresentacion'])) . "',
@@ -397,11 +397,11 @@ switch ($accion) {
                 echo '
                 <span class="py-3 text-light">.</span>
                 <div class="col-12">
-                    <div class="card bg-white border border-primary border-top-0 border-bottom-0 border-right-0 shadow-sm bg-white rounded">
-                        <div class="card-body">
+                    <div class="card bg-white shadow" style="border: 0;">
+                        <div class="card-body rounded" style="border-left: 5px solid #6fb430;border-top:0;border-right:0;border-bottom: 0;">
                             <h6 class="card-title text-primary font-weight-bold">PENDIENTES</h6>
                             <table id="tablaPendientes" class="table table-sm table-hover" style="width: 100%;">
-                                <thead class="text-white" style="background: linear-gradient(to right, #6fb430,green);">
+                                <thead class="text-dark" style="background-color:#F7F7F9;">
                                     <tr>
                                         <th scope="col">ID</th>
                                         <th scope="col">Tipo de denuncia</th>
@@ -502,7 +502,7 @@ switch ($accion) {
                                         <td>' . $row['cargoTestigo'] . '</td>
                                         <td>' . $row['statusDenuncia'] . '</td>
                                         <td class="d-flex justify-content-around">
-                                            <button type="button" class="btn btn-sm adminElement" data-toggle="tooltip" data-placement="left" title="Editar" style="background:#D2D518; color: white;" onclick="prepararParaEditar(' . "
+                                            <i class="far fa-lg fa-edit text-warning adminElement" data-toggle="tooltip" data-placement="left" title="Editar" onclick="prepararParaEditar(' . "
                                                 '" . $row['idDenuncia'] . "',
                                                 '" . $row['tipoDenuncia'] . "',
                                                 '" . $row['numExpediente'] . "',
@@ -544,9 +544,8 @@ switch ($accion) {
                                                 '" . $row['cargoTestigo'] . "',
                                                 '" . $row['statusDenuncia'] . "'
                                                 " . ');">
-                                                <i class="far fa-edit"></i>
-                                            </button>
-                                            <button type="button" class="btn btn-sm" data-toggle="tooltip" data-placement="left" title="Vizualizar" style="background:blue; color: white;" onclick="prepararParaVizualizar(' . "
+                                            </i>
+                                            <i class="far fa-lg fa-eye text-info" data-toggle="tooltip" data-placement="left" title="Vizualizar" onclick="prepararParaVizualizar(' . "
                                                 '" . $row['tipoDenuncia'] . "',
                                                 '" . $row['numExpediente'] . "',
                                                 '" . date("Y-m-d", strtotime($row['fechaPresentacion'])) . "',
@@ -587,19 +586,18 @@ switch ($accion) {
                                                 '" . $row['cargoTestigo'] . "',
                                                 '" . $row['statusDenuncia'] . "'
                                                 " . ');">
-                                                <i class="far fa-eye"></i>
-                                            </button>
-                                            <button type="button" class="btn btn-sm adminElement" data-toggle="tooltip" data-placement="left" title="Concluir" style="background:#6fb430; color: white;" onclick="prepararParaConcluir(' . "
+                                            </i>
+                                            <i class="far fa-lg fa-check-square text-success adminElement" data-toggle="tooltip" data-placement="left" title="Concluir" onclick="prepararParaConcluir(' . "
                                                 '" . $row['idDenuncia'] . "',
                                                 '" . $row['tipoDenuncia'] . "',
                                                 '" . $row['numExpediente'] . "',
                                                 '" . date("Y-m-d", strtotime($row['fechaPresentacion'])) . "'
                                                 " . ')">
-                                                <i class="far fa-check-square"></i>
-                                            </button>';
+                                            </i>
+                                            ';
                     if ($row['imagenDenuncia'] != "" || $row['nombreDenunciante'] != "" || base64_encode($row['pdfDenuncia']) != "") {
                         echo '
-                                            <button type="button" class="btn btn-sm" data-toggle="tooltip" data-placement="left" title="Generar acuse" style="background:#082432; color:white;" onclick="prepararParaGenerarAcuse(' . "
+                                            <i class="far fa-lg fa-plus-square text-dark" data-toggle="tooltip" data-placement="left" title="Generar acuse" onclick="prepararParaGenerarAcuse(' . "
                                                 '" . $row['tipoDenuncia'] . "',
                                                 '" . $row['numExpediente'] . "',
                                                 '" . date("Y-m-d", strtotime($row['fechaPresentacion'])) . "',
@@ -640,14 +638,10 @@ switch ($accion) {
                                                 '" . $row['entidadTestigo'] . "',
                                                 '" . $row['cargoTestigo'] . "'
                                                 " . ');">
-                                                <i class="far fa-plus-square"></i>
-                                            </button>
+                                            </i>
                         ';
                     } else {
-                        echo '
-                                            <button type="button" class="btn btn-sm" style="background:red; color: white">
-                                                <i class="far fa-minus-square text-white"></i>
-                                            </button>';
+                        echo '              <i class="far fa-lg fa-minus-square text-white"></i>';
                     }
                     echo '              </td>
                                     </tr>';
@@ -662,11 +656,11 @@ switch ($accion) {
                 echo '
                 <span class="py-3 text-light">.</span>
                 <div class="col-12">
-                    <div class="card bg-white border border-primary border-top-0 border-bottom-0 border-right-0 shadow-sm bg-white rounded">
-                        <div class="card-body">
+                    <div class="card bg-white shadow" style="border: 0;">
+                        <div class="card-body rounded" style="border-left: 5px solid #6fb430;border-top:0;border-right:0;border-bottom: 0;">
                             <h6 class="card-title text-primary font-weight-bold">CONCLUIDAS</h6>
                             <table id="tablaConcluidas" class="table table-sm table-hover" style="width: 100%;">
-                                <thead class="text-white" style="background: linear-gradient(to right, #6fb430,green);">
+                                <thead class="text-dark" style="background-color:#F7F7F9;">
                                     <tr>
                                         <th scope="col">ID</th>
                                         <th scope="col">Tipo de denuncia</th>
@@ -767,7 +761,7 @@ switch ($accion) {
                                         <td>' . $row['cargoTestigo'] . '</td>
                                         <td>' . $row['statusDenuncia'] . '</td>
                                         <td class="d-flex justify-content-around">
-                                            <button type="button" class="btn btn-sm" data-toggle="tooltip" data-placement="left" title="Vizualizar" style="background:blue; color: white;" onclick="prepararParaVizualizar(' . "
+                                            <i class="far fa-lg fa-eye text-info" data-toggle="tooltip" data-placement="left" title="Vizualizar" onclick="prepararParaVizualizar(' . "
                                                 '" . $row['tipoDenuncia'] . "',
                                                 '" . $row['numExpediente'] . "',
                                                 '" . date("Y-m-d", strtotime($row['fechaPresentacion'])) . "',
@@ -808,13 +802,11 @@ switch ($accion) {
                                                 '" . $row['cargoTestigo'] . "',
                                                 '" . $row['statusDenuncia'] . "'
                                                 " . ');">
-                                                <i class="far fa-eye"></i>
-                                            </button>
-                                            <button type="button" class="btn btn-sm" data-toggle="tooltip" data-placement="left" title="Mostrar acta" style="background:#082432; color:white;" onclick="prepararParaMostrarActa(' . "
+                                            </i>
+                                            <i class="far fa-lg fa-plus-square text-dark" data-toggle="tooltip" data-placement="left" title="Mostrar acta" onclick="prepararParaMostrarActa(' . "
                                                 '" . base64_encode($row['pdfActaDenuncia']) . "'
                                                 " . ');">
-                                                <i class="far fa-plus-square"></i>
-                                            </button>
+                                            </i>
                                         </td>
                                     </tr>';
                 }
