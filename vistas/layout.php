@@ -33,6 +33,8 @@
     <!-- fontawesome-free-5.14.0-web -->
     <link rel="stylesheet" href="vistas\static\fontawesome\css\all.css">
     <script src="vistas\static\fontawesome\js\all.js"></script>
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="vistas\static\css\main.css">
 </head>
 
 <body style="background-color: #F0F4F7;">

@@ -13,8 +13,6 @@ if (isset($_SESSION['user_id'])) {
         $stmt = null;
     }
 ?>
-    <!-- Custom CSS -->
-    <link rel="stylesheet" href="vistas\static\css\main.css">
     <!-- Custom JS -->
     <script src="vistas\static\js\main.js"></script>
     <!-- Main usuarios -->
