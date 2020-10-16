@@ -529,6 +529,7 @@ function prepararFormato(presunto) {
         cadPresuntoDenuncia = "Denuncia por " + presuntoDenuncia[presunto];
         $("#txtPresuntoDenuncia").html(cadPresuntoDenuncia);
         $("#txtFechaPresentacion").val(cadFechaActual);
+        document.getElementById("txtFechaPresentacion").removeAttribute("disabled");
         document.getElementById("contenedorSwitchCamposDenunciante").classList.remove("d-none");
         document.getElementById("contenedorInformacionDenunciante").classList.remove("d-none");
         requerirCamposDenunciante();
@@ -546,6 +547,7 @@ function prepararFormato(presunto) {
         $("#txtImagenPresuntoDenuncia").html(cadPresuntoDenuncia);
         $("#txtImagenFechaPresentacion").val(cadFechaActual);
         $("#txtImagenFechaPresentacionV").val(cadFechaActual);
+        document.getElementById("txtImagenFechaPresentacionV").removeAttribute("disabled");
         $("#labelImgDenuncia").html("Elegir imagen...");
         $("#contenedorImagen").empty();
         $("#modalPresuntoDenuncia").modal("hide");
@@ -559,6 +561,7 @@ function prepararFormato(presunto) {
         $("#txtPresuntoDenunciaPDF").html(cadPresuntoDenuncia);
         $("#txtFechaPresentacionPDF").val(cadFechaActual);
         $("#txtFechaPresentacionPDFV").val(cadFechaActual);
+        document.getElementById("txtFechaPresentacionPDFV").removeAttribute("disabled");
         $("#labelDenunciaPDF").html("Elegir documento...");
         $("#contenedorPDF").empty();
         $("#modalPresuntoDenuncia").modal("hide");
@@ -1126,6 +1129,7 @@ function prepararParaEditar(idDenuncia, tipoDenuncia, numExpediente, fechaPresen
         $("#txtImagenNumExpedienteV").val(numExpediente);
         $("#txtImagenFechaPresentacion").val(fechaPresentacion);
         $("#txtImagenFechaPresentacionV").val(fechaPresentacion);
+        document.getElementById("txtImagenFechaPresentacionV").setAttribute("disabled", "");
         $("#labelImgDenuncia").html("Elegir imagen...");
         let contenedorImagen = document.getElementById('contenedorImagen');
         let image = document.createElement('img');
@@ -1145,6 +1149,7 @@ function prepararParaEditar(idDenuncia, tipoDenuncia, numExpediente, fechaPresen
         $("#txtNumExpedientePDFV").val(numExpediente);
         $("#txtFechaPresentacionPDF").val(fechaPresentacion);
         $("#txtFechaPresentacionPDFV").val(fechaPresentacion);
+        document.getElementById("txtFechaPresentacionPDFV").setAttribute("disabled", "");
         $("#labelDenunciaPDF").html("Elegir documento...");
         let contenedorPDF = document.getElementById('contenedorPDF');
         let pdf = document.createElement('object');
@@ -1170,6 +1175,7 @@ function prepararParaEditar(idDenuncia, tipoDenuncia, numExpediente, fechaPresen
         $("#txtIdDenuncia").val(idDenuncia);
         $("#txtPresuntoDenuncia").html(tipoDenuncia);
         $("#txtFechaPresentacion").val(fechaPresentacion);
+        document.getElementById("txtFechaPresentacion").setAttribute("disabled", "");
         $("#txtAnonimatoDenunciante").val(anonimatoDenunciante);
         $("#txtNombreDenunciante").val(nombreDenunciante);
         $("#txtDomicilioDenunciante").val(domicilioDenunciante);

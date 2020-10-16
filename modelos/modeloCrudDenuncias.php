@@ -25,7 +25,7 @@ class CrudDenuncias
     }
     public static function guardarInfo($statusInformacion, $tipoDenuncia, $numExpediente, $fechaPresentacion, $anonimatoDenunciante, $nombreDenunciante, $domicilioDenunciante, $telefonoDenunciante, $correoDenunciante, $sexoDenunciante, $edadDenunciante, $servidorPublicoDenunciante, $puestoDenunciante, $especificarDenunciante, $gradoEstudiosDenunciante, $discapacidadDenunciante, $nombreDenunciado, $entidadDenunciado, $telefonoDenunciado, $correoDenunciado, $sexoDenunciado, $edadDenunciado, $servidorPublicoDenunciado, $especificarDenunciado, $relacionDenunciado, $lugarDenuncia, $fechaDenuncia, $horaDenuncia, $narracionDenuncia, $nombreTestigo, $domicilioTestigo, $telefonoTestigo, $correoTestigo, $relacionTestigo, $trabajaTestigo, $entidadTestigo, $cargoTestigo)
     {
-        $marcaDeTiempo = date("Y-m-d H:i:s", strtotime(date("Y-m-d H:i:s") . "- 7 hours"));
+        $marcaDeTiempo = $fechaPresentacion . " " . date("H:i:s", strtotime(date("H:i:s") . "- 7 hours"));
         $SQL = "INSERT INTO denuncias (tipoDenuncia,numExpediente,fechaPresentacion,anonimatoDenunciante,nombreDenunciante,domicilioDenunciante,telefonoDenunciante,correoDenunciante,sexoDenunciante,edadDenunciante,servidorPublicoDenunciante,puestoDenunciante,especificarDenunciante,gradoEstudiosDenunciante,discapacidadDenunciante,nombreDenunciado,entidadDenunciado,telefonoDenunciado,correoDenunciado,sexoDenunciado,edadDenunciado,servidorPublicoDenunciado,especificarDenunciado,relacionDenunciado,lugarDenuncia,fechaDenuncia,horaDenuncia,narracionDenuncia,nombreTestigo,domicilioTestigo,telefonoTestigo,correoTestigo,relacionTestigo,trabajaTestigo,entidadTestigo,cargoTestigo,statusDenuncia) VALUES ('$tipoDenuncia','$numExpediente','$marcaDeTiempo','$anonimatoDenunciante','$nombreDenunciante','$domicilioDenunciante','$telefonoDenunciante','$correoDenunciante','$sexoDenunciante','$edadDenunciante','$servidorPublicoDenunciante','$puestoDenunciante','$especificarDenunciante','$gradoEstudiosDenunciante','$discapacidadDenunciante','$nombreDenunciado','$entidadDenunciado','$telefonoDenunciado','$correoDenunciado','$sexoDenunciado','$edadDenunciado','$servidorPublicoDenunciado','$especificarDenunciado','$relacionDenunciado','$lugarDenuncia','$fechaDenuncia','$horaDenuncia','$narracionDenuncia','$nombreTestigo','$domicilioTestigo','$telefonoTestigo','$correoTestigo','$relacionTestigo','$trabajaTestigo','$entidadTestigo','$cargoTestigo','$statusInformacion');";
         $stmt = Conexion::conectar()->prepare($SQL);
         try {
@@ -41,7 +41,7 @@ class CrudDenuncias
     }
     public static function guardarImg($tipoDenuncia, $numExpediente, $fechaPresentacion, $imagenDenuncia)
     {
-        $marcaDeTiempo = date("Y-m-d H:i:s", strtotime(date("Y-m-d H:i:s") . "- 7 hours"));
+        $marcaDeTiempo = $fechaPresentacion . " " . date("H:i:s", strtotime(date("H:i:s") . "- 7 hours"));
         $SQL = "INSERT INTO denuncias (tipoDenuncia,numExpediente,fechaPresentacion,imagenDenuncia,statusDenuncia) VALUES ('$tipoDenuncia','$numExpediente','$marcaDeTiempo','$imagenDenuncia','pendiente');";
         $stmt = Conexion::conectar()->prepare($SQL);
         try {
@@ -55,9 +55,9 @@ class CrudDenuncias
         }
         $stmt = null;
     }
-    public static function guardarPdf($tipoDenuncia, $numExpediente, $pdfDenuncia)
+    public static function guardarPdf($tipoDenuncia, $numExpediente, $fechaPresentacion, $pdfDenuncia)
     {
-        $marcaDeTiempo = date("Y-m-d H:i:s", strtotime(date("Y-m-d H:i:s") . "- 7 hours"));
+        $marcaDeTiempo = $fechaPresentacion . " " . date("H:i:s", strtotime(date("H:i:s") . "- 7 hours"));
         $SQL = "INSERT INTO denuncias (tipoDenuncia,numExpediente,fechaPresentacion,pdfDenuncia,statusDenuncia) VALUES ('$tipoDenuncia','$numExpediente','$marcaDeTiempo','$pdfDenuncia','pendiente');";
         $stmt = Conexion::conectar()->prepare($SQL);
         try {

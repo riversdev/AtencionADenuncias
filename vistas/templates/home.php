@@ -152,13 +152,9 @@ if (isset($_SESSION['user_id'])) {
                             </div>
                             <div class="col-lg-4 col-md-6 col-12 mb-3">
                                 <label for="fechaPresentacion">Fecha de presentación de la denuncia</label>
-                                <input type="date" class="form-control" id="txtFechaPresentacion" required disabled>
-                                <div class="valid-feedback">
-                                    Correcto!
-                                </div>
-                                <div class="invalid-feedback">
-                                    Verifique la fecha
-                                </div>
+                                <input type="date" class="form-control" id="txtFechaPresentacion" required>
+                                <div class="valid-feedback">Correcto!</div>
+                                <div class="invalid-feedback">Verifique la fecha</div>
                             </div>
                             <div class="col-12 text-center" id="contenedorSwitchCamposDenunciante">
                                 <div class="form-group">
@@ -676,7 +672,9 @@ if (isset($_SESSION['user_id'])) {
                                 </div>
                                 <div class="col-md-6 col-12 mb-3">
                                     <label for="fechaPresentacion">Fecha de presentación</label>
-                                    <input type="date" class="form-control" id="txtImagenFechaPresentacionV" required disabled>
+                                    <input type="date" class="form-control" id="txtImagenFechaPresentacionV" name="txtImagenFechaPresentacionV" required>
+                                    <div class="valid-feedback">Correcto!</div>
+                                    <div class="invalid-feedback">Verifique la fecha</div>
                                 </div>
                             </div>
                             <div class="form-row">
@@ -735,7 +733,9 @@ if (isset($_SESSION['user_id'])) {
                                 </div>
                                 <div class="col-md-6 col-12 mb-3">
                                     <label for="txtFechaPresentacionPDFV">Fecha de presentación</label>
-                                    <input type="date" class="form-control" id="txtFechaPresentacionPDFV" required disabled>
+                                    <input type="date" class="form-control" id="txtFechaPresentacionPDFV" name="txtFechaPresentacionPDFV" required>
+                                    <div class="valid-feedback">Correcto!</div>
+                                    <div class="invalid-feedback">Verifique la fecha</div>
                                 </div>
                             </div>
                             <div class="form-row">

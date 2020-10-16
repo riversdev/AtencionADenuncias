@@ -54,7 +54,7 @@ switch ($accion) {
             if (!in_array($extension, $extensiones)) {
                 die('error|Sólo elija imagenes con extensiones: ' . implode(', ', $extensiones));
             } else {
-                CrudDenuncias::guardarImg($_POST['txtImagenPresunto'], $nuevoExpediente, $_POST['txtImagenFechaPresentacion'], $imagenBinaria);
+                CrudDenuncias::guardarImg($_POST['txtImagenPresunto'], $nuevoExpediente, $_POST['txtImagenFechaPresentacionV'], $imagenBinaria);
             }
         } else {
             die("error|Verifique sus datos");
@@ -80,7 +80,7 @@ switch ($accion) {
             if (!in_array($extension, $extensiones)) {
                 die('error|Sólo elija imagenes con extensiones: ' . implode(', ', $extensiones));
             } else {
-                CrudDenuncias::guardarPdf($_POST['txtPresuntoPDF'], $nuevoExpediente, $documentoBinario);
+                CrudDenuncias::guardarPdf($_POST['txtPresuntoPDF'], $nuevoExpediente, $_POST['txtFechaPresentacionPDFV'], $documentoBinario);
             }
         } else {
             die("error|Verifique sus datos");
