@@ -458,33 +458,33 @@ function prepararValidacionDeFormularios() {
                 event.preventDefault();
                 event.stopPropagation();
                 if (form.id == "formFormatoPresentacionDenuncia") {
-                    if (document.getElementById("mostrarInfoDenunciante").checked == true && validarCamposDenunciante()) {
-                        if ($("#txtIdDenuncia").val() == "") {
-                            alertify.confirm('GUARDANDO DENUNCIA...', 'La información está incompleta, si prosigue se guardará como denuncia inconclusa.<br><br>Tendrá 3 dias para solicitar al denunciante subsane su información y 5 días para completarla. <ins>¡De lo contrario se archivará como concluida 8 días hábiles a partir de hoy!</ins>',
+                    // if (document.getElementById("mostrarInfoDenunciante").checked == true && validarCamposDenunciante()) {
+                    if ($("#txtIdDenuncia").val() == "") {
+                        alertify.confirm('GUARDANDO DENUNCIA...', 'La información está incompleta, si prosigue se guardará como denuncia inconclusa.<br><br>Tendrá 3 dias para solicitar al denunciante subsane su información y 5 días para completarla. <ins>¡De lo contrario se archivará como concluida 8 días hábiles a partir de hoy!</ins>',
+                            function () {
+                                $("#txtStatusFormulario").val("inconclusa");
+                                enviarDenuncia(recolectarDatosDenuncia(), "guardarInfo");
+                            },
+                            function () {
+                                alertify.error('Cancelado')
+                            }
+                        ).set('labels', { cancel: 'Cancelar' });
+                    } else {
+                        if (!document.getElementById("contenedorInformacionDenunciante").classList.contains("d-none")) {
+                            alertify.confirm('EDITANDO DENUNCIA...', 'La información está incompleta, si prosigue se guardará como denuncia inconclusa.<br><br>Tendrá 3 dias para solicitar al denunciante subsane su información y 5 días para completarla. <ins>¡De lo contrario se archivará como concluida 8 días hábiles a partir de su fecha de presentación!</ins>',
                                 function () {
                                     $("#txtStatusFormulario").val("inconclusa");
-                                    enviarDenuncia(recolectarDatosDenuncia(), "guardarInfo");
+                                    enviarDenuncia(recolectarDatosDenuncia(), "editarInfo");
                                 },
                                 function () {
                                     alertify.error('Cancelado')
                                 }
                             ).set('labels', { cancel: 'Cancelar' });
-                        } else {
-                            if (!document.getElementById("contenedorInformacionDenunciante").classList.contains("d-none")) {
-                                alertify.confirm('EDITANDO DENUNCIA...', 'La información está incompleta, si prosigue se guardará como denuncia inconclusa.<br><br>Tendrá 3 dias para solicitar al denunciante subsane su información y 5 días para completarla. <ins>¡De lo contrario se archivará como concluida 8 días hábiles a partir de su fecha de presentación!</ins>',
-                                    function () {
-                                        $("#txtStatusFormulario").val("inconclusa");
-                                        enviarDenuncia(recolectarDatosDenuncia(), "editarInfo");
-                                    },
-                                    function () {
-                                        alertify.error('Cancelado')
-                                    }
-                                ).set('labels', { cancel: 'Cancelar' });
-                            }
                         }
-                    } else {
-                        alertify.error("Verifique almenos la información del denunciante");
                     }
+                    // } else {
+                    //     alertify.error("Verifique almenos la información del denunciante");
+                    // }
                 }
             } else {
                 event.preventDefault();
