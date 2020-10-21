@@ -243,6 +243,7 @@ $(document).ready(function () {
         $('#opcionDenuncia').removeClass('text-white');
     });
     $('#nav-nuevaDenunciaForm-tab').on('shown.bs.tab', function (e) {
+        document.getElementById("formFormatoPresentacionDenuncia").classList.remove("was-validated");
         if (tipoNuevaDenuncia != "editarInfo") {
             $('#nav-denuncias-tab').addClass('text-secondary');
             $('#nav-denuncias-tab').removeClass('text-white');
